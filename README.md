@@ -1,4 +1,3 @@
-#Blindo
 With the development of the Blindo project, members commited themselves to the creation of an electronic device, the purpose being to simplify the learning process of visually impaired students.
 
 The versatility of the device enables for its use in numerous educational domains.
