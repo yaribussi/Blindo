@@ -1,3 +1,5 @@
+#Ciao ragazzi, sono Samu
+
 import pickle as pk
 import pygame.mixer as PM
 import RPi.GPIO as GPIO
