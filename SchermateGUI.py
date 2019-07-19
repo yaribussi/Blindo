@@ -7,21 +7,21 @@ import fileManaging as fm      ##################
 import os
 import GUIkeyboard as key
 import time
-import registrazione as Reg
+#import registrazione as Reg
 import subprocess
 import shutil
 from time import gmtime,strftime
 from threading import Thread,Lock
 
-os.chdir("/home/pi/Desktop/Main/")
-#print(os.getcwd())
+#os.chdir("/home/pi/Desktop/Main/")
+
 ###########    cambiare il path per poter utilizzare il programma sul proprio PC    ###################
-#pathCheSimulaChiavetta = r"C:\Users\Massimiliano\Desktop\Nuova cartella"
-#pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\Massimiliano\Desktop\Blindo"
+pathCheSimulaChiavetta = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 ##########################################################################################
 stopper=None
 recording=False
-#'''
+'''
 ######                            ATTENZIONE                                              ###########
 ######              ABILITARE QUESTO IMPORT PER UTILIZZARE IL SW SUL RASPBERRY            ###########
 
@@ -34,7 +34,7 @@ import registrazione as Reg
 pathCheSimulaChiavetta = "/media/pi"
 pathCheSimulaLaMemoriaInternaDelRaspberry = "/home/pi/Documents/fileAudio"
 ##########################################################################################
-#'''
+'''
 ###########                 caratteristiche grafiche di default             #######################
 fontSize = 20
 fontStile = "Helvetica"
