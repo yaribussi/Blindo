@@ -18,7 +18,7 @@ GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 path= "/home/pi/Documents/fileAudio"
 pathfileaudio="/home/pi/Documents/fileAudio"
 
-#nomeFile='/home/pi/Desktop/Main/lista'
+#name_recoded_file='/home/pi/Desktop/Main/lista'
 
 pulsante_1 = 5     #giallo
 pulsante_2 = 24    #viola

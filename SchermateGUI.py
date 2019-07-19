@@ -1,34 +1,21 @@
 
-import tkinter.messagebox
+'''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ###################'''
+'''##############################################################################################################'''
 
-from tkinter import *
-import fileManaging as fm      ##################
-import os
-import GUIkeyboard as key
-
-import subprocess
-import shutil
-
-from tkinter import filedialog
-import time
-#import registrazione as Reg
-#from recode_audio import Recoding
-from time import gmtime,strftime
-
-#os.chdir("/home/pi/Desktop/Main/")
-#print(os.getcwd())
-###########    cambiare il path per poter utilizzare il programma sul proprio PC    ###################
 pathCheSimulaChiavetta = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
 pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
-##########################################################################################
-stopper=None
-recording=False
+
+'''##############################################################################################################'''
+
+
+
 '''
 ######                            ATTENZIONE                                              ###########
 ######              ABILITARE QUESTO IMPORT PER UTILIZZARE IL SW SUL RASPBERRY            ###########
 
 import GPIOmanaging
 import registrazione as Reg
+from recode_audio import Recoding
 
 #######                            ATTENZIONE                                                     ##########
 #######       i path sottostanti servono quando si utiliza il Raspberry                           ##########
@@ -38,37 +25,44 @@ pathCheSimulaLaMemoriaInternaDelRaspberry = "/home/pi/Documents/fileAudio"
 ##########################################################################################
 '''
 ###########                 caratteristiche grafiche di default             #######################
+
+
+
+import tkinter.messagebox
+from tkinter import *
+import fileManaging as fm      ##################
+import os
+import GUIkeyboard as key
+import subprocess
+
+
+stopper=None
+recording=False
 fontSize = 20
 fontStile = "Helvetica"
 font = (fontStile, fontSize)
-scrittaUscita="Torna al menu principale"
+exit_text= "Torna al menu principale"
 
 ############                 numero di pulsanti collegati                   ######################
-numberOfButton=6
+number_of_phisical_button=6
 #################################################################################################
-nomeFile="/reg.wav"
+
+name_recoded_file= "/reg.wav"
 
 class SchermateGUI:
 
-
-########        variablile globale per sapere il path da dove prelevare i file audio (chiesto all'utente)
-    finalPath=""
-
 ############ schermata del MENUPRINCIPALE ###################à
-    def MenuPrincipale():
+    def menu_principale():
         
         root = Tk()
         root.config(bg="pale green")
-        
-
         #root.geometry("800x480")
         root.attributes('-fullscreen', True)
-
 
         frame = Frame(root)
 
     ##########   caratteristiche dei quattro pulsanti del menu Principale    ###########
-        pulsanteRegistra= Button(frame,
+        pulsante_registra= Button(frame,
                                 text="Registra",
                                 bg="orange" ,
                                 command=SchermateGUI.registra,
@@ -77,11 +71,11 @@ class SchermateGUI:
                                 bd=20,
                                 activebackground="orange")
                                 #activeforeground="blue")
-        pulsanteRegistra.grid(row=0, column=0)
-        pulsanteRegistra.config(height=5, width=22)
+        pulsante_registra.grid(row=0, column=0)
+        pulsante_registra.config(height=5, width=22)
 
 
-        pulsanteImportaEsporta = Button(frame,
+        pulsante_importa_esporta = Button(frame,
                                  text="Importa/Esporta ",
                                  bg="red",
                                  command=SchermateGUI.esporta_importa,
@@ -89,38 +83,37 @@ class SchermateGUI:
                                  relief="ridge",
                                  bd=20,
                                  activebackground="red")
-        pulsanteImportaEsporta.grid(row=0, column=1)
-        pulsanteImportaEsporta.config(height=5, width=22)
+        pulsante_importa_esporta.grid(row=0, column=1)
+        pulsante_importa_esporta.config(height=5, width=22)
 
-        pulsanteAssocia = Button(frame,
-                                 text="Associa",
-                                bg="yellow" ,
-                                 command=lambda:SchermateGUI.schermataPulsanti(root,numberOfButton),
-                                 font = font,
-                                 relief="ridge",
-                                 bd=20,
-                                 activebackground="yellow")
-        pulsanteAssocia.grid(row=1, column=0)
-        pulsanteAssocia.config(height=5, width=22)
+        pulsante_associa = Button(frame,
+                                  text="Associa",
+                                  bg="yellow",
+                                  command=lambda:SchermateGUI.schermata_pulsanti(root, number_of_phisical_button),
+                                  font = font,
+                                  relief="ridge",
+                                  bd=20,
+                                  activebackground="yellow")
+        pulsante_associa.grid(row=1, column=0)
+        pulsante_associa.config(height=5, width=22)
 
-        pulsanteAssociazioni = Button(frame,
+        pulsante_associazioni = Button(frame,
                                  text="Lista Associazioni",
                                  bg="red3",
-                                 command=SchermateGUI.schermataAssociazioni,
+                                 command=SchermateGUI.schermata_associazioni,
                                  font = font,
                                  relief="ridge",
                                  bd=20,
                                  activebackground="red3")
-        pulsanteAssociazioni.grid(row=1, column=1)
-        pulsanteAssociazioni.config(height=5, width=22)
-      #
-      #SchermateGUI.pulsanteUscitaConTesto(root,"Chiudi il programma")
+        pulsante_associazioni.grid(row=1, column=1)
+        pulsante_associazioni.config(height=5, width=22)
+
+      #SchermateGUI.exit_button_with_text(root,"Chiudi il programma")
 
         ######################   metodo che importa il menu a cascata in qst menu principale###############
-        SchermateGUI.menuCascataConExit(root)
+        SchermateGUI.menu_cascata_con_exit(root)
 
         frame.pack()
-        #os.rename("lista finale","cambiato!")
         root.mainloop()  # funzione che continua a tenere aperto la finetra principale
 
 
@@ -133,19 +126,15 @@ class SchermateGUI:
 #########    schermata che appare dopo aver cliccato sul pulsante REGISTRA nel MENUPRINCIPALE##########
 #########    momentaneamente non svolge alcuna funzione oltre a quella di permettere di tornare nel MENUPRINCIPALE
     def registra():
-        
+
 
         root = Tk()
-        
-        
         root.attributes('-fullscreen', True)
         root.config(bg="orange")    
+
         frame = Frame(root)
         frame.config(bg="orange")
         frame.pack()
-
-        
-       
 
         label = Label(frame, text="Premi su Start per registrare",
                       bg="orange",
@@ -153,32 +142,24 @@ class SchermateGUI:
                       font=font
                       )
         label.pack()
-        
-        
-        def giveTime():
-            datetime.datetime.now()
-        def chooseName():
-            global newName
-            newName=key.keyBoard()
-        
+
             
         ##########              funzione che fa partire la registrazione
-        def startRecoding(nameRecodedFile):
+        def start_recoding(name_recoded_file):
             
             global recording
             global stopper
-            global newName
+            global new_name
+
             recording=True
+
             label["text"] = "Registrazione in corso.....\nPremi il pulsante rosso per interrompere"
 
-            #date= strftime("%m-%d %H:%M:%S")
-            finalPath=pathCheSimulaLaMemoriaInternaDelRaspberry+ nomeFile
-            #finalPath=pathCheSimulaLaMemoriaInternaDelRaspberry + "/" + nameRecodedFile+date+".wav"
+            final_path= pathCheSimulaLaMemoriaInternaDelRaspberry + name_recoded_file
+            stopper = Reg.start(final_path)
 
-            stopper = Reg.start(finalPath)  
-
-        #########               funzione che ferma la registrazione
-        def stopRecording():
+        #########   funzione che ferma la registrazione
+        def stop_recording():
             global stopper
             global recording
 
@@ -187,37 +168,33 @@ class SchermateGUI:
                 Reg.stop(stopper) 
                 label["text"] = "Registrazione effettuata con successo!"
                 
-                newName=key.keyBoard()
+                new_name=key.keyBoard()
+
                 initial=pathCheSimulaLaMemoriaInternaDelRaspberry+"/reg.wav"
-                final=pathCheSimulaLaMemoriaInternaDelRaspberry +"/" +newName+".wav"
+                final=pathCheSimulaLaMemoriaInternaDelRaspberry +"/" +new_name+".wav"
                 
                 os.rename(initial,final)
                 recording=False
                 label["text"] ="Premi su Start per registrare"
-                
-            
+
             else:
                 tkinter.messagebox.showinfo("Attenzione","La registrazione non è ancora partita, premi sul pulsante verde",parent=root)
-            
-         
 
         pulsante_play = Button(frame,
                                text="Inizia a registrare",
                                bg="green",
-                               command=lambda: startRecoding(nomeFile),
+                               command=lambda: start_recoding(name_recoded_file),
                                font=font,
                                relief="ridge",
                                bd=20,
                                activebackground="green")
-
         pulsante_play.config(height=5, width=23)
         pulsante_play.pack(side=LEFT)
-        
 
         pulsante_stop = Button(frame,
                                text="Interrompi la registrazione",
                                bg="firebrick3",
-                               command=lambda: stopRecording(),
+                               command=lambda: stop_recording(),
                                font=font,
                                relief="ridge",
                                bd=20,
@@ -225,17 +202,16 @@ class SchermateGUI:
         pulsante_stop.config(height=5, width=23) #altezza 5
         pulsante_stop.pack(side=RIGHT)
 
-       
-        SchermateGUI.pulsanteUscitaConTesto(root, scrittaUscita)
-        
+        SchermateGUI.exit_button_with_text(root, exit_text)
                
         root.mainloop()
+
     #schermata che permette di importare ed esportare i file da/su chiavetta
     def esporta_importa():
-
         root = Tk()
         root.attributes('-fullscreen', True)
         root.config(bg="orange")
+
         frame=Frame(root)
         frame.config(bg='orange')
         frame.pack()
@@ -247,39 +223,39 @@ class SchermateGUI:
                       )
         label.pack();
 
-
-        pulsanteImporta = Button(frame,
+        pulsante_importa = Button(frame,
                                   text="Importa",
                                   bg="Dark orange2",
-                                  command=lambda:scegliChiavettaImporta(),
+                                  command=lambda:scegli_chiavetta_importa(),
                                   font=font,
                                   relief="ridge",
                                   bd=20,
                                   activebackground="Dark orange2")
-        pulsanteImporta.pack(side=LEFT)
-        pulsanteImporta.config(height=8, width=22)
+        pulsante_importa.pack(side=LEFT)
+        pulsante_importa.config(height=5, width=22)
 
-        pulsanteEsporta = Button(frame,
+        pulsante_esporta = Button(frame,
                                   text="Esporta",
                                   bg="yellow",
-                                  command=lambda:scegliChiavettaEsporta(),
+                                  command=lambda:scegli_chiavetta_esporta(),
                                   font=font,
                                   relief="ridge",
                                   bd=20,
                                   activebackground="yellow")
-        pulsanteEsporta.pack(side=RIGHT)
-        pulsanteEsporta.config(height=8, width=22)
+        pulsante_esporta.pack(side=RIGHT)
+        pulsante_esporta.config(height=5, width=22)
 
-        def scegliChiavettaEsporta():
-
+        #############       funzione che richiama la sottoschermata dopo aver cliccato su "ESPORTA"
+        def scegli_chiavetta_esporta():
             root = Tk()
             root.attributes('-fullscreen', True)
             root.config(bg="DarkOrange1")
+
             frame = Frame(root, bg="DarkOrange1")
             frame.pack()
 
-            dirs = os.listdir(
-                pathCheSimulaChiavetta)  # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
+            # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
+            dirs = os.listdir(pathCheSimulaChiavetta)
 
             label = Label(frame, text="Selezionare la chiavetta su cui esportare i file audio",
                           bd=20,
@@ -289,27 +265,29 @@ class SchermateGUI:
             label.config(width=50, height=3)
 
             index = 2
+            
             for cartella in dirs:
                 path_chiavetta = os.path.join(pathCheSimulaChiavetta, cartella)
-                pulsante = SchermateGUI.pulsanteChiavetta(frame, "esporare", cartella,
-                                                          pathCheSimulaLaMemoriaInternaDelRaspberry, path_chiavetta)
+                pulsante = SchermateGUI.bottom_USB_key(frame, "esporare", cartella,
+                                                       pathCheSimulaLaMemoriaInternaDelRaspberry, path_chiavetta)
                 pulsante.grid(row=index, column=0)
                 index += 1
 
-            SchermateGUI.pulsanteUscitaConTesto(root, scrittaUscita)
+            SchermateGUI.exit_button_with_text(root, exit_text)
 
             root.mainloop()
 
-        ##########         schermata che appare dopo aver cliccato sul pulsante IMPORTA nel MENUPRINCIPALE##########
-        def scegliChiavettaImporta():
+        ############       funzione che richiama la sottoschermata dopo aver cliccato su "IMPORTA"
+        def scegli_chiavetta_importa():
             root = Tk()
             root.attributes('-fullscreen', True)
             root.config(bg="DarkOrange1")
+
             frame = Frame(root, bg="DarkOrange1")
             frame.pack()
 
-            dirs = os.listdir(
-                pathCheSimulaChiavetta)  # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
+            # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
+            dirs = os.listdir(pathCheSimulaChiavetta)
 
             label = Label(frame, text="Selezionare la chiavetta da dove importare i file audio",
                           bd=20,
@@ -321,42 +299,39 @@ class SchermateGUI:
             index = 2
             for cartella in dirs:
                 path_chiavetta = os.path.join(pathCheSimulaChiavetta, cartella)
-                pulsante = SchermateGUI.pulsanteChiavetta(frame, "importare", cartella, path_chiavetta,
-                                                          pathCheSimulaLaMemoriaInternaDelRaspberry)
+                pulsante = SchermateGUI.bottom_USB_key(frame, "importare", cartella, path_chiavetta,
+                                                       pathCheSimulaLaMemoriaInternaDelRaspberry)
                 pulsante.grid(row=index, column=0)
                 index += 1
 
-            SchermateGUI.pulsanteUscitaConTesto(root, scrittaUscita)
+            SchermateGUI.exit_button_with_text(root, exit_text)
 
             root.mainloop()
+            ############ end of scegli_chiavetta_importa
 
-        SchermateGUI.pulsanteUscitaConTesto(root, scrittaUscita)
+        SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
 
 
     ############  schermata che appare dopo aver cliccato il pulsante ASSOCIAZIONI nel MENU PRINCIPALE
-    def schermataAssociazioni():
+    def schermata_associazioni():
         root = Tk()
         root.attributes('-fullscreen', True)
         root.config(bg="DarkOrange1")
+
         frame = Frame(root)
         frame.config(bg="DarkOrange1")
 
-        labelMemo =Label(frame,text="Questi sono le associazioni che hai precedentemente fatto\nScorri per vederle tutte",
+        label_memo =Label(frame,text="Questi sono le associazioni che hai precedentemente fatto\nScorri per vederle tutte",
                             font=font,
                             bg="DarkOrange1",
                             bd=20,
                             width=200,
-                            height=2
+                            height=2)
+        label_memo.pack(side=TOP)
+        sorted_list = fm.giveSortedList()
 
-                            )
-        labelMemo.pack(side=TOP)
-        sortedList = fm.giveSortedList()
-
-        #scrollbar = Scrollbar(root,width=35)
-        #scrollbar.pack(side=LEFT, fill=Y)
-
-        myList= Listbox(root, #yscrollcommand = scrollbar.set ,
+        my_list= Listbox(root, #yscrollcommand = scrollbar.set ,
                               font=font,
                               width=90, height=8,
                               bg="DarkOrange1",
@@ -364,20 +339,18 @@ class SchermateGUI:
                               activestyle="none")
 
 
-        for audio in sortedList:
-            myList.insert(END,audio)
+        for audio in sorted_list:
+            my_list.insert(END,audio)
 
 
         frame.pack()
-        myList.pack()
-        #scrollbar.config(command=myList.yview)
+        my_list.pack()
 
-        SchermateGUI.pulsanteUscitaConTesto(root,scrittaUscita)
+        SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
 
 ##########à Schermata che appare dopo aver cliccato su ASSOCIA nel MENU PRINCIPALE
-    def schermataPulsanti(closingroot, numberOfButton):
-        
+    def schermata_pulsanti(closingroot, number_of_button):
         closingroot.quit()
         root = Tk()
         root.attributes('-fullscreen', True)
@@ -385,14 +358,12 @@ class SchermateGUI:
         frame = Frame(root)
 
         text = Text(frame, wrap="none", bg="yellow")
-
         vsb = Scrollbar(frame, orient="vertical", command=text.yview,width=40)
         vsb.config(width=90)################------------>
-
         text.configure(yscrollcommand=vsb.set,width=3,bg="yellow")
-
         vsb.pack(side="left", fill="y")
         text.pack(side ="left",fill="both",expand=True)
+
         pulstante_uscita = Button(frame
                                   ,
                                   text="Torna al\nmenu principale",
@@ -404,8 +375,8 @@ class SchermateGUI:
         pulstante_uscita.config(height=50, width=18)
 
         ##########  ciclo che crea i bottoni necessari  ###########
-        for i in range(numberOfButton):
-            pulsante = SchermateGUI.pulsanteTesto(frame, "Pulsante "+ str(i+1))
+        for i in range(number_of_button):
+            pulsante = SchermateGUI.bottom_with_text(frame, "Pulsante " + str(i + 1))
             pulsante.pack(side=TOP, fill=BOTH)
             text.window_create("end", window=pulsante)
             text.insert("end", "\n")
@@ -436,11 +407,11 @@ class SchermateGUI:
 
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg="pale green")
+        root.config(bg="Dark orange2")
         frame = Frame(root)
-        frame.config(bg="pale green")
+        frame.config(bg="Dark orange2")
         frame.pack()
-        buttonColor="pale green"
+        buttonColor="orange"
 
     ######## stampa del valore del volume in un intervallo 10-100
         label = Label(frame,
@@ -449,11 +420,9 @@ class SchermateGUI:
                       ,bg=buttonColor,
                       activebackground=buttonColor,
                       relief="ridge",
-                         bd=20)
-
+                        bd=20)
         label.grid(row=2, column=0,columnspan=3)
         label.config(width=40,heigh=2)
-
 
         pulsante_vol = Button(frame,      #pulsante per diminuire il volume
                               text="-",
@@ -463,7 +432,6 @@ class SchermateGUI:
                                 relief="ridge",
                                 bd=20,
                       activebackground=buttonColor)
-
         pulsante_vol.grid(row=0)
         pulsante_vol.config(height=3, width=5)
 
@@ -475,7 +443,6 @@ class SchermateGUI:
                       activebackground=buttonColor,
                                 relief="ridge",
                                 bd=20)
-
         pulsante_vol.grid(row=0, column=2)
         pulsante_vol.config(height=3, width=5)
 
@@ -487,48 +454,17 @@ class SchermateGUI:
                                 relief="ridge",
                                 bd=20)
         scritta_vol.grid(row=0, column=1)
-
-
-        '''
-        pulsante_lum = Button(frame, text="-",
-                              font = font,
-                              bg=buttonColor,
-                      activebackground=buttonColor,
-                                relief="ridge",
-                                bd=20)
-        pulsante_lum.grid(row=1, column=0)
-        pulsante_lum.config(height=3, width=5)
-
-        pulsante_lum = Button(frame,
-                              text="+",
-                              font = font,
-                              bg=buttonColor,
-                      activebackground=buttonColor,
-                                relief="ridge",
-                                bd=20)
-        pulsante_lum.grid(row=1, column=2)
-        pulsante_lum.config(height=3, width=5)
-
-        scritta_lum = Label(frame,
-                            text="luminosità",
-                            height=3, width=20,
-                            font = font,
-                            bg=buttonColor,
-                      activebackground=buttonColor,
-                                relief="ridge",
-                                bd=20)
-        scritta_lum.grid(row=1, column=1)
-        '''
-        SchermateGUI.pulsanteUscitaConTesto(root,scrittaUscita)
-
+        SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
+
+
     '''
 ###################################################################################################
 #############                   FUNZIONI DI SERVIZIO A SEGUIRE                     ################
 ###################################################################################################
     '''
 ########## funzione per avere un pulsante di uscita con testo variabile ##############
-    def pulsanteUscitaConTesto(root,text):
+    def exit_button_with_text(root, text):
 
         pulstante_uscita = Button(root,
                                   text=text,
@@ -541,11 +477,11 @@ class SchermateGUI:
         pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
 
 ########## funzione per avere un pulsante di ritorno al menu ptincipale ##############
-    def pulsanteTornaMenuPrincipale(root):
+    def pulsante_torna_menu_principale(root):
 
         pulstante_uscita = Button(root,
                                   text="Torna al menu principale",
-                                  command=lambda: SchermateGUI.MenuPrincipale(),
+                                  command=lambda: SchermateGUI.menu_principale(),
                                   bg="green",
                                   font=font,
                                   bd=20,
@@ -554,31 +490,32 @@ class SchermateGUI:
         pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
 
         root.destroy()
+
 ########## questa funzione permette di creare un bottone#########à
 ########## i parametri richiesti per la creazione del bottone sono: -frame su cui il bottone verrà applicato
 ##########                                                          -testo che apparirà sul bottone
-    def pulsanteTesto(frame, text):#, row, column):
+    def bottom_with_text(frame, text):
         pulsante = Button(frame,
                           text=text,
                           bg="green",
                           relief="ridge",
                           font=font,
                           bd=20,
-                          command=lambda: SchermateGUI.showFile(text.replace("Pulsante ", " ")),
+                          command=lambda: SchermateGUI.show_file(text.replace("Pulsante ", " ")),
                           activebackground="green",
                           activeforeground="black")
 
         pulsante.config(width=20, height=3)
         return pulsante
 
-    def pulsanteChiavetta(frame,mod, nome_chiavetta,path_origine, path_destinzaione):
+    def bottom_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
 
         pulsante = Button(frame, text=nome_chiavetta,
                           bg="yellow",
                           font=font,
                           bd=20,
                           activebackground="DarkOrange1",
-                          command=lambda: SchermateGUI.showAndSelectItemfromPath(mod,path_origine , path_destinzaione)
+                          command=lambda: SchermateGUI.show_and_select_item_from_path(mod, path_origine, path_destinzaione)
                           )
         pulsante.config(width=40, height=3)
         return pulsante
@@ -587,33 +524,28 @@ class SchermateGUI:
 #####        che vengono mostrati DOPO aver cliccato il pulsante ASSOCIA nel MENUPRINCIPALE
 #####        richiede come parametro l'ID del pulsante che ha richiamato questa funzione
 #####        parametro necessario per un trackback
-    def showFile(idButton):
+    def show_file(idButton):
 
         ###############  piccola funzione di servizio interna#####
         ###############   permette di fare l'associazione di un fileAudio dato un ID di un pulsante
-        def bindButton(id,root):
-            songName = mylist.get('active')
-            fm.bind(songName, id)
+        def bind_button(id,root):
+            song_name = mylist.get('active')
+            fm.bind(song_name, id)
             root.destroy()
 
         #############    elimina l'elemento selezionato dopo aver chiesto all'utente      #########
-        def deleteItem(root):
-            songName = mylist.get('active')
-            asnwer = tkinter.messagebox.askquestion('Attenzione', 'Vuoi eliminare il file:   '+songName+'  ?',
+        def delete_item(root):
+            song_name = mylist.get('active')
+            asnwer = tkinter.messagebox.askquestion('Attenzione', 'Vuoi eliminare il file:   '+song_name+'  ?',
                                                     parent=root)
             if asnwer == 'yes':
                 
-                os.remove(pathCheSimulaLaMemoriaInternaDelRaspberry+"/"+songName)
-                fm.deleteElementFromList(songName)
+                os.remove(pathCheSimulaLaMemoriaInternaDelRaspberry+"/"+song_name)
+                fm.deleteElementFromList(song_name)
 
-           
-            #mylist.update()
-            SchermateGUI.showFile(idButton)
+            SchermateGUI.show_file(idButton)
             root.destroy()
-
-        
-            
-
+##############   END OF delete_item ####################
             
         root = Tk()
         root.attributes('-fullscreen', True)
@@ -641,13 +573,11 @@ class SchermateGUI:
                                         "al Pulsante"+idButton+"\n"
                                         "e poi clicca qui \n"
                                         ,
-                                   command=lambda: bindButton(idButton, root),
+                                   command=lambda: bind_button(idButton, root),
                                    bg="green",
                                    font=font,
                                    bd=20,
-                                   activebackground="green"
-                                             )
-
+                                   activebackground="green")
         pulstante_associa_fileAudio.config(height=5, width=25)
         pulstante_associa_fileAudio.pack(side=TOP, fill=BOTH)
 
@@ -656,19 +586,18 @@ class SchermateGUI:
                                    text="Scegli il file \n"
                                         "che vuoi eliminare\n"
                                         "e clicca qui",
-                                   command=lambda :deleteItem(root),
+                                   command=lambda :delete_item(root),
                                    bg="red",
                                    bd=20,
                                    activebackground="red",
                                    font=font)
-
         pulstante_elimina_fileAudio.config(height=4, width=25)
         pulstante_elimina_fileAudio.pack( fill=BOTH)
 
-        SchermateGUI.pulsanteUscitaConTesto(root,"Torna alla lista pulsanti")
+        SchermateGUI.exit_button_with_text(root, "Torna alla lista pulsanti")
 
 ####### funzione che permette di avere un menu a cascata con la funzione di uscire dal main program ##########
-    def menuCascataConExit(master):
+    def menu_cascata_con_exit(master):
         def spegni():
             asnwer = tkinter.messagebox.askquestion('Attenzione', 'Vuoi spegnere il dispositivo?',
                                                     parent=master)
@@ -692,17 +621,16 @@ class SchermateGUI:
         subMenu.add_command(label="     Spegni    ",font=font, command=lambda: spegni())
 
         subMenu.add_separator()
-        #subMenu.add_command(label="Chiudi programma",font=font, command=master.destroy)
+        subMenu.add_command(label="Chiudi programma",font=font, command=master.destroy)
 
 ############   schermata che stampa a video i file contenuti in un determinato path     ###############à
-    def showAndSelectItemfromPath(mod,path_origine, path_destinzaione):
+    def show_and_select_item_from_path(mod, path_origine, path_destinzaione):
 
             ######    funzione che copia la lista dei file selizionati in un'altra direcctory
             ######    dall'utente nella schermata IMPORTA, dopo aver cliccato sul pulsante
             ######    avnte la scritta, appunto IMPORTA
-        def selectItemsAndCopy(root):
+        def select_items_and_copy(root):
 
-            #pulstante_importa["text"] = "Attendere\nCopia in corso"
             selected = [mylist.get(idx) for idx in mylist.curselection()]
 
             #### ciclo che copia tutti i file selezionati dall'utente
@@ -710,12 +638,10 @@ class SchermateGUI:
             for file in selected:
                 
                 fm.copyFileFromPathToAnother(mydict[file],path_destinzaione)
-               # mylist.itemconfig(index, {'bg': 'green'})
 
             tkinter.messagebox.showinfo('Operazione conclusa con successo',parent=root)
             root.destroy()
-
-            ##### funzione che colora di (rosso) tutti i file mostrati, ora non utilizzata
+        ###########                 END OF select_items_and_copy
 
         root = Tk()
         root.attributes('-fullscreen', True)
@@ -735,14 +661,14 @@ class SchermateGUI:
         mylist.pack(side=LEFT, fill=BOTH, expand=True)
 
         scrollbar.config(width = 70, command=mylist.yview)
-        SchermateGUI.pulsanteUscitaConTesto(root,"Indietro")
+        SchermateGUI.exit_button_with_text(root, "Indietro")
 
 ##########        caratteristiche pulsante IMPORTA        ######################
         testo_pulsante="Seleziona i file \nche desideri "+mod+"\ne poi clicca qui"
         pulstante_importa = Button(root,
                                    text=testo_pulsante,
                                    bg="spring green",
-                                   command=lambda: selectItemsAndCopy(root),
+                                   command=lambda: select_items_and_copy(root),
                                    font=font,
                                    bd=40,
                                    activebackground="green3")
@@ -751,4 +677,4 @@ class SchermateGUI:
 
         root.mainloop()
 
-SchermateGUI.MenuPrincipale()
+SchermateGUI.menu_principale()
