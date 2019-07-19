@@ -1,5 +1,3 @@
-#Ciao ragazzi, sono Samu
-
 import pickle as pk
 import pygame.mixer as PM
 import RPi.GPIO as GPIO
@@ -10,6 +8,7 @@ import os
 
 import pyaudio
 import wave
+import showDialog
 
 
 GPIO.setwarnings(False) # Ignore warning for now
@@ -40,7 +39,7 @@ GPIO.setup(pulsante_pause, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 ############    funzione che riproduce un file audio dato uno specifico path        ##########
 
 def playSingleFile(pathfileaudio):
-        
+
         #PM.pre_init(44100,-16,1,2024)
         PM.init()
         PM.music.load(pathfileaudio)
@@ -64,6 +63,8 @@ def searchAndPlayFile(id):
               for audio in my_objects:
                   #print(audio.name + " " + str(audio.idButton)+ "/n")
                   if int(audio.idButton) == id:
+                      showDialog.showDialog("In riproduzione il file audio: "
+                                            +  audio.name + "associato al pulsante "+audio.idButton)
                       playSingleFile(path + "/" + audio.name)
                       
     except (FileNotFoundError, IOError) as e:
