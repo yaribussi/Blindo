@@ -22,8 +22,5 @@ def stop(recFile):
     recFile.close()
  
 
-#name = 'AudiodiProva'
-#stopObj = start(name, rec)
-#time.sleep(10.0)
-#stop(stopObj)
+
 

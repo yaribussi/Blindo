@@ -329,7 +329,7 @@ class SchermateGUI:
                             width=200,
                             height=2)
         label_memo.pack(side=TOP)
-        sorted_list = fm.giveSortedList()
+        sorted_list = fm.give_sorted_list()
 
         my_list= Listbox(root, #yscrollcommand = scrollbar.set ,
                               font=font,
@@ -391,18 +391,18 @@ class SchermateGUI:
 
     ######         schermata che appare dopo aver cliccato sul pulsante IMPOSTAZIONI nel MENUPRINCIPALE##########
     def impostazioni():
-        current_volume = fm.giveVolume()
+        current_volume = fm.give_volume()
             ##### funzioni di servizio che cambiano il volume e aggiornano il suo valore che è stampato all'utente
         def changeVolumeOnDisplay():
-            label.configure(text=fm.giveVolume())
+            label.configure(text=fm.give_volume())
 
         def IncreseAndChange():
-            fm.increseVol()
+            fm.increse_vol()
             changeVolumeOnDisplay()
 
 
         def DecreseAndChange():
-            fm.decreseVol()
+            fm.decrese_vol()
             changeVolumeOnDisplay()
 
         root = Tk()
@@ -566,7 +566,7 @@ class SchermateGUI:
             if asnwer == 'yes':
                 
                 os.remove(pathCheSimulaLaMemoriaInternaDelRaspberry+"/"+song_name)
-                fm.deleteElementFromList(song_name)
+                fm.delete_element_from_list(song_name)
 
             SchermateGUI.show_file(idButton)
             root.destroy()
@@ -661,13 +661,12 @@ class SchermateGUI:
             #### ciclo che copia tutti i file selezionati dall'utente
 
             for file in selected:
-                
-                fm.copyFileFromPathToAnother(mydict[file],path_destinzaione)
+
+                fm.copy_file_from_path_to_another(mydict[file], path_destinzaione)
 
             SchermateGUI.show_dialog_with_time("Operazione conclusa con successo",2)
-
             root.destroy()
-        ###########                 END OF select_items_and_copy
+            #######                 END OF select_items_and_copy
 
         root = Tk()
         root.attributes('-fullscreen', True)

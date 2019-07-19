@@ -89,7 +89,7 @@ def HosoPop(kb):
 
 def keyBoard():
 	kb = tkinter.Tk()
-	#kb.title("Sciegli con che nome vuoi salvare il file")
+
 	kb.attributes('-fullscreen', True)
 
 
@@ -99,13 +99,12 @@ def keyBoard():
 	entry = Entry(kb,width=30)
 	entry.config(font=("Helvetica",30))
 	entry.grid(row=1,columnspan=11)
-	#print(entry)
 
 	HosoPop(kb)
-	#entry.bind("<Button-1>", lambda e: HosoPop())
+
 
 	kb.mainloop()
-#	result=entry.get()
+
 	return result
 
-#print(keyBoard())
+

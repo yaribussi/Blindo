@@ -9,13 +9,13 @@ class FileAudio:
         self.idButton=idButton
 
     #getter e setter del file
-    def getName(self):
+    def get_name(self):
         return self.name
 
-    def setName(self, newname):
+    def set_name(self, newname):
         self.name = newname
 
-    def getId(self):
+    def get_id(self):
         return self.idButton
 
     def setId(self, id):

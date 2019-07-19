@@ -9,17 +9,14 @@ import re
 
 ################          nome del file sul quale verranno salvati
 ################          (e dal quale verranno caricati) i fileAudio e i loro parametri#
-nameFile = 'lista finale1'
-#nameFile='/home/pi/Desktop/Main/lista'
-#nameFile ="/home/pi/lista finale"
+nameFile = 'lista finale'
+
 
 ######## funzione che ritorna la lista dei fileAudio presenti in "lista finale" riordinata in base al numero del pulsante
-def giveSortedList():
+def give_sorted_list():
 
     list=[]
-    #if os.path.isfile(nameFile):
-    #os.chdir("/home/pi/Desktop/Main/")
-    #print(os.getcwd())
+
     if os.path.isfile("./" + nameFile):
         try:
             with open(nameFile, 'rb') as io:
@@ -39,10 +36,9 @@ def giveSortedList():
     return list
 
 ############  funzione che elimina da lista finale i fileAudio che vengono eliminati tramite la GUI
-def deleteElementFromList(nomeFileDaRimuovere):
+def delete_element_from_list(nomeFileDaRimuovere):
 
-    #os.chdir("/home/pi/Desktop/Main/")
-    if os.path.isfile("./" + nameFile):
+     if os.path.isfile("./" + nameFile):
         try:
             with open(nameFile, 'rb') as io:
                 my_objects = pk.load(io)
@@ -51,7 +47,7 @@ def deleteElementFromList(nomeFileDaRimuovere):
                     if audio.name == nomeFileDaRimuovere:
                         my_objects.remove(audio)
 
-            saveFileAudio(my_objects)
+            save_file_audio(my_objects)
 
         except (FileNotFoundError, IOError) as e:
             print(e)
@@ -67,8 +63,6 @@ def bind(audio_name, id):
     default = FileAudio('DEFAULT', 0)
     file_audio = FileAudio(audio_name, id)
 
-    #os.chdir("/home/pi/Desktop/Main/")
-
     my_objects = [default]
     if os.path.isfile("./" + nameFile):
         try:
@@ -81,24 +75,23 @@ def bind(audio_name, id):
                 my_objects.append(file_audio)
 
 
-                saveFileAudio(my_objects)
+                save_file_audio(my_objects)
 
         except (FileNotFoundError, IOError) as e:
             print(e)
     else:
         my_objects.append(file_audio)
-        saveFileAudio(my_objects)
+        save_file_audio(my_objects)
 
 
 #### funzione per salvare la lista di fileAudio come un unico oggetto con nome "lista finale" #####
-def saveFileAudio(my_objects):
-    #os.chdir("/home/pi/Desktop/Main/")
+def save_file_audio(my_objects):
     with open(nameFile, 'wb') as output:
         pk.dump(my_objects, output, -1)
 
 
 ##### funzione che utilizza la funzione di sitema "shutil.copy" per copiare i file da un path ad un altro
-def copyFileFromPathToAnother(initialPath,endingPath):
+def copy_file_from_path_to_another(initialPath, endingPath):
     shutil.copy(initialPath, endingPath)
 
 ##### funzione che serve a togliere tutti gli zero non significativi e arrotonda il numero trovato########
@@ -107,20 +100,20 @@ def round_to_1(x):
 
 ######   a seguire 2 funzioni per aumentare e diminuire il volume
 ######  ogni volta che vengono richiamate cambiano il valore del volume del 10 per cento
-def increseVol():
+def increse_vol():
 
     PM.init()
-    currentVolume=PM.music.get_volume()
-    PM.music.set_volume(currentVolume+0.1)
+    current_volume=PM.music.get_volume()
+    PM.music.set_volume(current_volume+0.1)
 
-def decreseVol():
+def decrese_vol():
 
     PM.init()
-    currentVolume = PM.music.get_volume()
-    PM.music.set_volume(currentVolume-0.1)
+    current_volume = PM.music.get_volume()
+    PM.music.set_volume(current_volume-0.1)
 
 #fumzione che restituisce il valore del volume in un range da 10 a 100
-def giveVolume():
+def give_volume():
 
     PM.init()
     volume=PM.music.get_volume()
@@ -135,18 +128,3 @@ def giveVolume():
     return str(volume)[:3]
 
 
-#funzione di prova che riempie una lista di oggetti e la salva in un file
-'''
-def fillList():
-     try:
-         with open(nameFile, 'wb') as io:
-             my_objects = []
-             for i in range(0, 5):
-                 nome = input("inserire il nome del file")
-                 id = input("inserire l'id del bottone")
-                 file_audio = FileAudio(nome, id)
-                 my_objects.append(file_audio)
-             pk.dump(my_objects, io, -1)
-     except (FileNotFoundError, IOError) as e:
-         print(e)
-'''
