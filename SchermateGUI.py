@@ -1,24 +1,25 @@
-<<<<<<< HEAD
 
-#from recode_audio import Recoding
 import tkinter.messagebox
-from tkinter import filedialog
+
 from tkinter import *
 import fileManaging as fm      ##################
 import os
 import GUIkeyboard as key
-import time
-import registrazione as Reg
+
 import subprocess
 import shutil
-from time import gmtime,strftime
-from threading import Thread,Lock
 
-os.chdir("/home/pi/Desktop/Main/")
+from tkinter import filedialog
+import time
+#import registrazione as Reg
+#from recode_audio import Recoding
+from time import gmtime,strftime
+
+#os.chdir("/home/pi/Desktop/Main/")
 #print(os.getcwd())
 ###########    cambiare il path per poter utilizzare il programma sul proprio PC    ###################
-#pathCheSimulaChiavetta = r"C:\Users\Massimiliano\Desktop\Nuova cartella"
-#pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\Massimiliano\Desktop\Blindo"
+pathCheSimulaChiavetta = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 ##########################################################################################
 stopper=None
 recording=False
@@ -46,20 +47,6 @@ scrittaUscita="Torna al menu principale"
 numberOfButton=6
 #################################################################################################
 nomeFile="/reg.wav"
-
-########  classe contenente tutte le schermate che verranno riprodotte dal programma ##########
-
-class Lancio(Thread):
-
-    def __init__(self,nome):
-        
-        Thread.__init__(self)
-        self.nome = nome
-        
-    def run(self):
-
-        shutil.move("/home/pi/Documents/fileAudio/reg.wav",
-                    "/home/pi/Documents/nomeCambiato.wav")
 
 class SchermateGUI:
 
