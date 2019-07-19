@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 #from recode_audio import Recoding
 import tkinter.messagebox
