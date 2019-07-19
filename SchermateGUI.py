@@ -21,7 +21,7 @@ os.chdir("/home/pi/Desktop/Main/")
 ##########################################################################################
 stopper=None
 recording=False
-#'''
+'''
 ######                            ATTENZIONE                                              ###########
 ######              ABILITARE QUESTO IMPORT PER UTILIZZARE IL SW SUL RASPBERRY            ###########
 
@@ -34,7 +34,7 @@ import registrazione as Reg
 pathCheSimulaChiavetta = "/media/pi"
 pathCheSimulaLaMemoriaInternaDelRaspberry = "/home/pi/Documents/fileAudio"
 ##########################################################################################
-#'''
+'''
 ###########                 caratteristiche grafiche di default             #######################
 fontSize = 20
 fontStile = "Helvetica"
