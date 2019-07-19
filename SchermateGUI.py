@@ -81,16 +81,16 @@ class SchermateGUI:
         pulsanteRegistra.config(height=5, width=22)
 
 
-        pulsanteImporta = Button(frame,
-                                 text="Importa File ",
+        pulsanteImportaEsporta = Button(frame,
+                                 text="Importa/Esporta ",
                                  bg="red",
-                                 command=SchermateGUI.scegliChiavetta,
+                                 command=SchermateGUI.esporta_importa,
                                  font = font,
                                  relief="ridge",
                                  bd=20,
                                  activebackground="red")
-        pulsanteImporta.grid(row=0, column=1)
-        pulsanteImporta.config(height=5, width=22)
+        pulsanteImportaEsporta.grid(row=0, column=1)
+        pulsanteImportaEsporta.config(height=5, width=22)
 
         pulsanteAssocia = Button(frame,
                                  text="Associa",
@@ -230,33 +230,109 @@ class SchermateGUI:
         
                
         root.mainloop()
-        
+    #schermata che permette di importare ed esportare i file da/su chiavetta
+    def esporta_importa():
 
-##########         schermata che appare dopo aver cliccato sul pulsante IMPORTA nel MENUPRINCIPALE##########
-    def scegliChiavetta():
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg="DarkOrange1")
-        frame=Frame(root,bg="DarkOrange1")
+        root.config(bg="orange")
+        frame=Frame(root)
+        frame.config(bg='orange')
         frame.pack()
-        dirs = os.listdir(pathCheSimulaChiavetta)  # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
 
-        label = Label(frame, text="Selezionare la chiavetta da dove importare i file audio",
-                      bd=20,
-                      bg="DarkOrange1",
-                      font=font)
-        label.grid(row=1, column=0)
-        label.config(width=50, height=3)
+        label = Label(frame, text="Scegli l'azione desiderata",
+                      bg="orange",
+                      width=90, height=4,
+                      font=font
+                      )
+        label.pack();
 
-        index = 2
-        for cartella in dirs:
-            pulsante = SchermateGUI.pulsanteChiavetta(frame, cartella)
-            pulsante.grid(row=index, column=0)
-            index += 1
 
-        SchermateGUI.pulsanteUscitaConTesto(root,scrittaUscita)
+        pulsanteImporta = Button(frame,
+                                  text="Importa",
+                                  bg="Dark orange2",
+                                  command=lambda:scegliChiavettaImporta(),
+                                  font=font,
+                                  relief="ridge",
+                                  bd=20,
+                                  activebackground="Dark orange2")
+        pulsanteImporta.pack(side=LEFT)
+        pulsanteImporta.config(height=8, width=22)
 
+        pulsanteEsporta = Button(frame,
+                                  text="Esporta",
+                                  bg="yellow",
+                                  command=lambda:scegliChiavettaEsporta(),
+                                  font=font,
+                                  relief="ridge",
+                                  bd=20,
+                                  activebackground="yellow")
+        pulsanteEsporta.pack(side=RIGHT)
+        pulsanteEsporta.config(height=8, width=22)
+
+        def scegliChiavettaEsporta():
+
+            root = Tk()
+            root.attributes('-fullscreen', True)
+            root.config(bg="DarkOrange1")
+            frame = Frame(root, bg="DarkOrange1")
+            frame.pack()
+
+            dirs = os.listdir(
+                pathCheSimulaChiavetta)  # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
+
+            label = Label(frame, text="Selezionare la chiavetta su cui esportare i file audio",
+                          bd=20,
+                          bg="DarkOrange1",
+                          font=font)
+            label.grid(row=1, column=0)
+            label.config(width=50, height=3)
+
+            index = 2
+            for cartella in dirs:
+                path_chiavetta = os.path.join(pathCheSimulaChiavetta, cartella)
+                pulsante = SchermateGUI.pulsanteChiavetta(frame, "esporare", cartella,
+                                                          pathCheSimulaLaMemoriaInternaDelRaspberry, path_chiavetta)
+                pulsante.grid(row=index, column=0)
+                index += 1
+
+            SchermateGUI.pulsanteUscitaConTesto(root, scrittaUscita)
+
+            root.mainloop()
+
+        ##########         schermata che appare dopo aver cliccato sul pulsante IMPORTA nel MENUPRINCIPALE##########
+        def scegliChiavettaImporta():
+            root = Tk()
+            root.attributes('-fullscreen', True)
+            root.config(bg="DarkOrange1")
+            frame = Frame(root, bg="DarkOrange1")
+            frame.pack()
+
+            dirs = os.listdir(
+                pathCheSimulaChiavetta)  # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
+
+            label = Label(frame, text="Selezionare la chiavetta da dove importare i file audio",
+                          bd=20,
+                          bg="DarkOrange1",
+                          font=font)
+            label.grid(row=1, column=0)
+            label.config(width=50, height=3)
+
+            index = 2
+            for cartella in dirs:
+                path_chiavetta = os.path.join(pathCheSimulaChiavetta, cartella)
+                pulsante = SchermateGUI.pulsanteChiavetta(frame, "importare", cartella, path_chiavetta,
+                                                          pathCheSimulaLaMemoriaInternaDelRaspberry)
+                pulsante.grid(row=index, column=0)
+                index += 1
+
+            SchermateGUI.pulsanteUscitaConTesto(root, scrittaUscita)
+
+            root.mainloop()
+
+        SchermateGUI.pulsanteUscitaConTesto(root, scrittaUscita)
         root.mainloop()
+
 
     ############  schermata che appare dopo aver cliccato il pulsante ASSOCIAZIONI nel MENU PRINCIPALE
     def schermataAssociazioni():
@@ -495,14 +571,14 @@ class SchermateGUI:
         pulsante.config(width=20, height=3)
         return pulsante
 
-    def pulsanteChiavetta(frame, text):
-        temp_text = os.path.join(pathCheSimulaChiavetta, text)
-        pulsante = Button(frame, text=text,
+    def pulsanteChiavetta(frame,mod, nome_chiavetta,path_origine, path_destinzaione):
+
+        pulsante = Button(frame, text=nome_chiavetta,
                           bg="yellow",
                           font=font,
                           bd=20,
                           activebackground="DarkOrange1",
-                          command=lambda: SchermateGUI.showAndSelectItemfromPath(temp_text)
+                          command=lambda: SchermateGUI.showAndSelectItemfromPath(mod,path_origine , path_destinzaione)
                           )
         pulsante.config(width=40, height=3)
         return pulsante
@@ -619,26 +695,24 @@ class SchermateGUI:
         #subMenu.add_command(label="Chiudi programma",font=font, command=master.destroy)
 
 ############   schermata che stampa a video i file contenuti in un determinato path     ###############à
-    def showAndSelectItemfromPath(path):
+    def showAndSelectItemfromPath(mod,path_origine, path_destinzaione):
 
             ######    funzione che copia la lista dei file selizionati in un'altra direcctory
             ######    dall'utente nella schermata IMPORTA, dopo aver cliccato sul pulsante
             ######    avnte la scritta, appunto IMPORTA
         def selectItemsAndCopy(root):
+
             #pulstante_importa["text"] = "Attendere\nCopia in corso"
             selected = [mylist.get(idx) for idx in mylist.curselection()]
 
             #### ciclo che copia tutti i file selezionati dall'utente
-            #pulstante_importa["text"] = "Attendere\nCopia in corso"
 
             for file in selected:
                 
-                fm.copyFileFromPathToAnother(mydict[file], pathCheSimulaLaMemoriaInternaDelRaspberry)
+                fm.copyFileFromPathToAnother(mydict[file],path_destinzaione)
                # mylist.itemconfig(index, {'bg': 'green'})
 
-            tkinter.messagebox.showinfo('Operazione conclusa con successo',
-                                        'Gli elementi selezionati sono stati correttamente '
-                                        'importati nella memoria interna di Blindo',parent=root)
+            tkinter.messagebox.showinfo('Operazione conclusa con successo',parent=root)
             root.destroy()
 
             ##### funzione che colora di (rosso) tutti i file mostrati, ora non utilizzata
@@ -651,7 +725,7 @@ class SchermateGUI:
         mylist = Listbox(root, yscrollcommand=scrollbar.set, selectmode=MULTIPLE, font=font,bg="pale green")
         mydict = {}
 
-        for radice, cartelle, files in os.walk(path, topdown=False):
+        for radice, cartelle, files in os.walk(path_origine, topdown=False):
             for name in files:
                 for tipo in formats:
                     if tipo in name:
@@ -663,12 +737,10 @@ class SchermateGUI:
         scrollbar.config(width = 70, command=mylist.yview)
         SchermateGUI.pulsanteUscitaConTesto(root,"Indietro")
 
-##########        caratteristiche pulsante IMPORTA        ######################à
+##########        caratteristiche pulsante IMPORTA        ######################
+        testo_pulsante="Seleziona i file \nche desideri "+mod+"\ne poi clicca qui"
         pulstante_importa = Button(root,
-                                   text="Tocca i file che vuoi\n "
-                                        "importare nella memoria\n "
-                                        "interna di Blindo\n"
-                                        "e poi clicca qui ",
+                                   text=testo_pulsante,
                                    bg="spring green",
                                    command=lambda: selectItemsAndCopy(root),
                                    font=font,
