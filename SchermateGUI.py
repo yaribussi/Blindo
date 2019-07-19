@@ -265,7 +265,7 @@ class SchermateGUI:
             label.config(width=50, height=3)
 
             index = 2
-            
+
             for cartella in dirs:
                 path_chiavetta = os.path.join(pathCheSimulaChiavetta, cartella)
                 pulsante = SchermateGUI.bottom_USB_key(frame, "esporare", cartella,
@@ -463,6 +463,31 @@ class SchermateGUI:
 #############                   FUNZIONI DI SERVIZIO A SEGUIRE                     ################
 ###################################################################################################
     '''
+############                      funzione che mostra a video un messaggio
+############    passatole come parametro per un tempo (in secondi) passato come secondo parametrp
+    def show_dialog_with_time(text, time):
+
+        def close(to_close):
+            to_close.quit()
+            to_close.destroy()
+
+        dialog = Tk()
+        dialog.config(bg="orange")
+        dialog.geometry("+700+400")
+        dialog.overrideredirect(1)
+
+        label = Label(dialog, text=text,
+                          bg="orange",
+                          font=font,
+                          wraplength=200,
+                          bd=20
+                      )
+        label.configure(anchor="center")
+        label.pack(expand=True)
+
+        dialog.after(time*1000, close, dialog)
+        dialog.mainloop()
+
 ########## funzione per avere un pulsante di uscita con testo variabile ##############
     def exit_button_with_text(root, text):
 
@@ -639,7 +664,8 @@ class SchermateGUI:
                 
                 fm.copyFileFromPathToAnother(mydict[file],path_destinzaione)
 
-            tkinter.messagebox.showinfo('Operazione conclusa con successo',parent=root)
+            SchermateGUI.show_dialog_with_time("Operazione conclusa con successo",2)
+
             root.destroy()
         ###########                 END OF select_items_and_copy
 
