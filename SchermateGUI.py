@@ -2,20 +2,21 @@
 '''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ###################'''
 '''##############################################################################################################'''
 
-pathCheSimulaChiavetta = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
-pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
+#pathCheSimulaChiavetta = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+#pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 
 '''##############################################################################################################'''
 
+import os
+os.chdir("/home/pi/Desktop/Main/")
 
-
-'''
+#'''
 ######                            ATTENZIONE                                              ###########
 ######              ABILITARE QUESTO IMPORT PER UTILIZZARE IL SW SUL RASPBERRY            ###########
 
 import GPIOmanaging
 import registrazione as Reg
-from recode_audio import Recoding
+#from recode_audio import Recoding
 
 #######                            ATTENZIONE                                                     ##########
 #######       i path sottostanti servono quando si utiliza il Raspberry                           ##########
@@ -23,7 +24,7 @@ from recode_audio import Recoding
 pathCheSimulaChiavetta = "/media/pi"
 pathCheSimulaLaMemoriaInternaDelRaspberry = "/home/pi/Documents/fileAudio"
 ##########################################################################################
-'''
+#'''
 ###########                 caratteristiche grafiche di default             #######################
 
 
@@ -225,12 +226,12 @@ class SchermateGUI:
 
         pulsante_importa = Button(frame,
                                   text="Importa",
-                                  bg="Dark orange2",
+                                  bg="Dark orange",
                                   command=lambda:scegli_chiavetta_importa(),
                                   font=font,
                                   relief="ridge",
                                   bd=20,
-                                  activebackground="Dark orange2")
+                                  activebackground="Dark orange")
         pulsante_importa.pack(side=LEFT)
         pulsante_importa.config(height=5, width=22)
 
@@ -407,22 +408,20 @@ class SchermateGUI:
 
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg="Dark orange2")
+        root.config(bg="Dark orange")
         frame = Frame(root)
-        frame.config(bg="Dark orange2")
+        frame.config(bg="Dark orange")
         frame.pack()
         buttonColor="orange"
 
     ######## stampa del valore del volume in un intervallo 10-100
         label = Label(frame,
                       text=current_volume,
-                      font=font
-                      ,bg=buttonColor,
-                      activebackground=buttonColor,
-                      relief="ridge",
-                        bd=20)
-        label.grid(row=2, column=0,columnspan=3)
-        label.config(width=40,heigh=2)
+                      font=("Helvetica",80)
+                      ,bg="Dark orange"
+                      )
+        label.grid(row=2, column=1)
+        
 
         pulsante_vol = Button(frame,      #pulsante per diminuire il volume
                               text="-",
@@ -430,7 +429,7 @@ class SchermateGUI:
                               command=DecreseAndChange,
                               bg=buttonColor,
                                 relief="ridge",
-                                bd=20,
+                                bd=10,
                       activebackground=buttonColor)
         pulsante_vol.grid(row=0)
         pulsante_vol.config(height=3, width=5)
@@ -440,9 +439,9 @@ class SchermateGUI:
                               font = font,
                               command=IncreseAndChange,
                               bg=buttonColor,
-                      activebackground=buttonColor,
+                              activebackground=buttonColor,
                                 relief="ridge",
-                                bd=20)
+                                bd=10)
         pulsante_vol.grid(row=0, column=2)
         pulsante_vol.config(height=3, width=5)
 
@@ -452,7 +451,7 @@ class SchermateGUI:
                             bg=buttonColor,
                       activebackground=buttonColor,
                                 relief="ridge",
-                                bd=20)
+                                bd=10)
         scritta_vol.grid(row=0, column=1)
         SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
@@ -470,24 +469,66 @@ class SchermateGUI:
         def close(to_close):
             to_close.quit()
             to_close.destroy()
+            
+            
 
         dialog = Tk()
         dialog.config(bg="orange")
-        dialog.geometry("+700+400")
+        dialog.geometry("+210+180") # distanza da sinistra e dall'alto del popup
         dialog.overrideredirect(1)
 
         label = Label(dialog, text=text,
-                          bg="orange",
+                          bg="blue",
                           font=font,
-                          wraplength=200,
-                          bd=20
+                          wraplength=500,
+                          bd=10,
+                          fg="white",
+                          relief=GROOVE
                       )
         label.configure(anchor="center")
         label.pack(expand=True)
 
         dialog.after(time*1000, close, dialog)
         dialog.mainloop()
+    def spegni_con_conferma():
+        root = Tk()
+        root.attributes('-fullscreen', True)
+        root.config(bg="orange")
+        frame = Frame(root)
+        frame.config(bg="orange")
+        frame.pack()
+        label = Label(frame, text="Vuoi spegnere il dispositivo?",
+                          bg="orange",
+                          width=90, height=4,
+                          font=font
+                          )
+        label.pack()
 
+
+        pulsante_spegni = Button(frame,
+                                   text="Spegni",
+                                   bg="green",
+                                   command=lambda: subprocess.Popen(['shutdown','-h','now']),
+                                   font=font,
+                                   relief="ridge",
+                                   bd=20,
+                                   activebackground="green")
+        pulsante_spegni.config(height=5, width=23)
+        pulsante_spegni.pack(side=LEFT)
+
+        pulsante_annulla = Button(frame,
+                                   text="Annulla",
+                                   bg="firebrick3",
+                                   command=lambda: root.destroy(),
+                                   font=font,
+                                   relief="ridge",
+                                   bd=20,
+                                   activebackground="red")
+        pulsante_annulla.config(height=5, width=23)  # altezza 5
+        pulsante_annulla.pack(side=RIGHT)
+
+
+        root.mainloop()
 ########## funzione per avere un pulsante di uscita con testo variabile ##############
     def exit_button_with_text(root, text):
 
@@ -623,16 +664,7 @@ class SchermateGUI:
 
 ####### funzione che permette di avere un menu a cascata con la funzione di uscire dal main program ##########
     def menu_cascata_con_exit(master):
-        def spegni():
-            asnwer = tkinter.messagebox.askquestion('Attenzione', 'Vuoi spegnere il dispositivo?',
-                                                    parent=master)
-            if asnwer == 'yes':
-
-                messagebox.showwarning("Attenzione","Ricordati di spegnere l'interruttore appena lo schermo diventa nero")
-                subprocess.Popen(['shutdown','-h','now'])
-                
-
-
+          
         menu=Menu(master,font=font,bg="pale green")
         master.config(menu=menu)
 
@@ -643,7 +675,7 @@ class SchermateGUI:
         subMenu.add_separator()                                 #riga di separazione
         subMenu.add_command(label="     Volume     ",font=font, command=SchermateGUI.impostazioni)
         subMenu.add_separator()
-        subMenu.add_command(label="     Spegni    ",font=font, command=lambda: spegni())
+        subMenu.add_command(label="     Spegni    ",font=font, command=lambda: SchermateGUI.spegni_con_conferma())
 
         subMenu.add_separator()
         subMenu.add_command(label="Chiudi programma",font=font, command=master.destroy)
@@ -659,7 +691,7 @@ class SchermateGUI:
             selected = [mylist.get(idx) for idx in mylist.curselection()]
 
             #### ciclo che copia tutti i file selezionati dall'utente
-
+            SchermateGUI.show_dialog_with_time("L'operazione potrebbe richedere alcuni istanti...",2)
             for file in selected:
 
                 fm.copy_file_from_path_to_another(mydict[file], path_destinzaione)
@@ -702,4 +734,4 @@ class SchermateGUI:
 
         root.mainloop()
 
-SchermateGUI.menu_principale()
+#SchermateGUI.menu_principale()

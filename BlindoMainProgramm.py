@@ -1,5 +1,5 @@
 from SchermateGUI import *
 
-#SchermateGUI.menu_principale()
+SchermateGUI.menu_principale()
 
 
