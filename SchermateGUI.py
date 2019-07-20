@@ -2,46 +2,41 @@
 '''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ###################'''
 '''##############################################################################################################'''
 
-#pathCheSimulaChiavetta = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
-#pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
+pathCheSimulaChiavetta = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 
 '''##############################################################################################################'''
 
-import os
-os.chdir("/home/pi/Desktop/Main/")
 
-#'''
+'''
 ######                            ATTENZIONE                                              ###########
-######              ABILITARE QUESTO IMPORT PER UTILIZZARE IL SW SUL RASPBERRY            ###########
+######              ABILITARE  PER UTILIZZARE IL SW SUL RASPBERRY            ###########
 
 import GPIOmanaging
 import registrazione as Reg
-#from recode_audio import Recoding
-
-#######                            ATTENZIONE                                                     ##########
-#######       i path sottostanti servono quando si utiliza il Raspberry                           ##########
-#######     in questo caso bisogna commentare i path sovrastanti e abilitare quelli sottostanti   ##########
 pathCheSimulaChiavetta = "/media/pi"
 pathCheSimulaLaMemoriaInternaDelRaspberry = "/home/pi/Documents/fileAudio"
+os.chdir("/home/pi/Desktop/Main/")
 ##########################################################################################
-#'''
+'''
 ###########                 caratteristiche grafiche di default             #######################
 
 
 
 import tkinter.messagebox
 from tkinter import *
-import fileManaging as fm      ##################
-import os
+import fileManaging as fm
 import GUIkeyboard as key
 import subprocess
+import os
 
 
 stopper=None
 recording=False
-fontSize = 20
-fontStile = "Helvetica"
-font = (fontStile, fontSize)
+
+font_size = 20
+font_stile = "Helvetica"
+font = (font_stile, font_size)
 exit_text= "Torna al menu principale"
 
 ############                 numero di pulsanti collegati                   ######################
