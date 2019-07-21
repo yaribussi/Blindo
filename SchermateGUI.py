@@ -1,12 +1,18 @@
-
-'''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ###################'''
+'''##############################################################################################################'''
+'''###########                                  ATTENZIONE                             ##########################'''
+'''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ##########################'''
 '''##############################################################################################################'''
 
 pathCheSimulaChiavetta = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
 pathCheSimulaLaMemoriaInternaDelRaspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 
 '''##############################################################################################################'''
-
+import tkinter.messagebox
+from tkinter import *
+import fileManaging as fm
+import GUIkeyboard as key
+import subprocess
+import os
 
 '''
 ######                            ATTENZIONE                                              ###########
@@ -17,20 +23,12 @@ import registrazione as Reg
 pathCheSimulaChiavetta = "/media/pi"
 pathCheSimulaLaMemoriaInternaDelRaspberry = "/home/pi/Documents/fileAudio"
 os.chdir("/home/pi/Desktop/Main/")
+subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
 ##########################################################################################
 '''
-###########                 caratteristiche grafiche di default             #######################
 
-
-
-import tkinter.messagebox
-from tkinter import *
-import fileManaging as fm
-import GUIkeyboard as key
-import subprocess
-import os
-
-
+'''#############         VARIABILI GLOBALI              ###########################'''
+asnwer=False
 stopper=None
 recording=False
 
@@ -48,20 +46,19 @@ name_recoded_file= "/reg.wav"
 class SchermateGUI:
 
 ############ schermata del MENUPRINCIPALE ###################à
+    @staticmethod
     def menu_principale():
-        
+
         root = Tk()
         root.config(bg="pale green")
-        #root.geometry("800x480")
         root.attributes('-fullscreen', True)
-
         frame = Frame(root)
 
     ##########   caratteristiche dei quattro pulsanti del menu Principale    ###########
         pulsante_registra= Button(frame,
                                 text="Registra",
                                 bg="orange" ,
-                                command=SchermateGUI.registra,
+                                command=lambda:SchermateGUI.registra(),
                                 font = font,
                                 relief="ridge",
                                 bd=20,
@@ -69,7 +66,6 @@ class SchermateGUI:
                                 #activeforeground="blue")
         pulsante_registra.grid(row=0, column=0)
         pulsante_registra.config(height=5, width=22)
-
 
         pulsante_importa_esporta = Button(frame,
                                  text="Importa/Esporta ",
@@ -104,8 +100,6 @@ class SchermateGUI:
         pulsante_associazioni.grid(row=1, column=1)
         pulsante_associazioni.config(height=5, width=22)
 
-      #SchermateGUI.exit_button_with_text(root,"Chiudi il programma")
-
         ######################   metodo che importa il menu a cascata in qst menu principale###############
         SchermateGUI.menu_cascata_con_exit(root)
 
@@ -113,17 +107,15 @@ class SchermateGUI:
         root.mainloop()  # funzione che continua a tenere aperto la finetra principale
 
 
-    """
-################################################################################################################
-###################                 funzioni che aprono le varie schermate                       ###############
-################################################################################################################
-    """
 
-#########    schermata che appare dopo aver cliccato sul pulsante REGISTRA nel MENUPRINCIPALE##########
+    '''################################################################################################################'''
+    '''###################                 funzioni che aprono le varie schermate                       ###############'''
+    '''################################################################################################################'''
+
+
+#########    schermata che appare dopo aver cliccato sul pulsante REGISTRA nel MENUPRINCIPALE           ##########
 #########    momentaneamente non svolge alcuna funzione oltre a quella di permettere di tornare nel MENUPRINCIPALE
     def registra():
-
-
         root = Tk()
         root.attributes('-fullscreen', True)
         root.config(bg="orange")    
@@ -139,10 +131,8 @@ class SchermateGUI:
                       )
         label.pack()
 
-            
         ##########              funzione che fa partire la registrazione
         def start_recoding(name_recoded_file):
-            
             global recording
             global stopper
             global new_name
@@ -264,7 +254,7 @@ class SchermateGUI:
 
             for cartella in dirs:
                 path_chiavetta = os.path.join(pathCheSimulaChiavetta, cartella)
-                pulsante = SchermateGUI.bottom_USB_key(frame, "esporare", cartella,
+                pulsante = SchermateGUI.button_USB_key(frame, "esporare", cartella,
                                                        pathCheSimulaLaMemoriaInternaDelRaspberry, path_chiavetta)
                 pulsante.grid(row=index, column=0)
                 index += 1
@@ -295,15 +285,14 @@ class SchermateGUI:
             index = 2
             for cartella in dirs:
                 path_chiavetta = os.path.join(pathCheSimulaChiavetta, cartella)
-                pulsante = SchermateGUI.bottom_USB_key(frame, "importare", cartella, path_chiavetta,
+                pulsante = SchermateGUI.button_USB_key(frame, "importare", cartella, path_chiavetta,
                                                        pathCheSimulaLaMemoriaInternaDelRaspberry)
                 pulsante.grid(row=index, column=0)
                 index += 1
 
             SchermateGUI.exit_button_with_text(root, exit_text)
-
             root.mainloop()
-            ############ end of scegli_chiavetta_importa
+            ############ end of scegli_chiavetta_importa ######################
 
         SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
@@ -464,13 +453,11 @@ class SchermateGUI:
         def close(to_close):
             to_close.quit()
             to_close.destroy()
-            
-            
 
         dialog = Tk()
         dialog.config(bg="orange")
         dialog.geometry("+210+180") # distanza da sinistra e dall'alto del popup
-        dialog.overrideredirect(1)
+        dialog.overrideredirect(1)   # rimuove la barra che permetterebbe di chiudere la finestra appena creata
 
         label = Label(dialog, text=text,
                           bg="blue",
@@ -485,6 +472,7 @@ class SchermateGUI:
 
         dialog.after(time*1000, close, dialog)
         dialog.mainloop()
+
     def spegni_con_conferma():
         root = Tk()
         root.attributes('-fullscreen', True)
@@ -522,6 +510,59 @@ class SchermateGUI:
         pulsante_annulla.config(height=5, width=23)  # altezza 5
         pulsante_annulla.pack(side=RIGHT)
 
+
+        root.mainloop()
+    def elimina_file_con_conferma(nome_file):
+
+        def conferma_eliminazione():
+            global asnwer
+            asnwer=True
+            root.quit()
+            root.destroy()
+
+        def annulla_eliminiazione():
+            global asnwer
+            asnwer=False
+            root.quit()
+            root.destroy()
+
+
+        root = Tk()
+        root.attributes('-fullscreen', True)
+        root.config(bg="orange")
+
+        frame = Frame(root)
+        frame.config(bg="orange")
+        frame.pack()
+
+        label = Label(frame, text="Vuoi eliminare il file\n"+nome_file+"  ?",
+                          bg="orange",
+                          width=90, height=4,
+                          font=font
+                          )
+        label.pack()
+
+        pulsante_elimina = Button(frame,
+                                  text="Elimina",
+                                  bg="green",
+                                  command=lambda:conferma_eliminazione(),
+                                   font=font,
+                                   relief="ridge",
+                                   bd=20,
+                                   activebackground="green")
+        pulsante_elimina.config(height=5, width=23)
+        pulsante_elimina.pack(side=LEFT)
+
+        pulsante_annulla = Button(frame,
+                                   text="Annulla",
+                                   bg="firebrick3",
+                                   command=lambda:annulla_eliminiazione(),
+                                   font=font,
+                                   relief="ridge",
+                                   bd=20,
+                                   activebackground="red")
+        pulsante_annulla.config(height=5, width=23)  # altezza 5
+        pulsante_annulla.pack(side=RIGHT)
 
         root.mainloop()
 ########## funzione per avere un pulsante di uscita con testo variabile ##############
@@ -569,7 +610,7 @@ class SchermateGUI:
         pulsante.config(width=20, height=3)
         return pulsante
 
-    def bottom_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
+    def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
 
         pulsante = Button(frame, text=nome_chiavetta,
                           bg="yellow",
@@ -587,7 +628,7 @@ class SchermateGUI:
 #####        parametro necessario per un trackback
     def show_file(idButton):
 
-        ###############  piccola funzione di servizio interna#####
+        ###############  funzione di servizio interna#####
         ###############   permette di fare l'associazione di un fileAudio dato un ID di un pulsante
         def bind_button(id,root):
             song_name = mylist.get('active')
@@ -596,16 +637,20 @@ class SchermateGUI:
 
         #############    elimina l'elemento selezionato dopo aver chiesto all'utente      #########
         def delete_item(root):
+            global asnwer
             song_name = mylist.get('active')
-            asnwer = tkinter.messagebox.askquestion('Attenzione', 'Vuoi eliminare il file:   '+song_name+'  ?',
-                                                    parent=root)
-            if asnwer == 'yes':
+            SchermateGUI.elimina_file_con_conferma(song_name)
+            #asnwer = tkinter.messagebox.askquestion('Attenzione', 'Vuoi eliminare il file:   '+song_name+'  ?',
+             #                                       parent=root)
+            if asnwer == True:
                 
-                os.remove(pathCheSimulaLaMemoriaInternaDelRaspberry+"/"+song_name)
+                os.remove(os.path.join(pathCheSimulaLaMemoriaInternaDelRaspberry,song_name))
                 fm.delete_element_from_list(song_name)
 
-            SchermateGUI.show_file(idButton)
-            root.destroy()
+
+
+            #SchermateGUI.show_file(idButton)
+            #root.destroy()
 ##############   END OF delete_item ####################
             
         root = Tk()
@@ -678,22 +723,23 @@ class SchermateGUI:
 ############   schermata che stampa a video i file contenuti in un determinato path     ###############à
     def show_and_select_item_from_path(mod, path_origine, path_destinzaione):
 
-            ######    funzione che copia la lista dei file selizionati in un'altra direcctory
+            ######    funzione che copia la lista dei file selizionati in un'altra directory
             ######    dall'utente nella schermata IMPORTA, dopo aver cliccato sul pulsante
             ######    avnte la scritta, appunto IMPORTA
         def select_items_and_copy(root):
 
             selected = [mylist.get(idx) for idx in mylist.curselection()]
 
-            #### ciclo che copia tutti i file selezionati dall'utente
+
             SchermateGUI.show_dialog_with_time("L'operazione potrebbe richedere alcuni istanti...",2)
+            #### ciclo che copia tutti i file selezionati dall'utente
             for file in selected:
 
                 fm.copy_file_from_path_to_another(mydict[file], path_destinzaione)
 
             SchermateGUI.show_dialog_with_time("Operazione conclusa con successo",2)
             root.destroy()
-            #######                 END OF select_items_and_copy
+            #######                 END OF select_items_and_copy    ###################
 
         root = Tk()
         root.attributes('-fullscreen', True)
@@ -715,7 +761,7 @@ class SchermateGUI:
         scrollbar.config(width = 70, command=mylist.yview)
         SchermateGUI.exit_button_with_text(root, "Indietro")
 
-##########        caratteristiche pulsante IMPORTA        ######################
+##########        caratteristiche pulsante IMPORTA/ESPORTA        ######################
         testo_pulsante="Seleziona i file \nche desideri "+mod+"\ne poi clicca qui"
         pulstante_importa = Button(root,
                                    text=testo_pulsante,

@@ -69,7 +69,7 @@ def search_and_play_file(id):
                       find=True
                    
               if find==False:
-                  #find=False
+
                   SchermateGUI.SchermateGUI.show_dialog_with_time("Attenzione: \nnessun file\nassociato a questo pulsante",2)
                       
     except (FileNotFoundError, IOError) as e:
@@ -82,7 +82,7 @@ PAUSE=Pause.Pause()
 
 def play_and_pause(pulsante):
     global PAUSE
-    #SchermateGUI.SchermateGUI.show_dialog_with_time("pausa",2)
+
 
     PAUSE.toggle()
     
