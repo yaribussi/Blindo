@@ -46,7 +46,7 @@ name_recoded_file= "/reg.wav"
 class SchermateGUI:
 
 ############ schermata del MENUPRINCIPALE ###################à
-    @staticmethod
+
     def menu_principale():
 
         root = Tk()
@@ -373,8 +373,6 @@ class SchermateGUI:
        
         root.mainloop()
 
-
-    ######         schermata che appare dopo aver cliccato sul pulsante IMPOSTAZIONI nel MENUPRINCIPALE##########
     def impostazioni():
         current_volume = fm.give_volume()
             ##### funzioni di servizio che cambiano il volume e aggiornano il suo valore che è stampato all'utente
@@ -401,10 +399,10 @@ class SchermateGUI:
     ######## stampa del valore del volume in un intervallo 10-100
         label = Label(frame,
                       text=current_volume,
-                      font=("Helvetica",80)
+                      font=("Helvetica",80),width=4
                       ,bg="Dark orange"
                       )
-        label.grid(row=2, column=1)
+        label.grid(row=1, column=1)
         
 
         pulsante_vol = Button(frame,      #pulsante per diminuire il volume
@@ -415,8 +413,8 @@ class SchermateGUI:
                                 relief="ridge",
                                 bd=10,
                       activebackground=buttonColor)
-        pulsante_vol.grid(row=0)
-        pulsante_vol.config(height=3, width=5)
+        pulsante_vol.grid(row=1)
+        pulsante_vol.config(height=4, width=7)
 
         pulsante_vol = Button(frame,      #pulsante per aumentare il volume
                               text="+",
@@ -426,19 +424,21 @@ class SchermateGUI:
                               activebackground=buttonColor,
                                 relief="ridge",
                                 bd=10)
-        pulsante_vol.grid(row=0, column=2)
-        pulsante_vol.config(height=3, width=5)
+        pulsante_vol.grid(row=1, column=2)
+        pulsante_vol.config(height=4, width=7)
 
-        scritta_vol = Label(frame, text="volume",
-                            height=3, width=20,
-                            font = font,
-                            bg=buttonColor,
-                      activebackground=buttonColor,
-                                relief="ridge",
-                                bd=10)
+        scritta_vol = Label(frame, text="Volume",heigh =2,
+                            font = ("Helvetica",40),
+                            bg="Dark orange")
+
         scritta_vol.grid(row=0, column=1)
         SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
+
+
+
+
+    ######         schermata che appare dopo aver cliccato sul pulsante IMPOSTAZIONI nel MENUPRINCIPALE##########
 
 
     '''
