@@ -125,6 +125,6 @@ def give_volume():
         volume = 10.0
     elif volume<10 :
         volume=0
-    return str(volume)[:3]
+    return str(volume)[:3].replace('.','')    #rimuove il punto decimale del volume convertito nell' intervallo 10-100
 
 
