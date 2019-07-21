@@ -24,7 +24,7 @@ import registrazione as Reg
 path_che_simula_luogo_delle_chiavette = "/media/pi"
 path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio"
 os.chdir("/home/pi/Desktop/Main/")
-subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
+#subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
 ##########################################################################################
 '''
 
@@ -34,7 +34,7 @@ stopper=None
 recording=False
 
 font_size_piccolo = 20
-font_size_medio   = 35
+font_size_medio   = 33
 font_size_grande  = 80
 font_stile = "Helvetica"
 font_piccolo = (font_stile, font_size_piccolo)
@@ -251,9 +251,9 @@ class SchermateGUI:
             label = Label(frame, text="Selezionare la chiavetta su cui esportare i file audio",
                           bd=20,
                           bg="DarkOrange1",
-                          font=font_medio)
+                          font=font_piccolo)
             label.grid(row=1, column=0)
-            label.config(width=50, height=1)
+            label.config(width=50, height=4)
 
             index = 2
 
@@ -283,9 +283,9 @@ class SchermateGUI:
             label = Label(frame, text="Selezionare la chiavetta da dove importare i file audio",
                           bd=20,
                           bg="DarkOrange1",
-                          font=font_medio)
+                          font=font_piccolo)
             label.grid(row=1, column=0)
-            label.config(width=50, height=1)
+            label.config(width=50, height=4)
 
             index = 2
             for cartella in dirs:
@@ -542,8 +542,8 @@ class SchermateGUI:
 
         label = Label(frame, text="Vuoi eliminare il file\n"+nome_file+"  ?",
                           bg="orange",
-                          width=90, height=4,
-                          font=font_piccolo
+                          width=90, height=1,
+                          font=font_medio
                           )
         label.pack()
 
