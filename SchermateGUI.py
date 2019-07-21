@@ -11,7 +11,7 @@ import os
 '''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ##########################'''
 '''##############################################################################################################'''
 
-path_che_simula_luogo_delle_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
 path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 
 '''##############################################################################################################'''
@@ -21,7 +21,7 @@ path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UN
 
 import GPIOmanaging
 import registrazione as Reg
-path_che_simula_luogo_delle_chiavette = "/media/pi"
+path_punto_accesso_chiavette = "/media/pi"
 path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio"
 os.chdir("/home/pi/Desktop/Main/")
 #subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
@@ -246,7 +246,7 @@ class SchermateGUI:
             frame.pack()
 
             # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
-            dirs = os.listdir(path_che_simula_luogo_delle_chiavette)
+            dirs = os.listdir(path_punto_accesso_chiavette)
 
             label = Label(frame, text="Selezionare la chiavetta su cui esportare i file audio",
                           bd=20,
@@ -258,7 +258,7 @@ class SchermateGUI:
             index = 2
 
             for cartella in dirs:
-                path_chiavetta = os.path.join(path_che_simula_luogo_delle_chiavette, cartella)
+                path_chiavetta = os.path.join(path_punto_accesso_chiavette, cartella)
                 pulsante = SchermateGUI.button_USB_key(frame, "esporare", cartella,
                                                        path_che_simula_la_memoria_interna_del_raspberry, path_chiavetta)
                 pulsante.grid(row=index, column=0)
@@ -278,7 +278,7 @@ class SchermateGUI:
             frame.pack()
 
             # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
-            dirs = os.listdir(path_che_simula_luogo_delle_chiavette)
+            dirs = os.listdir(path_punto_accesso_chiavette)
 
             label = Label(frame, text="Selezionare la chiavetta da dove importare i file audio",
                           bd=20,
@@ -289,7 +289,7 @@ class SchermateGUI:
 
             index = 2
             for cartella in dirs:
-                path_chiavetta = os.path.join(path_che_simula_luogo_delle_chiavette, cartella)
+                path_chiavetta = os.path.join(path_punto_accesso_chiavette, cartella)
                 pulsante = SchermateGUI.button_USB_key(frame, "importare", cartella, path_chiavetta,
                                                        path_che_simula_la_memoria_interna_del_raspberry)
                 pulsante.grid(row=index, column=0)
