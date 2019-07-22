@@ -140,12 +140,12 @@ def keyBoard():
 	label_scritta.grid(row=0, columnspan=11)
 
 	global entry
-	entry = Entry(kb,width=30)
+	entry = Entry(kb, width=37)
 	entry.config(
 				font=entry_font,
 				bg=entry_background,
 				fg=entry_foreground)
-	entry.grid(row=1, column=0, columnspan=12)
+	entry.grid(row=1, column=0, columnspan=13)
 
 	HosoPop(kb)
 
@@ -156,4 +156,4 @@ def keyBoard():
 
 
 
-print(keyBoard())
+#print(keyBoard())
