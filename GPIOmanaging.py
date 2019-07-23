@@ -64,7 +64,7 @@ def search_and_play_file(id):
                    if int(audio.idButton) == id:
                       
                       play_single_file(path + "/" + audio.name)
-                      
+
                       SchermateGUI.SchermateGUI.show_dialog_with_time("In riproduzione il file audio: \n"
                                             +  audio.name + " \nassociato al pulsante "+audio.idButton,2)
                       find=True
