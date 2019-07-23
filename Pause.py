@@ -8,11 +8,8 @@ class Pause():
     def toggle(self):
         if self.paused:
             PM.music.pause()
-           # print("in pause")
             self.paused=not self.paused
             
         else:
             PM.music.unpause()
-            #print("in play")
             self.paused=not self.paused
-            

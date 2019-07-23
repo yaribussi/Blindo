@@ -59,6 +59,7 @@ class SchermateGUI:
     # schermata del MENUPRINCIPALE
     def menu_principale():
 
+
         root = Tk()
         root.config(bg="pale green")
         root.attributes('-fullscreen', True)
