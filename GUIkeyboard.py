@@ -69,7 +69,7 @@ def HosoPop(kb):
 						font=key_font,
 						padx=1, pady=1,
 						bd=5,
-						command=command).grid(row=6, column=0, columnspan=3)
+						command=command).grid(row=6, column=0, columnspan=5)
 
 		elif button == "SPAZIO":
 			tkinter.Button(
@@ -81,7 +81,7 @@ def HosoPop(kb):
 						relief=key_relief,
 						padx=1, pady=1,
 						bd=5,
-						command=command).grid(row=6, column=1, columnspan=9)
+						command=command).grid(row=6, column=2, columnspan=8)
 		elif button == "SALVA" :
 			tkinter.Button(
 						kb, text=button, width=15, heigh=6,
@@ -93,7 +93,7 @@ def HosoPop(kb):
 						relief=key_relief,
 						padx=1, pady=1,
 						bd=5,
-						command=lambda: close(kb)).grid(row=6, column=8, columnspan=3)
+						command=lambda: close(kb)).grid(row=6, column=7, columnspan=5)
 		else:
 			tkinter.Button(
 						kb, text=button, width=5, heigh=2,

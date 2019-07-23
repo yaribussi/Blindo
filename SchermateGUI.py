@@ -143,6 +143,7 @@ class SchermateGUI:
             global recording
             global stopper
             global new_name
+
             recording=True
 
             label["text"] = "Registrazione in corso.....\nPremi il pulsante rosso per interrompere"
