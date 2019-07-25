@@ -59,6 +59,7 @@ class SchermateGUI:
     # schermata del MENUPRINCIPALE
     def menu_principale():
 
+
         root = Tk()
         root.config(bg="pale green")
         root.attributes('-fullscreen', True)
@@ -143,6 +144,7 @@ class SchermateGUI:
             global recording
             global stopper
             global new_name
+
             recording=True
 
             label["text"] = "Registrazione in corso.....\nPremi il pulsante rosso per interrompere"
@@ -424,7 +426,7 @@ class SchermateGUI:
                                 width=4,
                                 bg="Dark orange"
                                 )
-        current_vol_label(row=1, column=1)
+        current_vol_label.grid(row=1, column=1)
 
         # pulsante per diminuire il volume
         decrese_vol_button = Button(
@@ -507,7 +509,7 @@ class SchermateGUI:
         label = Label(frame, text="Vuoi spegnere il dispositivo?",
                           bg="orange",
                           width=90, height=4,
-                          font=font_piccolo
+                          font=font_medio
                           )
         label.pack()
 
