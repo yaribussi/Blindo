@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 
 import SchermateGUI
 import Pause
+import time
 
 import subprocess
 import os
@@ -84,7 +85,7 @@ PAUSE=Pause.Pause()
 def play_and_pause(pulsante):
     global PAUSE
     PAUSE.toggle()
-
+    
 def my_function1(pulsante):
     global PAUSE
     PAUSE = Pause.Pause()
