@@ -1,4 +1,3 @@
-import tkinter.messagebox
 from tkinter import *
 import fileManaging as fm
 import GUIkeyboard as key
@@ -11,8 +10,10 @@ import os
 '''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ##########################'''
 '''##############################################################################################################'''
 
-path_punto_accesso_chiavette = r"D:\Programmi\PyCharm Projects\Chiavette"
-path_che_simula_la_memoria_interna_del_raspberry = r"D:\Programmi\PyCharm Projects\Memoria raspberry"
+
+
+path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 
 '''##############################################################################################################'''
 '''
@@ -30,7 +31,7 @@ os.chdir("/home/pi/Desktop/Main/")
 
 '''#############                       VARIABILI GLOBALI              ###########################'''
 asnwer=False
-stopper=None
+
 recording=False
 
 # formati audio disponibili
@@ -123,6 +124,7 @@ class SchermateGUI:
     '''################################################################################################################'''
 
     # schermata che appare dopo aver cliccato sul pulsante REGISTRA nel MENUPRINCIPALE
+
     def registra():
         root = Tk()
         root.attributes('-fullscreen', True)
@@ -142,7 +144,6 @@ class SchermateGUI:
         #    funzione che fa partire la registrazione
         def start_recoding(name_recoded_file):
             global recording
-            global stopper
             global new_name
 
             recording=True
@@ -150,16 +151,16 @@ class SchermateGUI:
             label["text"] = "Registrazione in corso.....\nPremi il pulsante rosso per interrompere"
 
             final_path= path_che_simula_la_memoria_interna_del_raspberry + name_recoded_file
-            stopper = Reg.start(final_path)
+
+            Reg.start(final_path)
 
         #  funzione che ferma la registrazione e chiede all'utente il nome del file registrato
         def stop_recording():
-            global stopper
             global recording
 
             if recording:
                 
-                Reg.stop(stopper) 
+                Reg.stop()
                 label["text"] = "Registrazione effettuata con successo!"
 
                 # funzione che richiama la tastiera e chiede all'utente il nome del file
