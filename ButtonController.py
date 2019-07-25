@@ -1,5 +1,6 @@
 from Reproduction import Reproduction as repr
 import fileManaging as fm
+from SchermateGUI import SchermateGUI as sgui
 from Pause import Pause
 class Button_controller:
 
@@ -15,7 +16,8 @@ class Button_controller:
     def manage_pulsante_riproduzione(self, idPulsante):
         list = fm.load_list()
         self.__pause.reset()
-        repr.reproduce_file_audio(self, idPulsante, list)
+        messaggio = repr.reproduce_file_audio(self, idPulsante, list)
+        sgui.show_dialog_with_time(messaggio, 2)
 
     def manage_pulsante_play_pause(self):
         self.__pause.toggle()
