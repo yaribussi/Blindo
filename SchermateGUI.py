@@ -1,6 +1,7 @@
 import tkinter.messagebox
 from tkinter import *
 import fileManaging as fm
+import Reproduction as repr
 import GUIkeyboard as key
 import subprocess
 import os
@@ -11,11 +12,11 @@ import os
 '''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ##########################'''
 '''##############################################################################################################'''
 
-path_punto_accesso_chiavette = r"C:\Users\Diego Berardi\Desktop\file audio blindo\punto di accesso chiavette"
-path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\Diego Berardi\Desktop\file audio blindo\simula memoria interna"
+#path_punto_accesso_chiavette = r"C:\Users\Diego Berardi\Desktop\file audio blindo\punto di accesso chiavette"
+#path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\Diego Berardi\Desktop\file audio blindo\simula memoria interna"
 
 '''##############################################################################################################'''
-'''
+#'''
 ######                            ATTENZIONE                                              ###########
 ######              ABILITARE  PER UTILIZZARE IL SW SUL RASPBERRY            ###########
 
@@ -26,7 +27,7 @@ path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio
 os.chdir("/home/pi/Desktop/Main/")
 #subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
 ##########################################################################################
-'''
+#'''
 
 '''#############                       VARIABILI GLOBALI              ###########################'''
 asnwer=False
@@ -393,7 +394,7 @@ class SchermateGUI:
 
     # schermata di impostazioni accessibile dal menu cascata
     def impostazioni():
-        current_volume = fm.give_volume()
+        current_volume = repr.give_volume()
         # funzione che aggiorna il valore del volume cmostrato all'utente
         def change_volume_on_display():
             current_vol_label.configure(text=fm.give_volume())
@@ -424,7 +425,7 @@ class SchermateGUI:
                                 width=4,
                                 bg="Dark orange"
                                 )
-        current_vol_label(row=1, column=1)
+        current_vol_label.grid(row=1, column=1)
 
         # pulsante per diminuire il volume
         decrese_vol_button = Button(
