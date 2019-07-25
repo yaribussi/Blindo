@@ -83,7 +83,7 @@ PAUSE=Pause.Pause()
 
 def play_and_pause(pulsante):
     global PAUSE
-     PAUSE.toggle()
+    PAUSE.toggle()
 
 def my_function1(pulsante):
     global PAUSE
