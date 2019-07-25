@@ -1,7 +1,7 @@
 import pickle as pk
 import pygame.mixer as PM
 import RPi.GPIO as GPIO
-
+from ButtonController import Button_controller as bc
 import SchermateGUI
 import Pause
 import subprocess
@@ -29,6 +29,8 @@ pulsante_5 = 4            #   nero
 pulsante_6 = 17           #   grigio
 pulsante_pause = 22       #   bianco
 
+# in caso volessimo sostutuire i pulsanti con una lista pulsanti = [5, 24, 21, 26, 4, 17, 22, 3]
+
 quit_device_button = 3
 
 GPIO.setup(pulsante_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -42,6 +44,7 @@ GPIO.setup(pulsante_pause, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 GPIO.setup(quit_device_button, GPIO.IN)
 
+'''
 ############    funzione che riproduce un file audio dato uno specifico path        ##########
 def play_single_file(path_file_audio):
 
@@ -77,6 +80,7 @@ def search_and_play_file(id):
 
 ##########          insieme di funzioni per riprodurre il fileAudio             ############à
 #########           DEVONO avere come parametro il pulsante a cui sono associate
+
 
 PAUSE=Pause.Pause()
 
@@ -121,6 +125,14 @@ def my_function6(pulsante):
     
     PAUSE = Pause.Pause()
     search_and_play_file(6)
+'''
+
+def my_function_who_calls_controller(pulsante):
+    bc.manage_pulsante_riproduzione(pulsante)
+
+def my_play_and_pause(pulsante):
+    bc.manage_pulsante_play_pause()
+
 
 def turn_off_device(pulsante):
     SchermateGUI.SchermateGUI.spegni_con_conferma()
@@ -133,6 +145,7 @@ def turn_off_device(pulsante):
 #######         le funzioni richamate da "callback" devono accettare lo stesso parametro del evento che le chiama
 #######         infatti tutte le "myFunction"  accettano come parametro il PIN del pulsante
 #######         il parametro bounctime fa lo stesso effetto della funzione time.sleep(0.5)
+'''
 def interupt():
 
     GPIO.add_event_detect(pulsante_1, GPIO.RISING, callback=my_function1, bouncetime=500)
@@ -145,5 +158,17 @@ def interupt():
     GPIO.add_event_detect(pulsante_pause, GPIO.RISING, callback=play_and_pause, bouncetime=500)
 
     GPIO.add_event_detect(quit_device_button,GPIO.FALLING, callback =turn_off_device, bouncetime=500)
+
+'''
+#lambda x, b=button: callback_button(b)
+
+def interupt():
+    for i in range(6):
+        GPIO.add_event_detect(pulsante_1, GPIO.RISING, callback=lambda x,  button=i: my_function_who_calls_controller(button), bouncetime=500)
+
+    GPIO.add_event_detect(pulsante_pause, GPIO.RISING, callback=my_play_and_pause, bouncetime=500)
+
+    GPIO.add_event_detect(quit_device_button, GPIO.FALLING, callback=turn_off_device, bouncetime=500)
+
 
 interupt()
