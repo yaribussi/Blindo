@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 
 import SchermateGUI
 import Pause
+import time
 
 import subprocess
 import os
@@ -83,7 +84,13 @@ PAUSE=Pause.Pause()
 
 def play_and_pause(pulsante):
     global PAUSE
-     PAUSE.toggle()
+    PAUSE.toggle()
+
+def record() :
+    start_time = time.time()
+
+    #necessario un feedback visivo o sonoro (meglio visivo) per fare intendere che è
+    #iniziata la fase di registrazione
 
 def my_function1(pulsante):
     global PAUSE
