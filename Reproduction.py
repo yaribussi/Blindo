@@ -1,9 +1,4 @@
-import pickle as pk
 import pygame.mixer as PM
-import RPi.GPIO as GPIO
-import SchermateGUI
-import Pause
-import fileManaging as fm
 from math import log10, floor
 
 

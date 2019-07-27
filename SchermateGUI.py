@@ -12,11 +12,11 @@ import os
 '''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ##########################'''
 '''##############################################################################################################'''
 
-#path_punto_accesso_chiavette = r"C:\Users\Diego Berardi\Desktop\file audio blindo\punto di accesso chiavette"
-#path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\Diego Berardi\Desktop\file audio blindo\simula memoria interna"
+path_punto_accesso_chiavette = r"C:\Users\Diego Berardi\Desktop\file audio blindo\punto di accesso chiavette"
+path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\Diego Berardi\Desktop\file audio blindo\simula memoria interna"
 
 '''##############################################################################################################'''
-#'''
+'''
 ######                            ATTENZIONE                                              ###########
 ######              ABILITARE  PER UTILIZZARE IL SW SUL RASPBERRY            ###########
 
@@ -27,7 +27,7 @@ path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio
 os.chdir("/home/pi/Desktop/Main/")
 #subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
 ##########################################################################################
-#'''
+'''
 
 '''#############                       VARIABILI GLOBALI              ###########################'''
 asnwer=False
