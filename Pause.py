@@ -9,13 +9,10 @@ class Pause:
         if self.paused:
             PM.music.pause()
             # print("in pause")
-            self.paused=not self.paused
-            
-        else:
-            PM.music.unpause()
             # print("in play")
             self.paused=not self.paused
 
     # this method will reset the paused value to the default one, False
     def reset(self):
         self.paused = False
+

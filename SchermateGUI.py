@@ -1,4 +1,3 @@
-import tkinter.messagebox
 from tkinter import *
 import fileManaging as fm
 import Reproduction as repr
@@ -14,6 +13,7 @@ import os
 
 path_punto_accesso_chiavette = r"C:\Users\Diego Berardi\Desktop\file audio blindo\punto di accesso chiavette"
 path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\Diego Berardi\Desktop\file audio blindo\simula memoria interna"
+
 
 '''##############################################################################################################'''
 '''
@@ -31,7 +31,7 @@ os.chdir("/home/pi/Desktop/Main/")
 
 '''#############                       VARIABILI GLOBALI              ###########################'''
 asnwer=False
-stopper=None
+
 recording=False
 
 # formati audio disponibili
@@ -59,6 +59,7 @@ class SchermateGUI:
 
     # schermata del MENUPRINCIPALE
     def menu_principale():
+
 
         root = Tk()
         root.config(bg="pale green")
@@ -123,6 +124,7 @@ class SchermateGUI:
     '''################################################################################################################'''
 
     # schermata che appare dopo aver cliccato sul pulsante REGISTRA nel MENUPRINCIPALE
+
     def registra():
         root = Tk()
         root.attributes('-fullscreen', True)
@@ -142,23 +144,23 @@ class SchermateGUI:
         #    funzione che fa partire la registrazione
         def start_recoding(name_recoded_file):
             global recording
-            global stopper
             global new_name
+
             recording=True
 
             label["text"] = "Registrazione in corso.....\nPremi il pulsante rosso per interrompere"
 
             final_path= path_che_simula_la_memoria_interna_del_raspberry + name_recoded_file
-            stopper = Reg.start(final_path)
+
+            Reg.start(final_path)
 
         #  funzione che ferma la registrazione e chiede all'utente il nome del file registrato
         def stop_recording():
-            global stopper
             global recording
 
             if recording:
                 
-                Reg.stop(stopper) 
+                Reg.stop()
                 label["text"] = "Registrazione effettuata con successo!"
 
                 # funzione che richiama la tastiera e chiede all'utente il nome del file
@@ -508,7 +510,7 @@ class SchermateGUI:
         label = Label(frame, text="Vuoi spegnere il dispositivo?",
                           bg="orange",
                           width=90, height=4,
-                          font=font_piccolo
+                          font=font_medio
                           )
         label.pack()
 
