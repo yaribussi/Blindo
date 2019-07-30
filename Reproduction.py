@@ -1,11 +1,7 @@
-import pickle as pk
-import pygame.mixer as PM
-import RPi.GPIO as GPIO
-import SchermateGUI
-import Pause
-import fileManaging as fm
-from math import log10, floor
 
+import pygame.mixer as PM
+from math import log10, floor
+import os
 
 path= "/home/pi/Documents/fileAudio"
 
@@ -17,7 +13,7 @@ class Reproduction:
         for audio in list:
             if int(audio.idButton) == id:
                 PM.init()
-                PM.music.load(path + "/" + audio.name)
+                PM.music.load(os.path.join(path,audio.name))
                 PM.music.play()
                 messaggio=""
         return messaggio

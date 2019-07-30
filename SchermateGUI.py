@@ -1,4 +1,3 @@
-import tkinter.messagebox
 from tkinter import *
 import fileManaging as fm
 import Reproduction as repr
@@ -12,11 +11,11 @@ import os
 '''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ##########################'''
 '''##############################################################################################################'''
 
-path_punto_accesso_chiavette = r"C:\Users\Diego Berardi\Desktop\file audio blindo\punto di accesso chiavette"
-path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\Diego Berardi\Desktop\file audio blindo\simula memoria interna"
+#path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+#path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 
 '''##############################################################################################################'''
-'''
+#'''
 ######                            ATTENZIONE                                              ###########
 ######              ABILITARE  PER UTILIZZARE IL SW SUL RASPBERRY            ###########
 
@@ -27,11 +26,10 @@ path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio
 os.chdir("/home/pi/Desktop/Main/")
 #subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
 ##########################################################################################
-'''
+#'''
 
 '''#############                       VARIABILI GLOBALI              ###########################'''
 asnwer=False
-stopper=None
 recording=False
 
 # formati audio disponibili
@@ -111,7 +109,7 @@ class SchermateGUI:
         pulsante_associazioni.config(height=5, width=22)
 
         #  metodo che importa il menu a cascata nel menu principale
-        SchermateGUI.menu_cascata_con_exit(root)
+        SchermateGUI.menu_cascata_menu_principale(root)
 
         frame.pack()
         root.mainloop()  # funzione che continua a tenere aperto la finetra principale
@@ -149,7 +147,7 @@ class SchermateGUI:
             label["text"] = "Registrazione in corso.....\nPremi il pulsante rosso per interrompere"
 
             final_path= path_che_simula_la_memoria_interna_del_raspberry + name_recoded_file
-            stopper = Reg.start(final_path)
+            Reg.start(final_path)
 
         #  funzione che ferma la registrazione e chiede all'utente il nome del file registrato
         def stop_recording():
@@ -158,7 +156,7 @@ class SchermateGUI:
 
             if recording:
                 
-                Reg.stop(stopper) 
+                Reg.stop() 
                 label["text"] = "Registrazione effettuata con successo!"
 
                 # funzione che richiama la tastiera e chiede all'utente il nome del file
@@ -351,7 +349,7 @@ class SchermateGUI:
 
         frame.pack()
         my_list.pack()
-
+        #SchermateGUI.menu_cascata_schermata_associazioni(root)
         SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
 
@@ -372,7 +370,7 @@ class SchermateGUI:
         text.pack(side ="left",fill="both",expand=True)
 
         pulstante_uscita = Button(frame,
-                                  text="Torna al\nmenu principale",
+                                  text="Torna \nindietro",
                                   command=lambda: root.destroy(),
                                   bd=20,
                                   bg="yellow",
@@ -462,6 +460,13 @@ class SchermateGUI:
         scritta_vol.grid(row=0, column=1)
         SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
+
+    def schermata_carica_lista():
+        print("HW")
+    def schermata_nuova_lista():
+        print("HW")
+    def schermata_elimina_lista():
+        print("HW")
 
 
     '''
@@ -735,7 +740,7 @@ class SchermateGUI:
         SchermateGUI.exit_button_with_text(root, "Torna alla lista pulsanti")
 
     # ###### funzione che permette di avere un menu a cascata con la funzione di uscire dal main program ##########
-    def menu_cascata_con_exit(master):
+    def menu_cascata_menu_principale(master):
         # serve a rimuovere la riga tratteggiata che permette di spostare le ozioni col mouse
         master.option_add('*tearOff', FALSE)
         menu=Menu(master, font=font_medio, bg="pale green",)
@@ -751,6 +756,26 @@ class SchermateGUI:
 
         subMenu.add_separator()
         subMenu.add_command(label="Chiudi programma", font=font_medio, command=master.destroy)
+        subMenu.add_separator()
+
+    # ###### funzione che permette di avere un menu a cascata con la funzione di uscire dal main program ##########
+    def menu_cascata_schermata_associazioni(master):
+        # serve a rimuovere la riga tratteggiata che permette di spostare le ozioni col mouse
+        master.option_add('*tearOff', FALSE)
+        menu = Menu(master, font=font_medio, bg="pale green",)
+        master.config(menu=menu)
+        # crea il menu a cascata
+        subMenu = Menu(menu, font=font_medio, bg="pale green",)
+        menu.add_cascade(label="Impostazioni", font=font_medio, menu=subMenu, )  # menu a cascata
+        # riga di separazione
+        subMenu.add_separator()
+        subMenu.add_command(label="Nuova Lista     ", font=font_medio, command=lambda:SchermateGUI.schermata_nuova_lista())
+        subMenu.add_separator()
+        subMenu.add_command(label="Carica Lista    ", font=font_medio, command=lambda: SchermateGUI.schermata_carica_lista())
+        subMenu.add_separator()
+        subMenu.add_command(label="Modifica Lista", font=font_medio, command=lambda:SchermateGUI.schermata_pulsanti(master,6))
+        subMenu.add_separator()
+        subMenu.add_command(label="Elimina Lista", font=font_medio, command=lambda:SchermateGUI.schermata_elimina_lista())
         subMenu.add_separator()
 
     # ###########   schermata che stampa a video i file contenuti in un determinato path     ###############à

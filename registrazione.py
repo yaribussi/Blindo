@@ -1,7 +1,6 @@
 import Recorder
 import pyaudio
 from Recorder import *
-import time
 
 
 #funzioni per la registrazione con parametro il nome del file da registrare
@@ -13,8 +12,7 @@ def start(name):
     rec=Recorder()
     rec_file = rec.open(name, 'wb')
     rec_file.start_recording()
-  
-    
+   
 
 def stop():
     global rec_file
