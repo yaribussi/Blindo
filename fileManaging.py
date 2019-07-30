@@ -4,8 +4,6 @@ from fileAudio import FileAudio
 import pygame.mixer as PM
 from math import log10, floor
 import shutil
-import re
-
 
 # nome del file sul quale verranno salvati
 # (e dal quale verranno caricati) i fileAudio e i loro parametri#
@@ -25,7 +23,7 @@ def give_sorted_list():
 
                 for audio in my_objects:
                     if str(audio.name) != "DEFAULT":
-                        formattedNumber = '{:5s}'.format(str(audio.idButton))
+                        formattedNumber = '{:5s}'.format(audio.idButton)
                         list.append("Pulsante "+formattedNumber+" ------->  " +str(audio.name)+ "\n")
 
                 
@@ -57,7 +55,7 @@ def delete_element_from_list(nomeFileDaRimuovere):
 def bind(audio_name, id):
     # default element needed to pass through the list of file audio if it has only one element
     default = FileAudio('DEFAULT', 0)
-    file_audio = FileAudio(audio_name,id)
+    file_audio = FileAudio(audio_name, id)
 
     my_objects = [default]
     if os.path.isfile("./" + nameFile):
@@ -102,7 +100,4 @@ def copy_file_from_path_to_another(initialPath, endingPath):
 # funzione che serve a togliere tutti gli zero non significativi e arrotonda il numero trovato########
 def round_to_1(x):
     return
-
-
-
 

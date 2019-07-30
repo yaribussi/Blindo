@@ -1,6 +1,6 @@
 import pygame.mixer as PM
 from math import log10, floor
-import os
+
 
 path= "/home/pi/Documents/fileAudio"
 
@@ -12,9 +12,14 @@ class Reproduction:
         for audio in list:
             if int(audio.idButton) == id:
                 PM.init()
-                PM.music.load(os.path.join(path,audio.name))
+                PM.music.load(path + "/" + audio.name)
                 PM.music.play()
-                messaggio=""
+                messaggio ="In riproduzione il file audio: \n" + audio.name + " \nassociato al pulsante " + audio.idButton
+                #SchermateGUI.SchermateGUI.show_dialog_with_time("In riproduzione il file audio: \n" + audio.name + " \nassociato al pulsante " + audio.idButton, 2)
+                find = True
+        if find == False:
+            messaggio = "Attenzione: \nnessun file\nassociato a questo pulsante"
+            #SchermateGUI.SchermateGUI.show_dialog_with_time("Attenzione: \nnessun file\nassociato a questo pulsante", 2)
         return messaggio
 
     # a seguire 2 funzioni per aumentare e diminuire il volume
