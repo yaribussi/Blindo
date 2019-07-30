@@ -3,16 +3,16 @@ import pygame.mixer as PM
 class Pause:
 
     def __init__(self):
-        self.paused = True
+        self.unpaused = True
 
     def toggle(self):
-        if self.paused:
+        if self.unpaused:
             PM.music.pause()
             # print("in pause")
             # print("in play")
-            self.paused=not self.paused
+            self.unpaused=not self.unpaused
 
     # this method will reset the paused value to the default one, False
     def reset(self):
-        self.paused = False
+        self.unpaused = True
 

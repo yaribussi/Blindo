@@ -1,6 +1,6 @@
 from tkinter import *
 import fileManaging as fm
-import Reproduction as repr
+import Reproduction
 import GUIkeyboard as key
 import subprocess
 import os
@@ -419,19 +419,19 @@ class SchermateGUI:
 
     # schermata di impostazioni accessibile dal menu cascata
     def impostazioni():
-        current_volume = repr.give_volume()
+        current_volume = Reproduction.Reproduction.give_volume()
         # funzione che aggiorna il valore del volume cmostrato all'utente
         def change_volume_on_display():
-            current_vol_label.configure(text=fm.give_volume())
+            current_vol_label.configure(text=Reproduction.Reproduction.give_volume())
 
         # funzione che aumenta il volume e aggiorna il valore nel label
         def increse_and_change():
-            fm.increse_vol()
+            Reproduction.Reproduction.increse_vol()
             change_volume_on_display()
 
         # funzione che abbassa il volume e aggiorna il valore nel label
         def decrese_and_change():
-            fm.decrese_vol()
+            Reproduction.Reproduction.decrese_vol()
             change_volume_on_display()
 
         root = Tk()
@@ -448,8 +448,8 @@ class SchermateGUI:
                                 text=current_volume,
                                 font=font_grande,
                                 width=4,
-                                bg=button_background_color,
-                                fg=font_color
+                                bg=root_background_color,
+                                fg="white"
                                 )
         current_vol_label.grid(row=1, column=1)
 
@@ -485,7 +485,7 @@ class SchermateGUI:
                             text="Volume",
                             heigh=2,
                             font=font_medio,
-                            fg=font_color,
+                            fg="white",
                             bg=root_background_color)
 
         scritta_vol.grid(row=0, column=1)
