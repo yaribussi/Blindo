@@ -6,12 +6,15 @@ import shutil
 
 # nome del file sul quale verranno salvati
 # (e dal quale verranno caricati) i fileAudio e i loro parametri#
+
 name_file = 'Lista di default'
 path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
 
 # path da abilitare su raspberry
 #path_liste = "/home/pi/Documents/Lists"
 
+
+#
 def change_list(list_name):
     global name_file
     name_file = list_name
@@ -71,7 +74,7 @@ def bind(audio_name, id):
 
     file_audio = FileAudio(audio_name, id)
     final_path = os.path.join(path_liste, name_file)
-
+    my_objects =[]
     if os.path.isfile(final_path):
         try:
             final_path = os.path.join(path_liste, name_file)
@@ -104,7 +107,7 @@ def load_list():
 
 # funzione per salvare la lista di fileAudio come un unico oggetto con nome "lista finale" #####
 def save_file_audio(my_objects):
-    final_path=os.path.join(path_liste, name_file)
+    final_path = os.path.join(path_liste, name_file)
     with open(final_path, 'wb') as output:
         pk.dump(my_objects, output, -1)
 
@@ -112,11 +115,6 @@ def save_file_audio(my_objects):
 # funzione che utilizza la funzione di sitema "shutil.copy" per copiare i file da un path ad un altro
 def copy_file_from_path_to_another(initialPath, endingPath):
     shutil.copy(initialPath, endingPath)
-
-
-# funzione che serve a togliere tutti gli zero non significativi e arrotonda il numero trovato########
-def round_to_1(x):
-    return
 
 
 
