@@ -6,7 +6,7 @@ import shutil
 
 # nome del file sul quale verranno salvati
 # (e dal quale verranno caricati) i fileAudio e i loro parametri#
-name_file = 'Lista di default '
+name_file = 'Lista di default'
 path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
 
 
@@ -38,7 +38,7 @@ def give_sorted_list():
 
 
 # funzione che elimina da lista finale i fileAudio che vengono eliminati tramite la GUI
-def delete_element_from_list(nomeFileDaRimuovere):
+def delete_element_from_list(nome_file_da_rimuovere): # aggiungere la liste da conytrollare come parametro
     final_path = os.path.join(path_liste, name_file)
 
     if os.path.isfile(final_path):
@@ -47,7 +47,7 @@ def delete_element_from_list(nomeFileDaRimuovere):
                 my_objects = pk.load(io)
 
                 for audio in my_objects:
-                    if audio.name == nomeFileDaRimuovere:
+                    if audio.name == nome_file_da_rimuovere:
                         my_objects.remove(audio)
 
             save_file_audio(my_objects)
@@ -55,16 +55,21 @@ def delete_element_from_list(nomeFileDaRimuovere):
         except (FileNotFoundError, IOError) as e:
             print(e)
 
+def create_list(list_name):
+
+    global name_file
+    name_file=list_name
+    default = FileAudio('DEFAULT', 0)
+    my_objects = [default]
+    save_file_audio(my_objects)
 
 # binding between the button and the name of the file audio
 def bind(audio_name, id):
     # default element needed to pass through the list of file audio if it has only one element
-    default = FileAudio('DEFAULT', 0)
-    file_audio = FileAudio(audio_name,id)
 
+    file_audio = FileAudio(audio_name, id)
     final_path = os.path.join(path_liste, name_file)
 
-    my_objects = [default]
     if os.path.isfile(final_path):
         try:
             final_path = os.path.join(path_liste, name_file)
