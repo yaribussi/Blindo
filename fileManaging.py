@@ -9,6 +9,8 @@ import shutil
 name_file = 'Lista di default'
 path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
 
+# path da abilitare su raspberry
+#path_liste = "/home/pi/Documents/Lists"
 
 def change_list(list_name):
     global name_file

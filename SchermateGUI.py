@@ -336,7 +336,7 @@ class SchermateGUI:
         frame.config(bg="DarkOrange1")
 
         label_memo =Label(frame, text=current_list,
-                          font=font_medio,
+                          font=font_piccolo,
                           bg="DarkOrange1",
                           bd=20,
                           width=200,
