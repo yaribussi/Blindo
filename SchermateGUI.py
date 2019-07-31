@@ -45,6 +45,11 @@ font_piccolo = (font_stile, font_size_piccolo)
 font_medio = (font_stile, font_size_medio)
 font_grande = (font_stile, font_size_grande)
 
+button_background_color = "#404040"
+#active_background_color = "#B4D4E4"
+active_background_color="#C8D7DC"
+root_background_color = "#708090"
+font_color = "#E0E0E0"
 
 exit_text= "Torna al menu principale"
 
@@ -60,55 +65,62 @@ class SchermateGUI:
     def menu_principale():
 
         root = Tk()
-        root.config(bg="pale green")
+        root.config(bg=root_background_color)
         root.attributes('-fullscreen', True)
         frame = Frame(root)
 
-        #    caratteristiche dei quattro pulsanti del menu Principale
+        # REGISTRA
         pulsante_registra= Button(frame,
                                   text="Registra",
-                                  bg="orange",
+                                  bg=button_background_color,
                                   command=lambda:SchermateGUI.registra(),
-                                  font = font_piccolo,
+                                  font=font_piccolo,
+                                  fg=font_color,
                                   relief="ridge",
-                                  bd=20,
-                                  activebackground="orange2")
+                                  bd=4,
+                                  activebackground=active_background_color)
         pulsante_registra.grid(row=0, column=0)
-        pulsante_registra.config(height=5, width=22)
+        pulsante_registra.config(height=6, width=24)
 
+        # IMPORTA/ESPORTA
         pulsante_importa_esporta = Button(frame,
                                           text="Importa/Esporta ",
-                                          bg="red",
+                                          bg=button_background_color,
                                           command=SchermateGUI.esporta_importa,
                                           font=font_piccolo,
+                                          fg=font_color,
                                           relief="ridge",
-                                          bd=20,
-                                          activebackground="red2")
+                                          bd=4,
+                                          activebackground=active_background_color)
         pulsante_importa_esporta.grid(row=0, column=1)
-        pulsante_importa_esporta.config(height=5, width=22)
+        pulsante_importa_esporta.config(height=6, width=24)
 
+        # ASSOCIA
         pulsante_associa = Button(frame,
-                                  text="Volume",
-                                  bg="yellow",
-                                  command=lambda:SchermateGUI.impostazioni(),
-                                  #SchermateGUI.schermata_pulsanti(root, number_of_phisical_button),
-                                  font=font_piccolo,
-                                  relief="ridge",
-                                  bd=20,
-                                  activebackground="yellow2")
-        pulsante_associa.grid(row=1, column=0)
-        pulsante_associa.config(height=5, width=22)
 
+                                  text="Volume",
+                                  bg=button_background_color,
+                                  command=lambda:SchermateGUI.impostazioni(),
+                                  font=font_piccolo,
+                                  fg=font_color,
+                                  relief="ridge",
+                                  bd=4,
+                                  activebackground=active_background_color)
+        pulsante_associa.grid(row=1, column=0)
+        pulsante_associa.config(height=6, width=24)
+
+        # LISTA ASSOCIAZIONI
         pulsante_associazioni = Button(frame,
                                        text="Lista Associazioni",
-                                       bg="red3",
+                                       bg=button_background_color,
                                        command=SchermateGUI.schermata_associazioni,
                                        font=font_piccolo,
+                                       fg=font_color,
                                        relief="ridge",
-                                       bd=20,
-                                       activebackground="red4")
+                                       bd=4,
+                                       activebackground=active_background_color)
         pulsante_associazioni.grid(row=1, column=1)
-        pulsante_associazioni.config(height=5, width=22)
+        pulsante_associazioni.config(height=6, width=24)
 
         #  metodo che importa il menu a cascata nel menu principale
         SchermateGUI.menu_cascata_menu_principale(root)
@@ -133,16 +145,17 @@ class SchermateGUI:
         '''
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg="orange")    
+        root.config(bg=root_background_color)
 
         frame = Frame(root)
-        frame.config(bg="orange")
+        frame.config(bg=root_background_color)
         frame.pack()
 
         label = Label(frame, text="Premi su Start per registrare",
-                      bg="orange",
+                      bg=root_background_color,
                       width=90, height=3,
-                      font=font_medio
+                      font=font_medio,
+                      fg="white"
                       )
         label.pack()
 
@@ -189,23 +202,25 @@ class SchermateGUI:
 
         pulsante_play = Button(frame,
                                text="Inizia a registrare",
-                               bg="green",
+                               bg=button_background_color,
                                command=lambda: start_recoding(name_recoded_file),
                                font=font_piccolo,
+                               fg=font_color,
                                relief="ridge",
                                bd=20,
-                               activebackground="green")
+                               activebackground=active_background_color)
         pulsante_play.config(height=5, width=23)
         pulsante_play.pack(side=LEFT)
 
         pulsante_stop = Button(frame,
                                text="Interrompi la registrazione",
-                               bg="firebrick3",
+                               bg=button_background_color,
                                command=lambda: stop_recording(),
                                font=font_piccolo,
+                               fg=font_color,
                                relief="ridge",
                                bd=20,
-                               activebackground="red")
+                               activebackground=active_background_color)
         pulsante_stop.config(height=5, width=23)
         pulsante_stop.pack(side=RIGHT)
 
@@ -217,38 +232,41 @@ class SchermateGUI:
     def esporta_importa():
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg="orange")
+        root.config(bg=root_background_color)
 
         frame=Frame(root)
-        frame.config(bg='orange')
+        frame.config(bg=root_background_color)
         frame.pack()
 
         label = Label(frame, text="Scegli l'azione desiderata",
-                      bg="orange",
+                      bg=root_background_color,
                       width=90, height=1,
-                      font=font_medio
+                      font=font_medio,
+                      fg="white"
                       )
         label.pack();
 
         pulsante_importa = Button(frame,
                                   text="Importa",
-                                  bg="goldenrod1",
+                                  bg=button_background_color,
                                   command=lambda:scegli_chiavetta_importa(),
                                   font=font_piccolo,
+                                  fg=font_color,
                                   relief="ridge",
                                   bd=20,
-                                  activebackground="Dark orange")
+                                  activebackground=active_background_color)
         pulsante_importa.pack(side=LEFT)
         pulsante_importa.config(height=5, width=22)
 
         pulsante_esporta = Button(frame,
                                   text="Esporta",
-                                  bg="tomato",
+                                  bg=button_background_color,
                                   command=lambda:scegli_chiavetta_esporta(),
                                   font=font_piccolo,
+                                  fg=font_color,
                                   relief="ridge",
                                   bd=20,
-                                  activebackground="tomato3")
+                                  activebackground=active_background_color)
         pulsante_esporta.pack(side=RIGHT)
         pulsante_esporta.config(height=5, width=22)
 
@@ -256,9 +274,9 @@ class SchermateGUI:
         def scegli_chiavetta_esporta():
             root = Tk()
             root.attributes('-fullscreen', True)
-            root.config(bg="DarkOrange1")
+            root.config(bg=root_background_color)
 
-            frame = Frame(root, bg="DarkOrange1")
+            frame = Frame(root, bg=root_background_color)
             frame.pack()
 
             # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
@@ -267,8 +285,9 @@ class SchermateGUI:
             label = Label(frame,
                           text="Selezionare la chiavetta su cui esportare i file audio",
                           bd=20,
-                          bg="DarkOrange1",
-                          font=font_piccolo)
+                          bg=root_background_color,
+                          font=font_piccolo,
+                          fg="white")
             label.grid(row=1, column=0)
             label.config(width=50, height=4)
 
@@ -277,7 +296,7 @@ class SchermateGUI:
             # ciclo che stampa tante "chiavette" quante inserite nel device
             for cartella in dirs:
                 path_chiavetta = os.path.join(path_punto_accesso_chiavette, cartella)
-                pulsante = SchermateGUI.button_USB_key(frame, "esporare", cartella,
+                pulsante = SchermateGUI.button_USB_key(frame, "esportare", cartella,
                                                        path_che_simula_la_memoria_interna_del_raspberry, path_chiavetta)
                 pulsante.grid(row=index, column=0)
                 index += 1
@@ -290,9 +309,9 @@ class SchermateGUI:
         def scegli_chiavetta_importa():
             root = Tk()
             root.attributes('-fullscreen', True)
-            root.config(bg="DarkOrange1")
+            root.config(bg=root_background_color)
 
-            frame = Frame(root, bg="DarkOrange1")
+            frame = Frame(root, bg=root_background_color)
             frame.pack()
 
             # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
@@ -300,8 +319,9 @@ class SchermateGUI:
 
             label = Label(frame, text="Selezionare la chiavetta da dove importare i file audio",
                           bd=20,
-                          bg="DarkOrange1",
-                          font=font_piccolo)
+                          bg=root_background_color,
+                          font=font_piccolo,
+                          fg="white")
             label.grid(row=1, column=0)
             label.config(width=50, height=4)
 
@@ -330,14 +350,16 @@ class SchermateGUI:
     def schermata_associazioni():
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg="DarkOrange1")
+
+        root.config(bg=root_background_color)
         current_list = fm.name_file
         frame = Frame(root)
-        frame.config(bg="DarkOrange1")
+        frame.config(bg=root_background_color)
+
 
         label_memo =Label(frame, text=current_list,
                           font=font_piccolo,
-                          bg="DarkOrange1",
+                          bg=root_background_color,
                           bd=20,
                           width=200,
                           height=2)
@@ -346,8 +368,9 @@ class SchermateGUI:
 
         my_list= Listbox(root,  #yscrollcommand = scrollbar.set ,
                          font=font_piccolo,
+                         fg="white",
                          width=90, height=8,
-                         bg="DarkOrange1",
+                         bg=root_background_color,
 
                          activestyle="none")
 
@@ -375,10 +398,10 @@ class SchermateGUI:
 
         frame = Frame(root)
 
-        text = Text(frame, wrap="none", bg="yellow")
+        text = Text(frame, wrap="none", bg=root_background_color)
         vsb = Scrollbar(frame, orient="vertical", command=text.yview,width=40)
         vsb.config(width=90)
-        text.configure(yscrollcommand=vsb.set,width=3,bg="yellow")
+        text.configure(yscrollcommand=vsb.set,width=3,bg=root_background_color)
         vsb.pack(side="left", fill="y")
         text.pack(side ="left",fill="both",expand=True)
 
@@ -386,9 +409,10 @@ class SchermateGUI:
                                   text="Torna \nindietro",
                                   command=lambda: close(root),
                                   bd=20,
-                                  bg="yellow",
+                                  bg=button_background_color,
                                   font=font_piccolo,
-                                  activebackground="yellow")
+                                  fg=font_color,
+                                  activebackground=active_background_color)
         pulstante_uscita.config(height=50, width=18)
 
         #  ciclo che crea "number_of_button" pulsanti
@@ -422,9 +446,9 @@ class SchermateGUI:
 
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg="Dark orange")
+        root.config(bg=root_background_color)
         frame = Frame(root)
-        frame.config(bg="Dark orange")
+        frame.config(bg=root_background_color)
         frame.pack()
         button_color= "orange"
 
@@ -434,7 +458,8 @@ class SchermateGUI:
                                 text=current_volume,
                                 font=font_grande,
                                 width=4,
-                                bg="Dark orange"
+                                bg=root_background_color,
+                                fg="white"
                                 )
         current_vol_label.grid(row=1, column=1)
 
@@ -442,12 +467,13 @@ class SchermateGUI:
         decrese_vol_button = Button(
                               frame,
                               text="-",
-                              font = font_grande,
+                              font=font_grande,
+                              fg=font_color,
                               command=decrese_and_change,
-                              bg=button_color,
+                              bg=button_background_color,
                               relief="ridge",
                               bd=10,
-                              activebackground=button_color)
+                              activebackground=active_background_color)
         decrese_vol_button.grid(row=1)
         decrese_vol_button.config(height=1, width=2)
 
@@ -455,10 +481,11 @@ class SchermateGUI:
         increse_vol_button = Button(
                               frame,
                               text="+",
-                              font = font_grande,
+                              font=font_grande,
+                              fg=font_color,
                               command=increse_and_change,
-                              bg=button_color,
-                              activebackground=button_color,
+                              bg=button_background_color,
+                              activebackground=active_background_color,
                               relief="ridge",
                               bd=10)
         increse_vol_button.grid(row=1, column=2)
@@ -468,7 +495,8 @@ class SchermateGUI:
                             text="Volume",
                             heigh=2,
                             font=font_medio,
-                            bg="Dark orange")
+                            fg="white",
+                            bg=root_background_color)
 
         scritta_vol.grid(row=0, column=1)
         SchermateGUI.exit_button_with_text(root, exit_text)
@@ -496,10 +524,10 @@ class SchermateGUI:
         dialog.overrideredirect(1)   # rimuove la barra che permetterebbe di chiudere la finestra appena creata
 
         label = Label(dialog, text=text,
-                      bg="blue",
+                      bg="#A5ACAF",
                       font=font_piccolo,
                       wraplength=500,
-                      bd=10,
+                      bd=4,
                       fg="white",
                       relief=GROOVE
                       )
@@ -528,23 +556,23 @@ class SchermateGUI:
 
         pulsante_spegni = Button(frame,
                                  text="Spegni",
-                                 bg="green",
-                                 command=lambda: subprocess.Popen(['shutdown', '-h', 'now']),
+                                 bg=button_background_color,
+                                 command=lambda: subprocess.Popen(['shutdown','-h','now']),
                                  font=font_piccolo,
                                  relief="ridge",
                                  bd=20,
-                                 activebackground="green")
+                                 activebackground=active_background_color)
         pulsante_spegni.config(height=5, width=23)
         pulsante_spegni.pack(side=LEFT)
 
         pulsante_annulla = Button(frame,
                                   text="Annulla",
-                                  bg="firebrick3",
+                                  bg=button_background_color,
                                   command=lambda: root.destroy(),
                                   font=font_piccolo,
                                   relief="ridge",
                                   bd=20,
-                                  activebackground="red")
+                                  activebackground=active_background_color)
         pulsante_annulla.config(height=5, width=23)  # altezza 5
         pulsante_annulla.pack(side=RIGHT)
         root.mainloop()
@@ -577,29 +605,28 @@ class SchermateGUI:
                      frame, text="Attenzione!\nVuoi eliminare\n"+nome_file+"  ?",
                      bg="orange",
                      width=90, height=3,
-                     font=font_medio
-                     )
+                     font=font_medio)
         label.pack()
 
         pulsante_elimina = Button(frame,
                                   text="Elimina",
-                                  bg="green",
+                                  bg=button_background_color,
                                   command=lambda:conferma_eliminazione(),
                                   font=font_piccolo,
                                   relief="ridge",
                                   bd=20,
-                                  activebackground="green")
+                                  activebackground=active_background_color)
         pulsante_elimina.config(height=5, width=23)
         pulsante_elimina.pack(side=LEFT)
 
         pulsante_annulla = Button(frame,
                                   text="Annulla",
-                                  bg="firebrick3",
+                                  bg=button_background_color,
                                   command=lambda:annulla_eliminiazione(),
                                   font=font_piccolo,
                                   relief="ridge",
                                   bd=20,
-                                  activebackground="red")
+                                  activebackground=active_background_color)
         pulsante_annulla.config(height=5, width=23)  # altezza 5
         pulsante_annulla.pack(side=RIGHT)
         root.mainloop()
@@ -610,10 +637,11 @@ class SchermateGUI:
         pulstante_uscita = Button(root,
                                   text=text,
                                   command=lambda: root.destroy(),
-                                  bg="yellow3",
+                                  bg=button_background_color,
                                   font=font_piccolo,
+                                  fg=font_color,
                                   bd=20,
-                                  activebackground="yellow3")
+                                  activebackground=active_background_color)
         pulstante_uscita.config(height=3, width=10)
         pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
     '''
@@ -644,10 +672,10 @@ class SchermateGUI:
         pulstante_uscita = Button(root,
                                   text="Torna al menu principale",
                                   command=lambda: SchermateGUI.menu_principale(),
-                                  bg="green",
+                                  bg=button_background_color,
                                   font=font_piccolo,
                                   bd=20,
-                                  activebackground="green")
+                                  activebackground=active_background_color)
         pulstante_uscita.config(height=2, width=25)
         pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
 
@@ -660,9 +688,10 @@ class SchermateGUI:
     def bottom_with_text(frame, text):
         pulsante = Button(frame,
                           text=text,
-                          bg="green",
+                          bg=button_background_color,
                           relief="ridge",
                           font=font_piccolo,
+                          fg=font_color,
                           bd=20,
                           command=lambda: SchermateGUI.show_file(text.replace("Pulsante","")),
                           activebackground="green",
@@ -677,10 +706,11 @@ class SchermateGUI:
     def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
 
         pulsante = Button(frame, text=nome_chiavetta,
-                          bg="yellow",
+                          bg=button_background_color,
                           font=font_piccolo,
+                          fg=font_color,
                           bd=20,
-                          activebackground="DarkOrange1",
+                          activebackground=active_background_color,
                           command=lambda: SchermateGUI.show_and_select_item_from_path(mod, path_origine, path_destinzaione)
                           )
         pulsante.config(width=40, height=3)
@@ -723,7 +753,11 @@ class SchermateGUI:
         scrollbar.pack(side=LEFT, fill=Y)
         formats = formats_audio
         mydict = {}
-        mylist = Listbox(root, yscrollcommand=scrollbar.set, font=font_piccolo, bg="pale green")
+        mylist = Listbox(root,
+                         yscrollcommand=scrollbar.set,
+                         font=font_piccolo,
+                         fg="white",
+                         bg=root_background_color)
         # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
         # e inserisce in mylist tutti i file con un'estensione contenuta in "formats"
         for radice, cartelle, files in os.walk(path_che_simula_la_memoria_interna_del_raspberry, topdown=False):
@@ -743,13 +777,13 @@ class SchermateGUI:
                                              text="Scegli il file \n"
                                              "che vuoi associare\n "
                                              "al Pulsante"+idButton+"\n"
-                                             "e poi clicca qui \n"
-                                             ,
+                                             "e poi clicca qui \n",
                                              command=lambda: bind_button(int(idButton), root),
-                                             bg="green",
+                                             bg=button_background_color,
                                              font=font_piccolo,
+                                             fg=font_color,
                                              bd=20,
-                                             activebackground="green")
+                                             activebackground=active_background_color)
         pulstante_associa_fileAudio.config(height=5, width=25)
         pulstante_associa_fileAudio.pack(side=TOP, fill=BOTH)
 
@@ -759,10 +793,11 @@ class SchermateGUI:
                                              "che vuoi eliminare\n"
                                              "e clicca qui",
                                              command=lambda: delete_item(root),
-                                             bg="red",
+                                             bg=button_background_color,
                                              bd=20,
-                                             activebackground="red",
-                                             font=font_piccolo)
+                                             activebackground=active_background_color,
+                                             font=font_piccolo,
+                                             fg=font_color)
         pulstante_elimina_fileAudio.config(height=4, width=25)
         pulstante_elimina_fileAudio.pack( fill=BOTH)
 
@@ -773,10 +808,16 @@ class SchermateGUI:
     def menu_cascata_menu_principale(master):
         # serve a rimuovere la riga tratteggiata che permette di spostare le ozioni col mouse
         master.option_add('*tearOff', FALSE)
-        menu=Menu(master, font=font_medio, bg="pale green",)
+        menu=Menu(master,
+                  font=font_medio,
+                  fg="white",
+                  bg=root_background_color,)
         master.config(menu=menu)
         # crea il menu a cascata
-        subMenu = Menu(menu, font=font_medio, bg="pale green",)
+        subMenu = Menu(menu,
+                       font=font_medio,
+                       fg="white",
+                       bg=root_background_color,)
         menu.add_cascade(label="Impostazioni", font=font_medio, menu=subMenu, )  # menu a cascata
         # riga di separazione
         subMenu.add_separator()
@@ -930,7 +971,12 @@ class SchermateGUI:
         label_info.pack()
         scrollbar = Scrollbar(root)
         scrollbar.pack(side=LEFT, fill=Y)
-        mylist = Listbox(root, yscrollcommand=scrollbar.set, selectmode=MULTIPLE, font=font_piccolo, bg="pale green")
+        mylist = Listbox(root,
+                         yscrollcommand=scrollbar.set,
+                         selectmode=MULTIPLE,
+                         font=font_piccolo,
+                         fg="white",
+                         bg=root_background_color)
         mydict = {}
 
         for radice, cartelle, files in os.walk(path_origine, topdown=False):
@@ -949,12 +995,14 @@ class SchermateGUI:
         testo_pulsante="Seleziona i file \nche desideri "+mod+"\ne poi clicca qui"
         pulstante_importa = Button(root,
                                    text=testo_pulsante,
-                                   bg="spring green",
+                                   bg=button_background_color,
                                    command=lambda: select_items_and_copy(root),
                                    font=font_piccolo,
+                                   fg=font_color,
                                    bd=40,
-                                   activebackground="green3")
+                                   activebackground=active_background_color)
         pulstante_importa.config(height=4, width=20)
+
         pulstante_importa.pack(side=TOP, fill=BOTH)
 
         pulstante_elimina = Button(root,
