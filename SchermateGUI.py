@@ -231,21 +231,6 @@ class SchermateGUI:
         subMenu.add_command(label="Chiudi programma", font=font_medio, command=master.destroy)
         subMenu.add_separator()
 
-    #  funzione per avere un pulsante di ritorno al menu ptincipale
-    def pulsante_torna_menu_principale(root):
-
-        pulstante_uscita = Button(root,
-                                  text="Torna al menu principale",
-                                  command=lambda: SchermateGUI.menu_principale(),
-                                  bg=button_background_color,
-                                  font=font_piccolo,
-                                  bd=20,
-                                  activebackground=active_background_color)
-        pulstante_uscita.config(height=2, width=25)
-        pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
-
-        root.destroy()
-
 
 
 #SchermateGUI.menu_principale()

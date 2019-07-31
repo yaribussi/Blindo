@@ -23,7 +23,7 @@ def give_sorted_list():
 
                 for audio in my_objects:
                     if str(audio.name) != "DEFAULT":
-                        formattedNumber = '{:5s}'.format(audio.idButton)
+                        formattedNumber = '{:5s}'.format(str(audio.idButton))
                         list.append("Pulsante "+formattedNumber+" ------->  " +str(audio.name)+ "\n")
 
                 
@@ -96,8 +96,4 @@ def save_file_audio(my_objects):
 def copy_file_from_path_to_another(initialPath, endingPath):
     shutil.copy(initialPath, endingPath)
 
-
-# funzione che serve a togliere tutti gli zero non significativi e arrotonda il numero trovato########
-def round_to_1(x):
-    return
 

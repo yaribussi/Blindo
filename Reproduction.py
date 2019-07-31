@@ -14,13 +14,6 @@ class Reproduction:
                 PM.init()
                 PM.music.load(path + "/" + audio.name)
                 PM.music.play()
-                messaggio ="In riproduzione il file audio: \n" + audio.name + " \nassociato al pulsante " + audio.idButton
-                #SchermateGUI.SchermateGUI.show_dialog_with_time("In riproduzione il file audio: \n" + audio.name + " \nassociato al pulsante " + audio.idButton, 2)
-                find = True
-        if find == False:
-            messaggio = "Attenzione: \nnessun file\nassociato a questo pulsante"
-            #SchermateGUI.SchermateGUI.show_dialog_with_time("Attenzione: \nnessun file\nassociato a questo pulsante", 2)
-        return messaggio
 
     # a seguire 2 funzioni per aumentare e diminuire il volume
     # ogni volta che vengono richiamate cambiano il valore del volume del 10 per cento

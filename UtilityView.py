@@ -97,7 +97,7 @@ def bottom_with_text(frame, text):
                               font=font_piccolo,
                               fg=font_color,
                               bd=20,
-                              command=lambda: show_file(text.replace("Pulsante ", " ")),
+                              command=lambda: show_file(text.replace("Pulsante ", "")),
                               activebackground=active_background_color,
                               activeforeground="black")
 
@@ -264,7 +264,7 @@ def show_file(idButton):
                                                  "al Pulsante"+idButton+"\n"
                                                  "e poi clicca qui \n"
                                                  ,
-                                                 command=lambda: bind_button(idButton, root),
+                                                 command=lambda: bind_button(int(idButton), root),
                                                  bg=button_background_color,
                                                  font=font_piccolo,
                                                  fg=font_color,
