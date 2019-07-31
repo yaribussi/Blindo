@@ -4,6 +4,7 @@ import Reproduction
 import GUIkeyboard as key
 import subprocess
 import os
+import time
 
 
 '''##############################################################################################################'''
@@ -11,9 +12,9 @@ import os
 '''###########    cambiare il path per poter utilizzare il programma sul proprio PC    ##########################'''
 '''##############################################################################################################'''
 
-#path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
-#path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
-
+path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
+path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
 '''##############################################################################################################'''
 '''
 ######                            ATTENZIONE                                              ###########
@@ -96,9 +97,10 @@ class SchermateGUI:
 
         # ASSOCIA
         pulsante_associa = Button(frame,
-                                  text="Associa",
+
+                                  text="Volume",
                                   bg=button_background_color,
-                                  command=lambda: SchermateGUI.schermata_pulsanti(root, number_of_phisical_button),
+                                  command=lambda:SchermateGUI.impostazioni(),
                                   font=font_piccolo,
                                   fg=font_color,
                                   relief="ridge",
@@ -134,6 +136,13 @@ class SchermateGUI:
 
     # schermata che appare dopo aver cliccato sul pulsante REGISTRA nel MENUPRINCIPALE
     def registra():
+        '''
+        def update_clock(self):
+            now = time.strftime("%H:%M:%S", time.gmtime())
+            self.clock.configure(text=now)
+            # call this function again in one second
+            self.after(1000, self.update_clock)
+        '''
         root = Tk()
         root.attributes('-fullscreen', True)
         root.config(bg=root_background_color)
@@ -292,7 +301,7 @@ class SchermateGUI:
                 pulsante.grid(row=index, column=0)
                 index += 1
 
-            SchermateGUI.exit_button_with_text(root, exit_text)
+            SchermateGUI.exit_button_with_text(root, "Torna indietro")
 
             root.mainloop()
 
@@ -329,7 +338,7 @@ class SchermateGUI:
                 pulsante.grid(row=index, column=0)
                 index += 1
 
-            SchermateGUI.exit_button_with_text(root, exit_text)
+            SchermateGUI.exit_button_with_text(root, "Torna indietro")
             root.mainloop()
             # END OF scegli_chiavetta_importa ######################
 
@@ -341,14 +350,15 @@ class SchermateGUI:
     def schermata_associazioni():
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg=root_background_color)
 
+        root.config(bg=root_background_color)
+        current_list = fm.name_file
         frame = Frame(root)
         frame.config(bg=root_background_color)
 
-        label_memo =Label(frame, text="Questi sono le associazioni\nScorri per vederle tutte",
-                          font=font_medio,
-                          fg="white",
+
+        label_memo =Label(frame, text=current_list,
+                          font=font_piccolo,
                           bg=root_background_color,
                           bd=20,
                           width=200,
@@ -371,14 +381,18 @@ class SchermateGUI:
 
         frame.pack()
         my_list.pack()
-        #SchermateGUI.menu_cascata_schermata_associazioni(root)
+        SchermateGUI.menu_cascata_schermata_associazioni(root)
         SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
 
     # Schermata che appare dopo aver cliccato su ASSOCIA nel MENU PRINCIPALE
     def schermata_pulsanti(closingroot, number_of_button):
 
-        closingroot.quit()
+        def close(root):
+            root.destroy()
+            SchermateGUI.schermata_associazioni()
+
+        closingroot.destroy()
         root = Tk()
         root.attributes('-fullscreen', True)
 
@@ -393,7 +407,7 @@ class SchermateGUI:
 
         pulstante_uscita = Button(frame,
                                   text="Torna \nindietro",
-                                  command=lambda: root.destroy(),
+                                  command=lambda: close(root),
                                   bd=20,
                                   bg=button_background_color,
                                   font=font_piccolo,
@@ -488,12 +502,7 @@ class SchermateGUI:
         SchermateGUI.exit_button_with_text(root, exit_text)
         root.mainloop()
 
-    def schermata_carica_lista():
-        print("HW")
-    def schermata_nuova_lista():
-        print("HW")
-    def schermata_elimina_lista():
-        print("HW")
+
 
 
     '''
@@ -593,7 +602,7 @@ class SchermateGUI:
         frame.pack()
 
         label = Label(
-                     frame, text="Vuoi eliminare il file\n"+nome_file+"  ?",
+                     frame, text="Attenzione!\nVuoi eliminare\n"+nome_file+"  ?",
                      bg="orange",
                      width=90, height=3,
                      font=font_medio)
@@ -635,7 +644,28 @@ class SchermateGUI:
                                   activebackground=active_background_color)
         pulstante_uscita.config(height=3, width=10)
         pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
+    '''
+    #  funzione per avere un pulsante di uscita dalla schermata attuale con testo variabile passato come param
+    def exit_button_with_text(root, text, mod_passed):
 
+        # mode can be : "associazioni" -->Sc
+        def close_and_open(mode):
+            root.destroy()
+            if 1
+                SchermateGUI.schermata_associazioni()
+            elif 2
+                SchermateGUI.impostazioni()
+
+        pulstante_uscita = Button(root,
+                                  text=text,
+                                  command=lambda: close_and_open(mod_passed)
+        bg = "yellow3",
+             font = font_piccolo,
+                    bd = 20,
+                         activebackground = "yellow3")
+        pulstante_uscita.config(height=3, width=10)
+        pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
+    '''
     #  funzione per avere un pulsante di ritorno al menu ptincipale
     def pulsante_torna_menu_principale(root):
 
@@ -773,6 +803,7 @@ class SchermateGUI:
 
         SchermateGUI.exit_button_with_text(root, "Torna alla lista pulsanti")
 
+
     # ###### funzione che permette di avere un menu a cascata con la funzione di uscire dal main program ##########
     def menu_cascata_menu_principale(master):
         # serve a rimuovere la riga tratteggiata che permette di spostare le ozioni col mouse
@@ -806,17 +837,92 @@ class SchermateGUI:
         master.config(menu=menu)
         # crea il menu a cascata
         subMenu = Menu(menu, font=font_medio, bg="pale green",)
-        menu.add_cascade(label="Impostazioni", font=font_medio, menu=subMenu, )  # menu a cascata
+        menu.add_cascade(label="Opzioni", font=font_medio, menu=subMenu, )  # menu a cascata
         # riga di separazione
         subMenu.add_separator()
-        subMenu.add_command(label="Nuova Lista     ", font=font_medio, command=lambda:SchermateGUI.schermata_nuova_lista())
+        subMenu.add_command(label="Nuova Lista     ", font=font_medio, command=lambda:SchermateGUI.new_list_view(master))
         subMenu.add_separator()
-        subMenu.add_command(label="Carica Lista    ", font=font_medio, command=lambda: SchermateGUI.schermata_carica_lista())
+        subMenu.add_command(label="Mostra Liste    ", font=font_medio, command=lambda: SchermateGUI.show_list(master))
         subMenu.add_separator()
-        subMenu.add_command(label="Modifica Lista", font=font_medio, command=lambda:SchermateGUI.schermata_pulsanti(master,6))
+        subMenu.add_command(label="Modifica Lista", font=font_medio, command=lambda:SchermateGUI.schermata_pulsanti(master,5))
         subMenu.add_separator()
-        subMenu.add_command(label="Elimina Lista", font=font_medio, command=lambda:SchermateGUI.schermata_elimina_lista())
-        subMenu.add_separator()
+
+    def new_list_view(root):
+        root.destroy()
+        new_list_name=key.keyBoard()
+        fm.create_list(new_list_name)
+        SchermateGUI.schermata_associazioni()
+
+    def show_list(closing_root):
+        closing_root.destroy()
+        def delete_item(root):
+            global asnwer
+            list_name = mylist.get('active')
+            SchermateGUI.elimina_file_con_conferma(list_name)
+
+            # se viene eliminata la lista che è momentaneamente caricata, il sw carica la lista di default
+            if asnwer == True:
+                os.remove(os.path.join(path_liste, list_name))
+                fm.delete_element_from_list(list_name)
+
+                #
+                if list_name == fm.name_file:
+                    fm.change_list('Lista di default')
+
+                # senza questo destroy l'eliminazione non avviene finchè il programma non viene chiuso
+                # questa tecnica è usata anche nella funzione select_items_and_copy
+                root.destroy()
+                SchermateGUI.schermata_associazioni()
+                # #############   END OF delete_item ####################
+
+        def upload_list(root):
+            list_name = mylist.get('active')
+            fm.change_list(list_name)
+            root.destroy()
+            SchermateGUI.schermata_associazioni()
+
+        #   START OF show_list
+        root = Tk()
+        root.attributes('-fullscreen', True)
+
+        scrollbar = Scrollbar(root)
+        scrollbar.config(width = 70)
+        scrollbar.pack(side=LEFT, fill=Y)
+
+        mylist = Listbox(root, yscrollcommand=scrollbar.set, font=font_piccolo, bg="pale green")
+
+        # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
+        # e inserisce in mylist tutti i file con un'estensione contenuta in "formats"
+        for lista in os.listdir(path_liste):
+            mylist.insert(END, lista)
+        mylist.pack(side=LEFT, fill=BOTH, expand=True)
+
+        mylist.pack(side=LEFT, fill=BOTH, expand=1, )
+        scrollbar.config(command=mylist.yview)
+
+        #  pulsante che si trova alla destra della lista di file audio NELLA schermata  ASSOCIA
+        pulstante_associa_fileAudio = Button(root,
+                                             text="CARICA LISTA",
+                                             command=lambda: upload_list(root) ,
+                                             bg="green",
+                                             font=font_piccolo,
+                                             bd=20,
+                                             activebackground="green")
+        pulstante_associa_fileAudio.config(height=5, width=25)
+        pulstante_associa_fileAudio.pack(side=TOP, fill=BOTH)
+
+        #  pulsante per eliminare i file audio selezionati     ###############
+        pulstante_elimina_fileAudio = Button(root,
+                                             text="ELIMINA LISTA",
+                                             command=lambda: delete_item(root),
+                                             bg="red",
+                                             bd=20,
+                                             activebackground="red",
+                                             font=font_piccolo)
+        pulstante_elimina_fileAudio.config(height=4, width=25)
+        pulstante_elimina_fileAudio.pack( fill=BOTH)
+
+        SchermateGUI.exit_button_with_text(root, "Torna al menu principale ")
 
     # ###########   schermata che stampa a video i file contenuti in un determinato path     ###############à
     def show_and_select_item_from_path(mod, path_origine, path_destinzaione):
@@ -837,10 +943,32 @@ class SchermateGUI:
             SchermateGUI.show_dialog_with_time("Operazione conclusa con successo",2)
             root.destroy()
             # ######                 END OF select_items_and_copy    ###################
+        def delete_selected_elements(root):
+            selected = [mylist.get(idx) for idx in mylist.curselection()]
+            number_of_deleted_file=len(selected)
+            if number_of_deleted_file==1:
+                SchermateGUI.elimina_file_con_conferma("il file audio selezionato")
+            else:
+
+                SchermateGUI.elimina_file_con_conferma(str(number_of_deleted_file)+" file audio")
+
+            if asnwer==True:
+
+                for file in selected:
+                    os.remove(os.path.join(path_origine, file))
+                root.destroy()
+            #SchermateGUI.show_and_select_item_from_path()
 
         root = Tk()
         root.attributes('-fullscreen', True)
         formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
+
+        label_info = Label(root, text=path_origine,
+                          bg="orange",
+                          width=90, height=3,
+                          font=font_piccolo
+                          )
+        label_info.pack()
         scrollbar = Scrollbar(root)
         scrollbar.pack(side=LEFT, fill=Y)
         mylist = Listbox(root,
@@ -861,7 +989,7 @@ class SchermateGUI:
         mylist.pack(side=LEFT, fill=BOTH, expand=True)
 
         scrollbar.config(width = 70, command=mylist.yview)
-        SchermateGUI.exit_button_with_text(root, "Indietro")
+        SchermateGUI.exit_button_with_text(root, "Torna indietro")
 
         # ############        caratteristiche pulsante IMPORTA/ESPORTA        ######################
         testo_pulsante="Seleziona i file \nche desideri "+mod+"\ne poi clicca qui"
@@ -873,8 +1001,19 @@ class SchermateGUI:
                                    fg=font_color,
                                    bd=40,
                                    activebackground=active_background_color)
-        pulstante_importa.config(height=10, width=20)
+        pulstante_importa.config(height=4, width=20)
+
         pulstante_importa.pack(side=TOP, fill=BOTH)
+
+        pulstante_elimina = Button(root,
+                                   text="Scegli il file \nche vuoi eliminare",
+                                   bg="red",
+                                   command=lambda: delete_selected_elements(root),
+                                   font=font_piccolo,
+                                   bd=40,
+                                   activebackground="green3")
+        pulstante_elimina.config(height=9, width=20)
+        pulstante_elimina.pack(side=TOP, fill=BOTH)
 
         root.mainloop()
 

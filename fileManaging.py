@@ -1,25 +1,29 @@
 import pickle as pk
 import os
 from fileAudio import FileAudio
-import pygame.mixer as PM
-from math import log10, floor
 import shutil
-import re
 
 
 # nome del file sul quale verranno salvati
 # (e dal quale verranno caricati) i fileAudio e i loro parametri#
-nameFile = 'lista finale'
+name_file = 'Lista di default'
+path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
 
+# path da abilitare su raspberry
+#path_liste = "/home/pi/Documents/Lists"
+
+def change_list(list_name):
+    global name_file
+    name_file = list_name
 
 # funzione che ritorna la lista delle stringhe dei fileAudio presenti in "lista finale" riordinata in base al numero del pulsante
 def give_sorted_list():
-
+    final_path = os.path.join(path_liste, name_file)
     list=[]
 
-    if os.path.isfile("./" + nameFile):
+    if os.path.isfile(final_path):
         try:
-            with open(nameFile, 'rb') as io:
+           with open(final_path, 'rb') as io:
                 my_objects = pk.load(io)
                 my_objects.sort(key=lambda x: int(str(x.idButton)))
 
@@ -36,15 +40,16 @@ def give_sorted_list():
 
 
 # funzione che elimina da lista finale i fileAudio che vengono eliminati tramite la GUI
-def delete_element_from_list(nomeFileDaRimuovere):
+def delete_element_from_list(nome_file_da_rimuovere): # aggiungere la liste da conytrollare come parametro
+    final_path = os.path.join(path_liste, name_file)
 
-     if os.path.isfile("./" + nameFile):
+    if os.path.isfile(final_path):
         try:
-            with open(nameFile, 'rb') as io:
+            with open(final_path, 'rb') as io:
                 my_objects = pk.load(io)
 
                 for audio in my_objects:
-                    if audio.name == nomeFileDaRimuovere:
+                    if audio.name == nome_file_da_rimuovere:
                         my_objects.remove(audio)
 
             save_file_audio(my_objects)
@@ -52,17 +57,25 @@ def delete_element_from_list(nomeFileDaRimuovere):
         except (FileNotFoundError, IOError) as e:
             print(e)
 
+def create_list(list_name):
+
+    global name_file
+    name_file=list_name
+    default = FileAudio('DEFAULT', 0)
+    my_objects = [default]
+    save_file_audio(my_objects)
 
 # binding between the button and the name of the file audio
 def bind(audio_name, id):
     # default element needed to pass through the list of file audio if it has only one element
-    default = FileAudio('DEFAULT', 0)
-    file_audio = FileAudio(audio_name,id)
 
-    my_objects = [default]
-    if os.path.isfile("./" + nameFile):
+    file_audio = FileAudio(audio_name, id)
+    final_path = os.path.join(path_liste, name_file)
+
+    if os.path.isfile(final_path):
         try:
-            with open(nameFile, 'rb') as io:
+            final_path = os.path.join(path_liste, name_file)
+            with open(final_path, 'rb') as io:
                 my_objects = pk.load(io)
 
                 for audio in my_objects:
@@ -81,7 +94,8 @@ def bind(audio_name, id):
 
 def load_list():
     try:
-        with open("lista finale", 'rb') as io:
+        final_path = os.path.join(path_liste, name_file)
+        with open(final_path, 'rb') as io:
             my_objects = pk.load(io)
     except (FileNotFoundError, IOError) as e:
         print(e)
@@ -90,7 +104,8 @@ def load_list():
 
 # funzione per salvare la lista di fileAudio come un unico oggetto con nome "lista finale" #####
 def save_file_audio(my_objects):
-    with open(nameFile, 'wb') as output:
+    final_path=os.path.join(path_liste, name_file)
+    with open(final_path, 'wb') as output:
         pk.dump(my_objects, output, -1)
 
 
