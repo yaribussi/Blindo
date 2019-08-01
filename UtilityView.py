@@ -135,6 +135,7 @@ def elimina_file_con_conferma(path, nome_file):
     label = Label(
         frame, text="Attenzione!\nVuoi eliminare\n" + nome_file + " ?",
         bg=SP.root_background_color,
+        fg=SP.white,
         width=90, height=3,
         font=SP.font_medio)
     label.pack()
@@ -144,6 +145,7 @@ def elimina_file_con_conferma(path, nome_file):
                               bg=SP.button_background_color,
                               command=lambda: confirmed_deletion(path, nome_file),
                               font=SP.font_piccolo,
+                              fg=SP.font_color,
                               relief="ridge",
                               bd=20,
                               activebackground=SP.active_background_color)
@@ -155,6 +157,7 @@ def elimina_file_con_conferma(path, nome_file):
                               bg=SP.button_background_color,
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
+                              fg=SP.font_color,
                               relief="ridge",
                               bd=20,
                               activebackground=SP.active_background_color)

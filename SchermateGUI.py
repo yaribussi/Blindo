@@ -162,7 +162,7 @@ class SchermateGUI:
         master.option_add('*tearOff', FALSE)
         menu = Menu(master,
                   font=SP.font_medio,
-                  fg=SP.font_color,
+                  fg=SP.white,
                   bg=SP.root_background_color,)
         master.config(menu=menu)
         # crea il menu a cascata

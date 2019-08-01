@@ -21,7 +21,7 @@ class ListAssociationView:
         label_memo = Label(frame, text=current_list,
                            font=SP.font_piccolo,
                            bg=SP.root_background_color,
-                           fg=SP.font_color,
+                           fg=SP.white,
                            bd=20,
                            width=200,
                            height=2)
@@ -91,13 +91,13 @@ class ListAssociationView:
         menu = Menu(master,
                     font=SP.font_medio,
                     bg=SP.root_background_color,
-                    fg=SP.font_color,)
+                    fg=SP.white,)
         master.config(menu=menu)
         # crea il menu a cascata
         subMenu = Menu(menu,
                        font=SP.font_medio,
                        bg=SP.root_background_color,
-                       fg=SP.font_color,)
+                       fg=SP.white,)
         menu.add_cascade(label="Opzioni",
                          font=SP.font_medio,
                          menu=subMenu, )  # menu a cascata
@@ -150,7 +150,7 @@ class ListAssociationView:
                          yscrollcommand=scrollbar.set,
                          font=SP.font_piccolo,
                          bg=SP.root_background_color,
-                         fg=SP.font_color,)
+                         fg=SP.white,)
 
         # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
         # e inserisce in mylist tutti i file con un'estensione contenuta in "formats"
