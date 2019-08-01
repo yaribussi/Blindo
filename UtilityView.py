@@ -413,9 +413,9 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                                command=lambda: select_items_and_copy(root),
                                font=SP.font_piccolo,
                                fg=SP.button_font_color,
-                               bd=40,
+                               bd=4,
                                activebackground=SP.active_background_color)
-    pulstante_importa.config(height=4, width=20)
+    pulstante_importa.config(height=3, width=20)
 
     pulstante_importa.pack(side=TOP, fill=BOTH)
 
@@ -427,9 +427,9 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                                    fg=SP.button_font_color,
                                    command=lambda: delete_selected_elements(root),
                                    font=SP.font_piccolo,
-                                   bd=20,
+                                   bd=4,
                                    activebackground=SP.active_background_color)
-        pulstante_elimina.config(height=9, width=20)
+        pulstante_elimina.config(height=4, width=20)
         pulstante_elimina.pack(side=TOP, fill=BOTH)
 
     root.mainloop()
