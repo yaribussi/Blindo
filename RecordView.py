@@ -1,5 +1,5 @@
 #da commentare per la versione PC
-import registrazione as reg
+#import registrazione as reg
 
 
 from tkinter import *

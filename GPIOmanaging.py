@@ -1,8 +1,5 @@
 import RPi.GPIO as GPIO
-from ButtonController import Button_controller as bc
 import UtilityView as uv
-import ButtonController
-import SchermateGUI
 import Pause
 import fileManaging as fm
 import registrazione
@@ -13,8 +10,8 @@ import os
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 
-path= "/home/pi/Documents/fileAudio"
-pathfileaudio="/home/pi/Documents/fileAudio"
+path = "/home/pi/Documents/fileAudio"
+pathfileaudio = "/home/pi/Documents/fileAudio"
 
 
 '''

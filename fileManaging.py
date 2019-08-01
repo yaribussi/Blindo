@@ -39,8 +39,9 @@ def delete_element_from_list(nome_file_da_rimuovere, nome_lista): # aggiungere l
 
     # final_path_element = os.path.join(SP.path_liste, nome_file_da_rimuovere)
     final_path_list = os.path.join(SP.path_liste, nome_lista)
-    print(final_path_list)
+    #print(final_path_list)
 
+    my_objects=[]
     if os.path.isfile(final_path_list):
 
         try:
@@ -50,21 +51,20 @@ def delete_element_from_list(nome_file_da_rimuovere, nome_lista): # aggiungere l
                 for audio in my_objects:
                     if audio.name == nome_file_da_rimuovere:
                         my_objects.remove(audio)
-                        print(audio.name)
+                        #print(audio.name)
 
-            save_file_audio(my_objects)
+            save_file_audio_list(my_objects, nome_lista)
 
         except (FileNotFoundError, IOError) as e:
             print(e)
 
 
+
 def create_list(list_name):
 
-    global name_file
-    name_file = list_name
     default = FileAudio('DEFAULT', 0)
     my_objects = [default]
-    save_file_audio(my_objects)
+    save_file_audio_list(my_objects, list_name)
 
 
 # binding between the button and the name of the file audio
@@ -107,6 +107,11 @@ def load_list():
 # funzione per salvare la lista di fileAudio come un unico oggetto con nome "lista finale" #####
 def save_file_audio(my_objects):
     final_path = os.path.join(SP.path_liste, name_file)
+    with open(final_path, 'wb') as output:
+        pk.dump(my_objects, output, -1)
+
+def save_file_audio_list(my_objects, name_list):
+    final_path = os.path.join(SP.path_liste, name_list)
     with open(final_path, 'wb') as output:
         pk.dump(my_objects, output, -1)
 

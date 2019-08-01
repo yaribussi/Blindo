@@ -21,6 +21,7 @@ class ListAssociationView:
         label_memo = Label(frame, text=current_list,
                            font=SP.font_piccolo,
                            bg=SP.root_background_color,
+                           fg=SP.font_color,
                            bd=20,
                            width=200,
                            height=2)
@@ -87,18 +88,26 @@ class ListAssociationView:
     def menu_cascata_schermata_associazioni(master):
         # serve a rimuovere la riga tratteggiata che permette di spostare le ozioni col mouse
         master.option_add('*tearOff', FALSE)
-        menu = Menu(master, font=SP.font_medio, bg=SP.root_background_color)
+        menu = Menu(master,
+                    font=SP.font_medio,
+                    bg=SP.root_background_color,
+                    fg=SP.font_color,)
         master.config(menu=menu)
         # crea il menu a cascata
-        subMenu = Menu(menu, font=SP.font_medio, bg=SP.root_background_color)
-        menu.add_cascade(label="Opzioni", font=SP.font_medio, menu=subMenu, )  # menu a cascata
+        subMenu = Menu(menu,
+                       font=SP.font_medio,
+                       bg=SP.root_background_color,
+                       fg=SP.font_color,)
+        menu.add_cascade(label="Opzioni",
+                         font=SP.font_medio,
+                         menu=subMenu, )  # menu a cascata
         # riga di separazione
         subMenu.add_separator()
         subMenu.add_command(label="Nuova Lista     ", font=SP.font_medio, command=lambda:ListAssociationView.new_list_view(master))
         subMenu.add_separator()
         subMenu.add_command(label="Mostra Liste    ", font=SP.font_medio, command=lambda: ListAssociationView.show_list(master))
         subMenu.add_separator()
-        subMenu.add_command(label="Modifica Lista", font=SP.font_medio, command=lambda:ListAssociationView.schermata_pulsanti(master,5))
+        subMenu.add_command(label="Modifica Lista",   font=SP.font_medio, command=lambda:ListAssociationView.schermata_pulsanti(master,5))
         subMenu.add_separator()
 
     def new_list_view(root):
@@ -137,7 +146,11 @@ class ListAssociationView:
         scrollbar.config(width = 70)
         scrollbar.pack(side=LEFT, fill=Y)
 
-        mylist = Listbox(root, yscrollcommand=scrollbar.set, font=SP.font_piccolo, bg=SP.root_background_color)
+        mylist = Listbox(root,
+                         yscrollcommand=scrollbar.set,
+                         font=SP.font_piccolo,
+                         bg=SP.root_background_color,
+                         fg=SP.font_color,)
 
         # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
         # e inserisce in mylist tutti i file con un'estensione contenuta in "formats"
@@ -152,8 +165,9 @@ class ListAssociationView:
         pulstante_associa_fileAudio = Button(root,
                                              text="CARICA LISTA",
                                              command=lambda: upload_list(root) ,
-                                             bg=SP.root_background_color,
+                                             bg=SP.button_background_color,
                                              font=SP.font_piccolo,
+                                             fg=SP.font_color,
                                              bd=20,
                                              activebackground=SP.root_background_color)
         pulstante_associa_fileAudio.config(height=5, width=25)
@@ -163,10 +177,11 @@ class ListAssociationView:
         pulstante_elimina_fileAudio = Button(root,
                                              text="ELIMINA LISTA",
                                              command=lambda: delete_item(root),
-                                             bg=SP.root_background_color,
+                                             bg=SP.button_background_color,
                                              bd=20,
                                              activebackground=SP.root_background_color,
-                                             font=SP.font_piccolo)
+                                             font=SP.font_piccolo,
+                                             fg=SP.font_color)
         pulstante_elimina_fileAudio.config(height=4, width=25)
         pulstante_elimina_fileAudio.pack( fill=BOTH)
 

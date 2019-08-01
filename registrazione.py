@@ -1,5 +1,4 @@
 import Recorder
-import pyaudio
 from Recorder import *
 
 

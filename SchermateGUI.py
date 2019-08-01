@@ -34,7 +34,7 @@ class SchermateGUI:
         pulsante_importa_esporta = Button(frame,
                                           text="Importa/Esporta ",
                                           bg=SP.button_background_color,
-                                          command=lambda :iev.import_export(SP.path_punto_accesso_chiavette,
+                                          command=lambda:iev.import_export(SP.path_punto_accesso_chiavette,
                                                                             SP.path_che_simula_la_memoria_interna_del_raspberry),
                                           font=SP.font_piccolo,
                                           fg=SP.font_color,
@@ -124,7 +124,8 @@ class SchermateGUI:
                               bg=SP.button_background_color,
                               relief="ridge",
                               bd=10,
-                              activebackground=SP.active_background_color)
+                              activebackground=SP.active_background_color,
+                              activeforeground=SP.font_color)
         decrese_vol_button.grid(row=1)
         decrese_vol_button.config(height=1, width=2)
 
@@ -137,6 +138,7 @@ class SchermateGUI:
                               command=increse_and_change,
                               bg=SP.button_background_color,
                               activebackground=SP.active_background_color,
+                              activeforeground=SP.font_color,
                               relief="ridge",
                               bd=10)
         increse_vol_button.grid(row=1, column=2)
@@ -160,7 +162,7 @@ class SchermateGUI:
         master.option_add('*tearOff', FALSE)
         menu = Menu(master,
                   font=SP.font_medio,
-                  fg="white",
+                  fg=SP.font_color,
                   bg=SP.root_background_color,)
         master.config(menu=menu)
         # crea il menu a cascata

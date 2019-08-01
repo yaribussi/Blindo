@@ -114,7 +114,8 @@ def spegni_con_conferma():
 def elimina_file_con_conferma(path, nome_file):
 
     def confirmed_deletion(path, nome_file):
-        fm.delete_element_from_list(nome_file,fm.name_file)
+        for list in os.listdir(SP.path_liste):
+            fm.delete_element_from_list(nome_file, list)
         os.remove(os.path.join(path, nome_file))
         root.quit()
         root.destroy()
@@ -187,8 +188,9 @@ def elimina_file_con_conferma_multipla(selected_file):
     frame.pack()
 
     label = Label(
-        frame, text="Attenzione!\nVuoi eleiminare " +str(len(selected_file))+"?",
+        frame, text="Attenzione!\nVuoi eliminare " +str(len(selected_file))+" file audio?",
         bg=SP.root_background_color,
+        fg=SP.font_color,
         width=90, height=3,
         font=SP.font_medio)
     label.pack()
@@ -196,6 +198,7 @@ def elimina_file_con_conferma_multipla(selected_file):
     pulsante_elimina = Button(frame,
                               text="Elimina",
                               bg=SP.button_background_color,
+                              fg=SP.font_color,
                               command=lambda: confirmed_deletion(),
                               font=SP.font_piccolo,
                               relief="ridge",
@@ -207,6 +210,7 @@ def elimina_file_con_conferma_multipla(selected_file):
     pulsante_annulla = Button(frame,
                               text="Annulla",
                               bg=SP.button_background_color,
+                              fg=SP.font_color,
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
                               relief="ridge",
@@ -231,7 +235,7 @@ def show_file(idButton):
 
     #   funzione che elimina l'elemento selezionato dopo aver chiesto all'utente      #########
     def delete_item(root):
-
+        #for list in os.listdir(PS)
         song_name = mylist.get('active')
         elimina_file_con_conferma(SP.path_che_simula_la_memoria_interna_del_raspberry,song_name)
         root.destroy()
@@ -328,14 +332,14 @@ def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
                       fg=SP.font_color,
                       bd=20,
                       activebackground=SP.active_background_color,
-                      command=lambda: show_and_select_item_from_path(mod, path_origine, path_destinzaione)
+                      command=lambda: show_and_select_item_from_path(mod, path_origine, path_destinzaione,nome_chiavetta)
                       )
     pulsante.config(width=40, height=3)
     return pulsante
 
 
 # schermata che stampa a video i file contenuti in un determinato path
-def show_and_select_item_from_path(mod, path_origine, path_destinzaione):
+def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_chiavetta):
     #     funzione che copia la lista dei file selizionati in un'altra directory
     #     dall'utente nella schermata IMPORTA, dopo aver cliccato sul pulsante
     #     avnte la scritta, appunto IMPORTA
@@ -364,8 +368,14 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione):
     root.attributes('-fullscreen', True)
     formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
 
-    label_info = Label(root, text=path_origine,
+    if mod=="esportare":
+        text_layer="Memoria interna"
+    else:
+        text_layer = nome_chiavetta
+
+    label_info = Label(root, text=text_layer,
                        bg=SP.root_background_color,
+                       fg=SP.font_color,
                        width=90, height=3,
                        font=SP.font_piccolo
                        )
@@ -407,13 +417,14 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione):
     pulstante_importa.pack(side=TOP, fill=BOTH)
 
     # visualizza il pulsante solo in modalità esporta
-    if mod =="esportare...":
+    if mod =="esportare":
         pulstante_elimina = Button(root,
                                    text="Scegli il file \nche vuoi eliminare",
                                    bg=SP.button_background_color,
+                                   fg=SP.font_color,
                                    command=lambda: delete_selected_elements(root),
                                    font=SP.font_piccolo,
-                                   bd=40,
+                                   bd=20,
                                    activebackground=SP.active_background_color)
         pulstante_elimina.config(height=9, width=20)
         pulstante_elimina.pack(side=TOP, fill=BOTH)
