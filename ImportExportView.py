@@ -20,7 +20,7 @@ class ImportExportView:
                       bg=SP.root_background_color,
                       width=90, height=1,
                       font=SP.font_medio,
-                      fg="white"
+                      fg=SP.root_font_color
                       )
         label.pack();
 
@@ -29,7 +29,7 @@ class ImportExportView:
                                   bg=SP.button_background_color,
                                   command=lambda: scegli_chiavetta_importa(),
                                   font=SP.font_piccolo,
-                                  fg=SP.font_color,
+                                  fg=SP.button_font_color,
                                   relief="ridge",
                                   bd=20,
                                   activebackground=SP.active_background_color)
@@ -41,7 +41,7 @@ class ImportExportView:
                                   bg=SP.button_background_color,
                                   command=lambda: scegli_chiavetta_esporta(),
                                   font=SP.font_piccolo,
-                                  fg=SP.font_color,
+                                  fg=SP.button_font_color,
                                   relief="ridge",
                                   bd=20,
                                   activebackground=SP.active_background_color)
@@ -65,7 +65,7 @@ class ImportExportView:
                           bd=20,
                           bg=SP.root_background_color,
                           font=SP.font_piccolo,
-                          fg="white")
+                          fg=SP.root_font_color)
             label.grid(row=1, column=0)
             label.config(width=50, height=4)
 
@@ -99,7 +99,7 @@ class ImportExportView:
                           bd=20,
                           bg=SP.root_background_color,
                           font=SP.font_piccolo,
-                          fg="white")
+                          fg=SP.root_font_color)
             label.grid(row=1, column=0)
             label.config(width=50, height=4)
 

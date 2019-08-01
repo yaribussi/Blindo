@@ -47,9 +47,9 @@ def close(root):
 
 def HosoPop(kb):
 	key_background = SP.button_background_color
-	key_foreground = SP.font_color
+	key_foreground = SP.button_font_color
 	key_active_background = SP.active_background_color
-	key_active_foreground = SP.white
+	key_active_foreground = SP.root_font_color
 	key_relief = 'raised'
 	key_font = ("Helvetica", 13)
 
@@ -128,7 +128,7 @@ def keyBoard():
 	label_text = "Scegli con che nome vuoi salvare il file"
 
 	entry_font = ("Helvetica",30)
-	entry_background = "white"
+	entry_background = SP.root_font_color
 	entry_foreground = "black"
 	kb = tkinter.Tk()
 
@@ -139,7 +139,7 @@ def keyBoard():
 						text=label_text,
 						font=label_font,
 						bg=label_bg_color,
-                                                fg="white")
+                        fg=SP.root_font_color)
 	label_scritta.grid(row=0,column=1, columnspan=11)
 
 	global entry

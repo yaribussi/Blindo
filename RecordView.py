@@ -27,7 +27,7 @@ class RecordView:
                       width=90,
                       height=3,
                       font=SP.font_medio,
-                      fg=SP.white
+                      fg=SP.root_font_color
                       )
         label.pack()
 
@@ -77,7 +77,7 @@ class RecordView:
                                bg=SP.button_background_color,
                                command=lambda: start_recoding(SP.name_recoded_file),
                                font=SP.font_piccolo,
-                               fg=SP.font_color,
+                               fg=SP.button_font_color,
                                relief="ridge",
                                bd=20,
                                activebackground=SP.active_background_color)
@@ -89,7 +89,7 @@ class RecordView:
                                bg=SP.button_background_color,
                                command=lambda: stop_recording(),
                                font=SP.font_piccolo,
-                               fg=SP.font_color,
+                               fg=SP.button_font_color,
                                relief="ridge",
                                bd=20,
                                activebackground=SP.active_background_color)

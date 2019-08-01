@@ -23,7 +23,7 @@ class SchermateGUI:
                                   bg=SP.button_background_color,
                                   command=lambda:rv.registra(SP.path_che_simula_la_memoria_interna_del_raspberry),
                                   font=SP.font_piccolo,
-                                  fg=SP.font_color,
+                                  fg=SP.button_font_color,
                                   relief="ridge",
                                   bd=4,
                                   activebackground=SP.active_background_color)
@@ -37,7 +37,7 @@ class SchermateGUI:
                                           command=lambda:iev.import_export(SP.path_punto_accesso_chiavette,
                                                                             SP.path_che_simula_la_memoria_interna_del_raspberry),
                                           font=SP.font_piccolo,
-                                          fg=SP.font_color,
+                                          fg=SP.button_font_color,
                                           relief="ridge",
                                           bd=4,
                                           activebackground=SP.active_background_color)
@@ -50,7 +50,7 @@ class SchermateGUI:
                                   bg=SP.button_background_color,
                                   command=lambda:SchermateGUI.impostazioni(),
                                   font=SP.font_piccolo,
-                                  fg=SP.font_color,
+                                  fg=SP.button_font_color,
                                   relief="ridge",
                                   bd=4,
                                   activebackground=SP.active_background_color)
@@ -63,7 +63,7 @@ class SchermateGUI:
                                        bg=SP.button_background_color,
                                        command=lav.schermata_associazioni,
                                        font=SP.font_piccolo,
-                                       fg=SP.font_color,
+                                       fg=SP.button_font_color,
                                        relief="ridge",
                                        bd=4,
                                        activebackground=SP.active_background_color)
@@ -110,7 +110,7 @@ class SchermateGUI:
                                 font=SP.font_grande,
                                 width=4,
                                 bg=SP.root_background_color,
-                                fg="white"
+                                fg=SP.root_font_color
                                 )
         current_vol_label.grid(row=1, column=1)
 
@@ -119,13 +119,13 @@ class SchermateGUI:
                               frame,
                               text="-",
                               font=SP.font_grande,
-                              fg=SP.font_color,
+                              fg=SP.button_font_color,
                               command=decrese_and_change,
                               bg=SP.button_background_color,
                               relief="ridge",
                               bd=10,
                               activebackground=SP.active_background_color,
-                              activeforeground=SP.font_color)
+                              activeforeground=SP.button_font_color)
         decrese_vol_button.grid(row=1)
         decrese_vol_button.config(height=1, width=2)
 
@@ -134,11 +134,11 @@ class SchermateGUI:
                               frame,
                               text="+",
                               font=SP.font_grande,
-                              fg=SP.font_color,
+                              fg=SP.button_font_color,
                               command=increse_and_change,
                               bg=SP.button_background_color,
                               activebackground=SP.active_background_color,
-                              activeforeground=SP.font_color,
+                              activeforeground=SP.button_font_color,
                               relief="ridge",
                               bd=10)
         increse_vol_button.grid(row=1, column=2)
@@ -148,7 +148,7 @@ class SchermateGUI:
                             text="Volume",
                             heigh=2,
                             font=SP.font_medio,
-                            fg="white",
+                            fg=SP.root_font_color,
                             bg=SP.root_background_color)
 
         scritta_vol.grid(row=0, column=1)
@@ -161,15 +161,15 @@ class SchermateGUI:
         # serve a rimuovere la riga tratteggiata che permette di spostare le ozioni col mouse
         master.option_add('*tearOff', FALSE)
         menu = Menu(master,
-                  font=SP.font_medio,
-                  fg=SP.white,
-                  bg=SP.root_background_color,)
+                    font=SP.font_medio,
+                    fg=SP.root_font_color,
+                    bg=SP.root_background_color, )
         master.config(menu=menu)
         # crea il menu a cascata
         subMenu = Menu(menu,
                        font=SP.font_medio,
-                       fg=SP.white,
-                       bg=SP.root_background_color,)
+                       fg=SP.root_font_color,
+                       bg=SP.root_background_color, )
         menu.add_cascade(label="Impostazioni", font=SP.font_medio, menu=subMenu, )  # menu a cascata
         # riga di separazione
         subMenu.add_separator()

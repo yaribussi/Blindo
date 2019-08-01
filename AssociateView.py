@@ -27,7 +27,7 @@ class AssociateView:
                                   bd=20,
                                   bg=SP.button_background_color,
                                   font=SP.font_piccolo,
-                                  fg=SP.font_color,
+                                  fg=SP.button_font_color,
                                   activebackground=SP.active_background_color)
         pulstante_uscita.config(height=50, width=18)
 

@@ -32,9 +32,9 @@ font_grande = (font_stile, font_size_grande)
 button_background_color = "#404040"
 active_background_color="#C8D7DC"
 root_background_color = "#708090"
-font_color = "#E0E0E0"
+button_font_color = "#E0E0E0"
 pop_up_colour_background="#505050" #"#A5ACAF"
-white="white"
+root_font_color= "white"
 black="black"
 exit_text= "Torna al menu principale"
 

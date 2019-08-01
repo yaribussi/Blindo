@@ -21,7 +21,7 @@ class ListAssociationView:
         label_memo = Label(frame, text=current_list,
                            font=SP.font_piccolo,
                            bg=SP.root_background_color,
-                           fg=SP.white,
+                           fg=SP.root_font_color,
                            bd=20,
                            width=200,
                            height=2)
@@ -30,10 +30,9 @@ class ListAssociationView:
 
         my_list = Listbox(root,  # yscrollcommand = scrollbar.set ,
                           font=SP.font_piccolo,
-                          fg="white",
+                          fg=SP.root_font_color,
                           width=90, height=8,
                           bg=SP.root_background_color,
-
                           activestyle="none")
 
         for audio in sorted_list:
@@ -69,7 +68,7 @@ class ListAssociationView:
                                   bd=20,
                                   bg=SP.button_background_color,
                                   font=SP.font_piccolo,
-                                  fg=SP.font_color,
+                                  fg=SP.button_font_color,
                                   activebackground=SP.active_background_color)
         pulstante_uscita.config(height=50, width=18)
 
@@ -91,13 +90,13 @@ class ListAssociationView:
         menu = Menu(master,
                     font=SP.font_medio,
                     bg=SP.root_background_color,
-                    fg=SP.white,)
+                    fg=SP.root_font_color, )
         master.config(menu=menu)
         # crea il menu a cascata
         subMenu = Menu(menu,
                        font=SP.font_medio,
                        bg=SP.root_background_color,
-                       fg=SP.white,)
+                       fg=SP.root_font_color, )
         menu.add_cascade(label="Opzioni",
                          font=SP.font_medio,
                          menu=subMenu, )  # menu a cascata
@@ -150,7 +149,7 @@ class ListAssociationView:
                          yscrollcommand=scrollbar.set,
                          font=SP.font_piccolo,
                          bg=SP.root_background_color,
-                         fg=SP.white,)
+                         fg=SP.root_font_color, )
 
         # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
         # e inserisce in mylist tutti i file con un'estensione contenuta in "formats"
@@ -164,10 +163,10 @@ class ListAssociationView:
         #  pulsante che si trova alla destra della lista di file audio NELLA schermata  ASSOCIA
         pulstante_associa_fileAudio = Button(root,
                                              text="CARICA LISTA",
-                                             command=lambda: upload_list(root) ,
+                                             command=lambda: upload_list(root),
                                              bg=SP.button_background_color,
                                              font=SP.font_piccolo,
-                                             fg=SP.font_color,
+                                             fg=SP.button_font_color,
                                              bd=20,
                                              activebackground=SP.root_background_color)
         pulstante_associa_fileAudio.config(height=5, width=25)
@@ -181,7 +180,7 @@ class ListAssociationView:
                                              bd=20,
                                              activebackground=SP.root_background_color,
                                              font=SP.font_piccolo,
-                                             fg=SP.font_color)
+                                             fg=SP.button_font_color)
         pulstante_elimina_fileAudio.config(height=4, width=25)
         pulstante_elimina_fileAudio.pack( fill=BOTH)
 
