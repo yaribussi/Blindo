@@ -50,6 +50,8 @@ GPIO.setup(red_led, GPIO.OUT)
 
 
 levetta_registrazione_attivata=False
+
+# accendo il led verde all'avvio
 GPIO.output(green_led, GPIO.HIGH)
 GPIO.output(red_led, GPIO.LOW)
 
@@ -58,8 +60,8 @@ def falling(channel, id_button):
 
     registrazione.stop()
     
-    recoded_name_file="audio_pulsante_"+str(id_button)+".wav"
-    fm.bind(recoded_name_file,id_button)
+    recoded_name_file = "audio_pulsante_"+str(id_button)+".wav"
+    fm.bind(recoded_name_file, id_button)
     
     GPIO.remove_event_detect(channel)
     GPIO.add_event_detect(channel, GPIO.RISING, callback=lambda x: rising(channel, id_button), bouncetime=100)
@@ -103,7 +105,7 @@ def turn_off_device(pulsante):
 
 
 def interrupt():
-    for i in range(5): #6
+    for i in range(5):
         GPIO.add_event_detect(pulsanti[i], GPIO.RISING, callback=lambda x,  button=i+1, channel=pulsanti[i]: rising(channel, button), bouncetime=300)
 
     GPIO.add_event_detect(pulsante_levetta_registrazione, GPIO.RISING, callback=levetta_registrazione, bouncetime=300)
@@ -111,8 +113,6 @@ def interrupt():
     GPIO.add_event_detect(pulsante_pause, GPIO.RISING, callback=my_play_and_pause, bouncetime=300)
 
     GPIO.add_event_detect(quit_device_button, GPIO.FALLING, callback=turn_off_device, bouncetime=3000)
-
-
 
 
 bc_object = bc(Pause.Pause())

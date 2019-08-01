@@ -1,30 +1,14 @@
-from tkinter import *
 #da commentare per la versione PC
 #import registrazione as reg
+
+
+from tkinter import *
 import GUIkeyboard as key
 import UtilityView as uv
+import StaticParameter as SP
 import os
 
 recording = False
-
-# caratteristiche font
-font_size_piccolo = 20
-font_size_medio   = 33
-font_size_grande  = 80
-font_stile = "Helvetica"
-font_piccolo = (font_stile, font_size_piccolo)
-font_medio = (font_stile, font_size_medio)
-font_grande = (font_stile, font_size_grande)
-
-button_background_color = "#404040"
-active_background_color="#C8D7DC"
-root_background_color = "#708090"
-font_color = "#E0E0E0"
-
-exit_text= "Torna al menu principale"
-
-# nome di default del file registrato
-name_recoded_file= "/reg.wav"
 
 
 class RecordView:
@@ -32,17 +16,18 @@ class RecordView:
     def registra(path_che_simula_la_memoria_interna_del_raspberry):
         root = Tk()
         root.attributes('-fullscreen', True)
-        root.config(bg=root_background_color)
+        root.config(bg=SP.root_background_color)
 
         frame = Frame(root)
-        frame.config(bg=root_background_color)
+        frame.config(bg=SP.root_background_color)
         frame.pack()
 
         label = Label(frame, text="Premi su Start per registrare",
-                      bg=root_background_color,
-                      width=90, height=3,
-                      font=font_medio,
-                      fg="white"
+                      bg=SP.root_background_color,
+                      width=90,
+                      height=3,
+                      font=SP.font_medio,
+                      fg=SP.white
                       )
         label.pack()
 
@@ -89,28 +74,28 @@ class RecordView:
 
         pulsante_play = Button(frame,
                                text="Inizia a registrare",
-                               bg=button_background_color,
-                               command=lambda: start_recoding(name_recoded_file),
-                               font=font_piccolo,
-                               fg=font_color,
+                               bg=SP.button_background_color,
+                               command=lambda: start_recoding(SP.name_recoded_file),
+                               font=SP.font_piccolo,
+                               fg=SP.font_color,
                                relief="ridge",
                                bd=20,
-                               activebackground=active_background_color)
+                               activebackground=SP.active_background_color)
         pulsante_play.config(height=5, width=23)
         pulsante_play.pack(side=LEFT)
 
         pulsante_stop = Button(frame,
                                text="Interrompi la registrazione",
-                               bg=button_background_color,
+                               bg=SP.button_background_color,
                                command=lambda: stop_recording(),
-                               font=font_piccolo,
-                               fg=font_color,
+                               font=SP.font_piccolo,
+                               fg=SP.font_color,
                                relief="ridge",
                                bd=20,
-                               activebackground=active_background_color)
+                               activebackground=SP.active_background_color)
         pulsante_stop.config(height=5, width=23)
         pulsante_stop.pack(side=RIGHT)
 
-        uv.exit_button_with_text(root, exit_text)
+        uv.exit_button_with_text(root, SP.exit_text)
 
         root.mainloop()

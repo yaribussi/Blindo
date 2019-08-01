@@ -6,7 +6,7 @@ Version 1.0
 
 from tkinter import *
 import tkinter
-
+import StaticParameter as SP
 
 
 buttons = [
@@ -36,20 +36,22 @@ def select(value):
 	#elif value == "INVIO":
 	else :
 		entry.insert(tkinter.END,value)
+
+
 def close(root):
-        
         global result
         result = entry.get()
         root.quit()
         root.destroy()
 
+
 def HosoPop(kb):
-	key_background = "orange2"				#"#3c4987"
-	key_foreground = "black"				#"#ffffff"
-	key_active_background = "orange"		#"#ffffff"
-	key_active_foreground = "black"			#"#3c4987"
+	key_background = SP.button_background_color
+	key_foreground = SP.black
+	key_active_background = SP.active_background_color
+	key_active_foreground = SP.white
 	key_relief = 'raised'
-	key_font = ("Helvetica", 13)
+	key_font = SP.font_piccolo
 
 	varRow = 2
 	varColumn = 0
@@ -122,16 +124,16 @@ def HosoPop(kb):
 
 def keyBoard():
 	label_font = ("Helvetica",20)
-	label_bg_color = "red"
+	label_bg_color = SP.root_background_color
 	label_text = "Scegli con che nome vuoi salvare il file"
 
 	entry_font = ("Helvetica",30)
-	entry_background = "white"
-	entry_foreground = "black"
+	entry_background = SP.white
+	entry_foreground = SP.black
 	kb = tkinter.Tk()
 
 	kb.attributes('-fullscreen', True)
-	kb.config(bg="red")
+	kb.config(bg=SP.root_background_color)
 	label_scritta=Label(
 						kb,
 						text=label_text,
