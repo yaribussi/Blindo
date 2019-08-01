@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 from ButtonController import Button_controller as bc
+import UtilityView as uv
 import ButtonController
 import SchermateGUI
 import Pause
@@ -101,7 +102,7 @@ def my_play_and_pause(pulsante):
 
 
 def turn_off_device(pulsante):
-    SchermateGUI.SchermateGUI.spegni_con_conferma()
+    uv.spegni_con_conferma()
 
 
 def interrupt():

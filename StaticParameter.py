@@ -1,14 +1,14 @@
 import os
 
-path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
-path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
-path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
-
-
-#path_punto_accesso_chiavette = "/media/pi"
-#path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio"
+#path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+#path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
 #path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
-#os.chdir("/home/pi/Desktop/Main/")
+
+import GPIOmanaging
+path_punto_accesso_chiavette = "/media/pi"
+path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio"
+path_liste ="/home/pi/Documents/Lists"
+os.chdir("/home/pi/Desktop/Main/")
 
 #subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
 

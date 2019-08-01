@@ -47,14 +47,14 @@ def close(root):
 
 def HosoPop(kb):
 	key_background = SP.button_background_color
-	key_foreground = SP.black
+	key_foreground = SP.font_color
 	key_active_background = SP.active_background_color
 	key_active_foreground = SP.white
 	key_relief = 'raised'
-	key_font = SP.font_piccolo
+	key_font = ("Helvetica", 13)
 
-	varRow = 2
-	varColumn = 0
+	var_row = 2
+	var_column = 0
 
 	for button in buttons:
 
@@ -71,7 +71,7 @@ def HosoPop(kb):
 						font=key_font,
 						padx=1, pady=1,
 						bd=5,
-						command=command).grid(row=6, column=0, columnspan=3)
+						command=command).grid(row=6, column=0, columnspan=5)
 
 		elif button == "SPAZIO":
 			tkinter.Button(
@@ -83,7 +83,7 @@ def HosoPop(kb):
 						relief=key_relief,
 						padx=1, pady=1,
 						bd=5,
-						command=command).grid(row=6, column=1, columnspan=9)
+						command=command).grid(row=6, column=2, columnspan=8)
 		elif button == "SALVA" :
 			tkinter.Button(
 						kb, text=button, width=15, heigh=6,
@@ -95,7 +95,7 @@ def HosoPop(kb):
 						relief=key_relief,
 						padx=1, pady=1,
 						bd=5,
-						command=lambda: close(kb)).grid(row=6, column=8, columnspan=3)
+						command=lambda: close(kb)).grid(row=6, column=7, columnspan=5)
 		else:
 			tkinter.Button(
 						kb, text=button, width=5, heigh=2,
@@ -107,39 +107,40 @@ def HosoPop(kb):
 						relief=key_relief,
 						padx=1, pady=1,
 						bd=6,
-						command=command).grid(row=varRow, column=varColumn)
+						command=command).grid(row=var_row, column=var_column)
 
 
-		varColumn +=1
+		var_column +=1
 
-		if varColumn > 13 and varRow == 2:
-			varColumn = 0
-			varRow+=1
-		if varColumn > 13 and varRow == 3:
-			varColumn = 0
-			varRow+=1
-		if varColumn > 13 and varRow == 4:
-			varColumn = 0
-			varRow+=1
+		if var_column > 13 and var_row == 2:
+			var_column = 0
+			var_row+=1
+		if var_column > 13 and var_row == 3:
+			var_column = 0
+			var_row+=1
+		if var_column > 13 and var_row == 4:
+			var_column = 0
+			var_row+=1
 
 def keyBoard():
-	label_font = ("Helvetica",20)
-	label_bg_color = SP.root_background_color
+	label_font = ("Helvetica",30)
+	label_bg_color = "#708090"
 	label_text = "Scegli con che nome vuoi salvare il file"
 
 	entry_font = ("Helvetica",30)
-	entry_background = SP.white
-	entry_foreground = SP.black
+	entry_background = "white"
+	entry_foreground = "black"
 	kb = tkinter.Tk()
 
 	kb.attributes('-fullscreen', True)
-	kb.config(bg=SP.root_background_color)
+	kb.config(bg="#708090")
 	label_scritta=Label(
 						kb,
 						text=label_text,
 						font=label_font,
-						bg=label_bg_color)
-	label_scritta.grid(row=0, columnspan=11)
+						bg=label_bg_color,
+                                                fg="white")
+	label_scritta.grid(row=0,column=1, columnspan=11)
 
 	global entry
 	entry = Entry(kb, width=37)

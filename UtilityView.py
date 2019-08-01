@@ -42,7 +42,7 @@ def exit_button_with_text(root, text):
                                       bg=SP.button_background_color,
                                       font=SP.font_piccolo,
                                       fg=SP.font_color,
-                                      bd=10,
+                                      bd=4,
                                       activebackground=SP.active_background_color)
             pulstante_uscita.config(height=3, width=10)
             pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
@@ -78,8 +78,9 @@ def spegni_con_conferma():
     frame.pack()
     label = Label(frame, text="Vuoi spegnere il dispositivo?",
                   bg=SP.root_background_color,
+                  fg=SP.font_color,
                   width=90, height=4,
-                  font=SP.font_piccolo
+                  font=SP.font_medio
                   )
     label.pack()
 
@@ -88,6 +89,7 @@ def spegni_con_conferma():
                              bg=SP.button_background_color,
                              command=lambda: subprocess.Popen(['shutdown', '-h', 'now']),
                              font=SP.font_piccolo,
+                             fg=SP.font_color,
                              relief="ridge",
                              bd=20,
                              activebackground=SP.active_background_color)
@@ -97,6 +99,7 @@ def spegni_con_conferma():
     pulsante_annulla = Button(frame,
                               text="Annulla",
                               bg=SP.button_background_color,
+                              fg=SP.font_color,
                               command=lambda: root.destroy(),
                               font=SP.font_piccolo,
                               relief="ridge",
