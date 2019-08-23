@@ -2,7 +2,7 @@ from tkinter import *
 import fileManaging as fm
 import subprocess
 import os
-from StaticParameter import Setting as SP
+import StaticParameter as SP
 
 
 #    funzione che mostra a video un messaggio

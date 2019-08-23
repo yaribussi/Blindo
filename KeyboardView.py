@@ -6,7 +6,7 @@ Version 1.0
 
 from tkinter import *
 import tkinter
-from StaticParameter import Setting as SP
+import StaticParameter as SP
 
 
 buttons = [

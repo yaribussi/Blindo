@@ -2,7 +2,7 @@ from tkinter import *
 from RecordView import RecordView as rv
 from ImportExportView import ImportExportView as iev
 import Reproduction
-from StaticParameter import Setting as SP
+import StaticParameter as SP
 import UtilityView as uv
 from ListAssociationView import ListAssociationView as lav
 from SettingsView import SettingsView as sv

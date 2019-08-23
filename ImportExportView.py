@@ -1,7 +1,7 @@
 from tkinter import *
 import UtilityView as uv
 import os
-from StaticParameter import Setting as SP
+import StaticParameter as SP
 
 
 class ImportExportView:

@@ -1,6 +1,6 @@
 from tkinter import *
 import Reproduction
-from StaticParameter import Setting as SP
+import StaticParameter as SP
 import UtilityView as uv
 
 

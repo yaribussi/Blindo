@@ -1,7 +1,8 @@
 import pygame.mixer as PM
 from math import log10, floor
 import os
-from StaticParameter import Setting as SP
+
+import StaticParameter as SP
 
 class Reproduction:
 

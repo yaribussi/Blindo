@@ -2,7 +2,7 @@ from tkinter import *
 import fileManaging as fm
 import UtilityView as uv
 import KeyboardView as kv
-from StaticParameter import Setting as SP
+import StaticParameter as SP
 import os
 
 

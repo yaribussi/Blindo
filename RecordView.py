@@ -5,7 +5,7 @@
 from tkinter import *
 import KeyboardView as key
 import UtilityView as uv
-from StaticParameter import Setting as SP
+import StaticParameter as SP
 import os
 
 recording = False
