@@ -1,7 +1,7 @@
 from tkinter import *
 import UtilityView as uv
 import os
-import StaticParameter as SP
+from StaticParameter import Setting as SP
 
 
 class ImportExportView:
@@ -30,8 +30,8 @@ class ImportExportView:
                                   command=lambda: scegli_chiavetta_importa(),
                                   font=SP.font_piccolo,
                                   fg=SP.button_font_color,
-                                  relief="ridge",
-                                  bd=20,
+                                  bd=SP.bord_size,
+                                  relief=SP.bord_style,
                                   activebackground=SP.active_background_color)
         pulsante_importa.pack(side=LEFT)
         pulsante_importa.config(height=5, width=22)
@@ -42,8 +42,8 @@ class ImportExportView:
                                   command=lambda: scegli_chiavetta_esporta(),
                                   font=SP.font_piccolo,
                                   fg=SP.button_font_color,
-                                  relief="ridge",
-                                  bd=20,
+                                  bd=SP.bord_size,
+                                  relief=SP.bord_style,
                                   activebackground=SP.active_background_color)
         pulsante_esporta.pack(side=RIGHT)
         pulsante_esporta.config(height=5, width=22)

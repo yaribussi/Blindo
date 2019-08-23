@@ -2,7 +2,7 @@ from tkinter import *
 import fileManaging as fm
 import subprocess
 import os
-import StaticParameter as SP
+from StaticParameter import Setting as SP
 
 
 #    funzione che mostra a video un messaggio
@@ -42,7 +42,7 @@ def exit_button_with_text(root, text):
                                       bg=SP.button_background_color,
                                       font=SP.font_piccolo,
                                       fg=SP.button_font_color,
-                                      bd=4,
+                                      bd=SP.bord_size,
                                       activebackground=SP.active_background_color)
             pulstante_uscita.config(height=3, width=10)
             pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
@@ -56,10 +56,10 @@ def bottom_with_text(frame, text):
             pulsante = Button(frame,
                               text=text,
                               bg=SP.button_background_color,
-                              relief="ridge",
                               font=SP.font_piccolo,
                               fg=SP.button_font_color,
-                              bd=20,
+                              bd=SP.bord_size,
+                              relief=SP.bord_style,
                               command=lambda: show_file(text.replace("Pulsante ", "")),
                               activebackground=SP.active_background_color,
                               activeforeground=SP.black)
@@ -78,7 +78,7 @@ def spegni_con_conferma():
     frame.pack()
     label = Label(frame, text="Vuoi spegnere il dispositivo?",
                   bg=SP.root_background_color,
-                  fg=SP.button_font_color,
+                  fg=SP.root_font_color,
                   width=90, height=4,
                   font=SP.font_medio
                   )
@@ -90,8 +90,8 @@ def spegni_con_conferma():
                              command=lambda: subprocess.Popen(['shutdown', '-h', 'now']),
                              font=SP.font_piccolo,
                              fg=SP.button_font_color,
-                             relief="ridge",
-                             bd=20,
+                             relief=SP.bord_style,
+                             bd=SP.bord_size,
                              activebackground=SP.active_background_color)
     pulsante_spegni.config(height=5, width=23)
     pulsante_spegni.pack(side=LEFT)
@@ -102,8 +102,8 @@ def spegni_con_conferma():
                               fg=SP.button_font_color,
                               command=lambda: root.destroy(),
                               font=SP.font_piccolo,
-                              relief="ridge",
-                              bd=20,
+                              relief=SP.bord_style,
+                              bd=SP.bord_size,
                               activebackground=SP.active_background_color)
     pulsante_annulla.config(height=5, width=23)  # altezza 5
     pulsante_annulla.pack(side=RIGHT)
@@ -146,8 +146,8 @@ def elimina_file_con_conferma(path, nome_file):
                               command=lambda: confirmed_deletion(path, nome_file),
                               font=SP.font_piccolo,
                               fg=SP.button_font_color,
-                              relief="ridge",
-                              bd=20,
+                              relief=SP.bord_style,
+                              bd=SP.bord_size,
                               activebackground=SP.active_background_color)
     pulsante_elimina.config(height=5, width=23)
     pulsante_elimina.pack(side=LEFT)
@@ -158,8 +158,8 @@ def elimina_file_con_conferma(path, nome_file):
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
                               fg=SP.button_font_color,
-                              relief="ridge",
-                              bd=20,
+                              relief=SP.bord_style,
+                              bd=SP.bord_size,
                               activebackground=SP.active_background_color)
     pulsante_annulla.config(height=5, width=23)  # altezza 5
     pulsante_annulla.pack(side=RIGHT)
@@ -204,8 +204,8 @@ def elimina_file_con_conferma_multipla(selected_file):
                               fg=SP.button_font_color,
                               command=lambda: confirmed_deletion(),
                               font=SP.font_piccolo,
-                              relief="ridge",
-                              bd=20,
+                              relief=SP.bord_style,
+                              bd=SP.bord_size,
                               activebackground=SP.active_background_color)
     pulsante_elimina.config(height=5, width=23)
     pulsante_elimina.pack(side=LEFT)
@@ -216,8 +216,8 @@ def elimina_file_con_conferma_multipla(selected_file):
                               fg=SP.button_font_color,
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
-                              relief="ridge",
-                              bd=20,
+                              relief=SP.bord_style,
+                              bd=SP.bord_size,
                               activebackground=SP.active_background_color)
     pulsante_annulla.config(height=5, width=23)  # altezza 5
     pulsante_annulla.pack(side=RIGHT)
@@ -282,7 +282,8 @@ def show_file(idButton):
                                          bg=SP.button_background_color,
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
-                                         bd=20,
+                                         bd=SP.bord_size,
+                                         relief=SP.bord_style,
                                          activebackground=SP.active_background_color)
     pulstante_associa_fileAudio.config(height=5, width=25)
     pulstante_associa_fileAudio.pack(side=TOP, fill=BOTH)
@@ -294,7 +295,8 @@ def show_file(idButton):
                                               "e clicca qui",
                                          command=lambda: delete_item(root),
                                          bg=SP.button_background_color,
-                                         bd=20,
+                                         bd=SP.bord_size,
+                                         relief=SP.bord_style,
                                          activebackground=SP.active_background_color,
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color)
@@ -313,10 +315,10 @@ def bottom_with_text(frame, text):
     pulsante = Button(frame,
                       text=text,
                       bg=SP.button_background_color,
-                      relief="ridge",
                       font=SP.font_piccolo,
                       fg=SP.button_font_color,
-                      bd=20,
+                      bd=SP.bord_size,
+                      relief=SP.bord_style,
                       command=lambda: show_file(text.replace("Pulsante", "")),
                       activebackground=SP.active_background_color,
                       activeforeground="black")
@@ -333,7 +335,8 @@ def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
                       bg=SP.button_background_color,
                       font=SP.font_piccolo,
                       fg=SP.button_font_color,
-                      bd=20,
+                      bd=SP.bord_size,
+                      relief=SP.bord_style,
                       activebackground=SP.active_background_color,
                       command=lambda: show_and_select_item_from_path(mod, path_origine, path_destinzaione,nome_chiavetta)
                       )
@@ -413,7 +416,8 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                                command=lambda: select_items_and_copy(root),
                                font=SP.font_piccolo,
                                fg=SP.button_font_color,
-                               bd=4,
+                               bd=SP.bord_size,
+                               relief=SP.bord_style,
                                activebackground=SP.active_background_color)
     pulstante_importa.config(height=3, width=20)
 
@@ -427,7 +431,8 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                                    fg=SP.button_font_color,
                                    command=lambda: delete_selected_elements(root),
                                    font=SP.font_piccolo,
-                                   bd=4,
+                                   bd=SP.bord_size,
+                                   relief=SP.bord_style,
                                    activebackground=SP.active_background_color)
         pulstante_elimina.config(height=4, width=20)
         pulstante_elimina.pack(side=TOP, fill=BOTH)

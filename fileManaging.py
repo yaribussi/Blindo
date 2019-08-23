@@ -2,7 +2,7 @@ import pickle as pk
 import os
 from fileAudio import FileAudio
 import shutil
-import StaticParameter as SP
+from StaticParameter import Setting as SP
 
 name_file = 'Lista di default'
 

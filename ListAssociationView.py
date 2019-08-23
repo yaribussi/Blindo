@@ -1,8 +1,8 @@
 from tkinter import *
 import fileManaging as fm
 import UtilityView as uv
-import GUIkeyboard as key
-import StaticParameter as SP
+import KeyboardView as kv
+from StaticParameter import Setting as SP
 import os
 
 
@@ -65,7 +65,8 @@ class ListAssociationView:
         pulstante_uscita = Button(frame,
                                   text="Torna \nindietro",
                                   command=lambda: close(root),
-                                  bd=20,
+                                  bd=SP.bord_size,
+                                  relief=SP.bord_style,
                                   bg=SP.button_background_color,
                                   font=SP.font_piccolo,
                                   fg=SP.button_font_color,
@@ -111,7 +112,7 @@ class ListAssociationView:
 
     def new_list_view(root):
         root.destroy()
-        new_list_name = key.keyBoard()
+        new_list_name = kv.keyBoard()
         fm.create_list(new_list_name)
         ListAssociationView.schermata_associazioni()
 
@@ -167,7 +168,8 @@ class ListAssociationView:
                                              bg=SP.button_background_color,
                                              font=SP.font_piccolo,
                                              fg=SP.button_font_color,
-                                             bd=20,
+                                             bd=SP.bord_size,
+                                             relief=SP.bord_style,
                                              activebackground=SP.root_background_color)
         pulstante_associa_fileAudio.config(height=5, width=25)
         pulstante_associa_fileAudio.pack(side=TOP, fill=BOTH)
@@ -177,7 +179,8 @@ class ListAssociationView:
                                              text="ELIMINA LISTA",
                                              command=lambda: delete_item(root),
                                              bg=SP.button_background_color,
-                                             bd=20,
+                                             bd=SP.bord_size,
+                                             relief=SP.bord_style,
                                              activebackground=SP.root_background_color,
                                              font=SP.font_piccolo,
                                              fg=SP.button_font_color)

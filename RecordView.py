@@ -3,9 +3,9 @@
 
 
 from tkinter import *
-import GUIkeyboard as key
+import KeyboardView as key
 import UtilityView as uv
-import StaticParameter as SP
+from StaticParameter import Setting as SP
 import os
 
 recording = False
@@ -78,8 +78,8 @@ class RecordView:
                                command=lambda: start_recoding(SP.name_recoded_file),
                                font=SP.font_piccolo,
                                fg=SP.button_font_color,
-                               relief="ridge",
-                               bd=20,
+                               relief=SP.bord_style,
+                               bd=SP.bord_size,
                                activebackground=SP.active_background_color)
         pulsante_play.config(height=5, width=23)
         pulsante_play.pack(side=LEFT)
@@ -90,8 +90,8 @@ class RecordView:
                                command=lambda: stop_recording(),
                                font=SP.font_piccolo,
                                fg=SP.button_font_color,
-                               relief="ridge",
-                               bd=20,
+                               relief=SP.bord_style,
+                               bd=SP.bord_size,
                                activebackground=SP.active_background_color)
         pulsante_stop.config(height=5, width=23)
         pulsante_stop.pack(side=RIGHT)

@@ -1,6 +1,6 @@
 from tkinter import *
 import UtilityView as uv
-import StaticParameter as SP
+from StaticParameter import Setting as SP
 
 
 class AssociateView:
@@ -24,7 +24,8 @@ class AssociateView:
         pulstante_uscita = Button(frame,
                                   text="Torna al\nmenu principale",
                                   command=lambda: root.destroy(),
-                                  bd=20,
+                                  bd=SP.bord_size,
+                                  relief=SP.bord_style,
                                   bg=SP.button_background_color,
                                   font=SP.font_piccolo,
                                   fg=SP.button_font_color,
