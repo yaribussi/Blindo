@@ -41,7 +41,7 @@ class RecordView:
             pulsante_stop.pack()
             recording = True
 
-            label["text"] = "Registrazione in corso.....\nPremi il pulsante rosso per interrompere"
+            label["text"] = "Registrazione in corso.....\nPremi il pulsante per interrompere"
 
             final_path = path_che_simula_la_memoria_interna_del_raspberry + name_recoded_file
 
@@ -56,7 +56,6 @@ class RecordView:
             if recording:
 
                 reg.stop()
-                label["text"] = "Registrazione effettuata con successo!"
 
                 # funzione che richiama la tastiera e chiede all'utente il nome del file
                 new_name = key.keyBoard()
@@ -71,13 +70,7 @@ class RecordView:
 
                 recording = False
 
-                label["text"] = "Premi su Start per registrare"
-
-            else:
-                uv.show_dialog_with_time("Attenzione\n"
-                                                   "La registrazione non è ancora partita\n"
-                                                   "Premi sul pulsante verde per avviarla", 2)
-                # tkinter.messagebox.showinfo("Attenzione","La registrazione non è ancora partita, premi sul pulsante verde",parent=root)
+                label["text"] = "Premi il pulsante per registrare"
 
         pulsante_play = Button(frame,
                                text="Inizia a registrare",

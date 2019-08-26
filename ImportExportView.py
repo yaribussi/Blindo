@@ -18,7 +18,7 @@ class ImportExportView:
 
         label = Label(frame, text="Scegli l'azione desiderata",
                       bg=SP.root_background_color,
-                      width=90, height=4,
+                      width=90, height=3,
                       font=SP.font_medio,
                       fg=SP.root_font_color
                       )
@@ -26,7 +26,7 @@ class ImportExportView:
 
         # numbers_of_key is the number of conneccted key
         numbers_of_key = len(os.listdir(path_punto_accesso_chiavette))
-        print(numbers_of_key)
+
         if numbers_of_key > 0:
             pulsante_importa = Button(frame,
                                       text="Importa",
@@ -52,7 +52,8 @@ class ImportExportView:
             pulsante_esporta.pack(side=RIGHT)
             pulsante_esporta.config(height=5, width=22)
         else:
-            label["text"] = "Inserisci una chiavetta per accedere alle altre funzionalità"
+            label["text"] = "Inserisci una chiavetta \nper accedere alle altre funzionalità"
+            label["height"] = 3
             pulsante_memoria_interna = Button(frame,
                                       text="Accedi alla memoria interna",
                                       bg=SP.button_background_color,
