@@ -18,35 +18,54 @@ class ImportExportView:
 
         label = Label(frame, text="Scegli l'azione desiderata",
                       bg=SP.root_background_color,
-                      width=90, height=1,
+                      width=90, height=4,
                       font=SP.font_medio,
                       fg=SP.root_font_color
                       )
         label.pack();
 
-        pulsante_importa = Button(frame,
-                                  text="Importa",
-                                  bg=SP.button_background_color,
-                                  command=lambda: scegli_chiavetta_importa(),
-                                  font=SP.font_piccolo,
-                                  fg=SP.button_font_color,
-                                  bd=SP.bord_size,
-                                  relief=SP.bord_style,
-                                  activebackground=SP.active_background_color)
-        pulsante_importa.pack(side=LEFT)
-        pulsante_importa.config(height=5, width=22)
+        # numbers_of_key is the number of conneccted key
+        numbers_of_key = len(os.listdir(path_punto_accesso_chiavette))
+        print(numbers_of_key)
+        if numbers_of_key > 0:
+            pulsante_importa = Button(frame,
+                                      text="Importa",
+                                      bg=SP.button_background_color,
+                                      command=lambda: scegli_chiavetta_importa(),
+                                      font=SP.font_piccolo,
+                                      fg=SP.button_font_color,
+                                      bd=SP.bord_size,
+                                      relief=SP.bord_style,
+                                      activebackground=SP.active_background_color)
+            pulsante_importa.pack(side=LEFT)
+            pulsante_importa.config(height=5, width=22)
 
-        pulsante_esporta = Button(frame,
-                                  text="Esporta",
-                                  bg=SP.button_background_color,
-                                  command=lambda: scegli_chiavetta_esporta(),
-                                  font=SP.font_piccolo,
-                                  fg=SP.button_font_color,
-                                  bd=SP.bord_size,
-                                  relief=SP.bord_style,
-                                  activebackground=SP.active_background_color)
-        pulsante_esporta.pack(side=RIGHT)
-        pulsante_esporta.config(height=5, width=22)
+            pulsante_esporta = Button(frame,
+                                      text="Esporta",
+                                      bg=SP.button_background_color,
+                                      command=lambda: scegli_chiavetta_esporta(),
+                                      font=SP.font_piccolo,
+                                      fg=SP.button_font_color,
+                                      bd=SP.bord_size,
+                                      relief=SP.bord_style,
+                                      activebackground=SP.active_background_color)
+            pulsante_esporta.pack(side=RIGHT)
+            pulsante_esporta.config(height=5, width=22)
+        else:
+            label["text"] = "Inserisci una chiavetta per accedere alle altre funzionalità"
+            pulsante_memoria_interna = Button(frame,
+                                      text="Accedi alla memoria interna",
+                                      bg=SP.button_background_color,
+                                      command=lambda: uv.show_and_select_item_from_path("Memoria interna",path_che_simula_la_memoria_interna_del_raspberry
+                                                                                        ,path_che_simula_la_memoria_interna_del_raspberry,
+                                                                                        "Memoria interna"),
+                                      font=SP.font_piccolo,
+                                      fg=SP.button_font_color,
+                                      bd=SP.bord_size,
+                                      relief=SP.bord_style,
+                                      activebackground=SP.active_background_color)
+            pulsante_memoria_interna.pack()
+            pulsante_memoria_interna.config(height=5, width=25)
 
         #    funzione che richiama la sottoschermata dopo aver cliccato su "ESPORTA"
         def scegli_chiavetta_esporta():

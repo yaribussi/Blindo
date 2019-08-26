@@ -410,21 +410,22 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
 
     # ############        caratteristiche pulsante IMPORTA/ESPORTA        ######################
     testo_pulsante = "Seleziona i file \nche desideri " + mod + "\ne poi clicca qui"
-    pulstante_importa = Button(root,
-                               text=testo_pulsante,
-                               bg=SP.button_background_color,
-                               command=lambda: select_items_and_copy(root),
-                               font=SP.font_piccolo,
-                               fg=SP.button_font_color,
-                               bd=SP.bord_size,
-                               relief=SP.bord_style,
-                               activebackground=SP.active_background_color)
-    pulstante_importa.config(height=3, width=20)
+    if mod!= "Memoria interna":
+        pulstante_importa = Button(root,
+                                   text=testo_pulsante,
+                                   bg=SP.button_background_color,
+                                   command=lambda: select_items_and_copy(root),
+                                   font=SP.font_piccolo,
+                                   fg=SP.button_font_color,
+                                   bd=SP.bord_size,
+                                   relief=SP.bord_style,
+                                   activebackground=SP.active_background_color)
+        pulstante_importa.config(height=3, width=20)
 
-    pulstante_importa.pack(side=TOP, fill=BOTH)
+        pulstante_importa.pack(side=TOP, fill=BOTH)
 
-    # visualizza il pulsante solo in modalità esporta
-    if mod =="esportare":
+    # visualizza il pulsante ELIMINA solo in modalità esporta o se non sono presenti chiavette
+    if mod == "esportare" or mod=="Memoria interna":
         pulstante_elimina = Button(root,
                                    text="Scegli il file \nche vuoi eliminare",
                                    bg=SP.button_background_color,

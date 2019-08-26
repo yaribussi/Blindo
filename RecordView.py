@@ -1,6 +1,8 @@
-#da commentare per la versione PC
+'''
+Disabilitare l'import sottostante per la versione PC
+Abilitare l'import sottostante per la versione RASPBERRY
+'''
 #import registrazione as reg
-
 
 from tkinter import *
 import KeyboardView as key
@@ -35,7 +37,8 @@ class RecordView:
         def start_recoding(name_recoded_file):
             global recording
             global new_name
-
+            pulsante_play.pack_forget()
+            pulsante_stop.pack()
             recording = True
 
             label["text"] = "Registrazione in corso.....\nPremi il pulsante rosso per interrompere"
@@ -47,6 +50,8 @@ class RecordView:
         #  funzione che ferma la registrazione e chiede all'utente il nome del file registrato
         def stop_recording():
             global recording
+            pulsante_stop.pack_forget()
+            pulsante_play.pack()
 
             if recording:
 
@@ -63,7 +68,9 @@ class RecordView:
                 final = path_che_simula_la_memoria_interna_del_raspberry + "/" + new_name + ".wav"
                 # funzione che rinomina il file audio appena registrayo
                 os.rename(initial, final)
+
                 recording = False
+
                 label["text"] = "Premi su Start per registrare"
 
             else:
@@ -82,7 +89,7 @@ class RecordView:
                                bd=SP.bord_size,
                                activebackground=SP.active_background_color)
         pulsante_play.config(height=5, width=23)
-        pulsante_play.pack(side=LEFT)
+        pulsante_play.pack()
 
         pulsante_stop = Button(frame,
                                text="Interrompi la registrazione",
@@ -94,7 +101,7 @@ class RecordView:
                                bd=SP.bord_size,
                                activebackground=SP.active_background_color)
         pulsante_stop.config(height=5, width=23)
-        pulsante_stop.pack(side=RIGHT)
+        #pulsante_stop.pack()
 
         uv.exit_button_with_text(root, SP.exit_text)
 
