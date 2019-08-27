@@ -1,9 +1,3 @@
-"""
-Simple on-screen keyboard using tkinter
-Author : Ajinkya Padwad
-Version 1.0
-"""
-
 from tkinter import *
 import tkinter
 import StaticParameter as SP
@@ -23,18 +17,13 @@ result=""
 def select(value):
 
 	if value == "CANCELLA":
-		# allText = entry.get()[:-1]
-		# entry.delete(0, tkinter,END)
-		# entry.insert(0,allText)
-
 		entry.delete(len(entry.get())-1,tkinter.END)
 
 	elif value == "SPAZIO":
 		entry.insert(tkinter.END, ' ')
 	elif value == " Tab ":
 		entry.insert(tkinter.END, '    ')
-	#elif value == "INVIO":
-	else :
+	else:
 		entry.insert(tkinter.END,value)
 
 
@@ -45,19 +34,17 @@ def close(root):
         root.destroy()
 
 
-def HosoPop(kb):
+def hoso_pop(kb):
 	key_background = SP.button_background_color
 	key_foreground = SP.button_font_color
 	key_active_background = SP.active_background_color
 	key_active_foreground = SP.root_font_color
-	key_relief = 'raised'
-	key_font = ("Helvetica", 13)
+	key_font = SP.keyboard_key_font
 
 	var_row = 2
 	var_column = 0
 
 	for button in buttons:
-
 		command = lambda x=button: select(x)
 
 		if button == "CANCELLA":
@@ -84,7 +71,7 @@ def HosoPop(kb):
 						bd=5,
 						relief=SP.bord_style,
 						command=command).grid(row=6, column=2, columnspan=8)
-		elif button == "SALVA" :
+		elif button == "SALVA":
 			tkinter.Button(
 						kb, text=button, width=15, heigh=6,
 						bg=key_background,
@@ -109,20 +96,19 @@ def HosoPop(kb):
 						relief=SP.bord_style,
 						command=command).grid(row=var_row, column=var_column)
 
-
-		var_column +=1
-
+		var_column += 1
 		if var_column > 13 and var_row == 2:
 			var_column = 0
-			var_row+=1
+			var_row += 1
 		if var_column > 13 and var_row == 3:
 			var_column = 0
-			var_row+=1
+			var_row += 1
 		if var_column > 13 and var_row == 4:
 			var_column = 0
-			var_row+=1
+			var_row += 1
 
-def keyBoard():
+
+def keyboard():
 	label_font = ("Helvetica",30)
 	label_bg_color = "#708090"
 	label_text = "Scegli con che nome vuoi salvare il file"
@@ -139,7 +125,8 @@ def keyBoard():
 						text=label_text,
 						font=label_font,
 						bg=label_bg_color,
-                        fg=SP.root_font_color)
+						fg=SP.root_font_color)
+
 	label_scritta.grid(row=0,column=1, columnspan=11)
 
 	global entry
@@ -150,8 +137,7 @@ def keyBoard():
 				fg=entry_foreground)
 	entry.grid(row=1, column=0, columnspan=13)
 
-	HosoPop(kb)
-
+	hoso_pop(kb)
 
 	kb.mainloop()
 
@@ -159,4 +145,4 @@ def keyBoard():
 
 
 
-#print(keyBoard())
+#print(keyboard())

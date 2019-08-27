@@ -346,36 +346,39 @@ def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
 
 # schermata che stampa a video i file contenuti in un determinato path
 def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_chiavetta):
-    #     funzione che copia la lista dei file selizionati in un'altra directory
+    #     funzione che copia la lista dei file selezionati in un'altra directory
     #     dall'utente nella schermata IMPORTA, dopo aver cliccato sul pulsante
-    #     avnte la scritta, appunto IMPORTA
+    #     avente la scritta, appunto IMPORTA
     def select_items_and_copy(root):
 
+        # lista contenente i brani selezionati
         selected = [mylist.get(idx) for idx in mylist.curselection()]
+
         # pop up con durata 2 secondi che informa di attendere
         show_dialog_with_time("L'operazione potrebbe richedere alcuni istanti...", 2)
+
         # ciclo che copia tutti i file selezionati dall'utente
         for file in selected:
             fm.copy_file_from_path_to_another(mydict[file], path_destinzaione)
 
+        # poup-up informativo
         show_dialog_with_time("Operazione conclusa con successo", 2)
         root.destroy()
         # ######                 END OF select_items_and_copy    ###################
 
     def delete_selected_elements(root):
         selected = [mylist.get(idx) for idx in mylist.curselection()]
+
         # elimina_file_con_conferma(path_origine, str(number_of_deleted_file) + " file audio")
-
         elimina_file_con_conferma_multipla(selected)
-
         root.destroy()
 
     root = Tk()
     root.attributes('-fullscreen', True)
     formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
 
-    if mod=="esportare":
-        text_layer="Memoria interna"
+    if mod == "esportare":
+        text_layer = "Memoria interna"
     else:
         text_layer = nome_chiavetta
 
@@ -386,6 +389,8 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                        font=SP.font_piccolo
                        )
     label_info.pack()
+
+    # visualizzazione brani con scrollbar
     scrollbar = Scrollbar(root)
     scrollbar.pack(side=LEFT, fill=Y)
     mylist = Listbox(root,
@@ -396,6 +401,7 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                      bg=SP.root_background_color)
     mydict = {}
 
+    #ciclo che aggiunge i file audio alla scrolbar
     for radice, cartelle, files in os.walk(path_origine, topdown=False):
         for name in files:
             for tipo in formats:
@@ -404,13 +410,16 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                     mydict[name] = temp_str
                     mylist.insert(END, name)
     mylist.pack(side=LEFT, fill=BOTH, expand=True)
-
     scrollbar.config(width=70, command=mylist.yview)
     exit_button_with_text(root, "Torna indietro")
 
+
     # ############        caratteristiche pulsante IMPORTA/ESPORTA        ######################
     testo_pulsante = "Seleziona i file \nche desideri " + mod + "\ne poi clicca qui"
-    if mod!= "Memoria interna":
+
+    # se sono presenti chiavette viene abilitato il pulsante "IMPORTA"
+    # otherwise viene visualizzato solamente il pulsante ELIMINA BRANI
+    if mod != "Memoria interna":
         pulstante_importa = Button(root,
                                    text=testo_pulsante,
                                    bg=SP.button_background_color,
@@ -421,11 +430,10 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                                    relief=SP.bord_style,
                                    activebackground=SP.active_background_color)
         pulstante_importa.config(height=3, width=20)
-
         pulstante_importa.pack(side=TOP, fill=BOTH)
 
-    # visualizza il pulsante ELIMINA solo in modalità esporta o se non sono presenti chiavette
-    if mod == "esportare" or mod=="Memoria interna":
+    # visualizza il pulsante ELIMINA solo in modalità esporta o se NON sono presenti chiavette
+    if mod == "esportare" or mod == "Memoria interna":
         pulstante_elimina = Button(root,
                                    text="Scegli il file \nche vuoi eliminare",
                                    bg=SP.button_background_color,

@@ -27,6 +27,8 @@ class ImportExportView:
         # numbers_of_key is the number of conneccted key
         numbers_of_key = len(os.listdir(path_punto_accesso_chiavette))
 
+        # le funzioni IMPORTA/ESPORTA vengono visualizzate
+        # solamente se è collegata almeno una chiavetta
         if numbers_of_key > 0:
             pulsante_importa = Button(frame,
                                       text="Importa",
@@ -52,14 +54,18 @@ class ImportExportView:
             pulsante_esporta.pack(side=RIGHT)
             pulsante_esporta.config(height=5, width=22)
         else:
+            # cambio il contenuto e la grandezza del label
             label["text"] = "Inserisci una chiavetta \nper accedere alle altre funzionalità"
             label["height"] = 3
+
+            # pulsante mostrato solo se NON è inserita nessuna chiavetta
             pulsante_memoria_interna = Button(frame,
                                       text="Accedi alla memoria interna",
                                       bg=SP.button_background_color,
-                                      command=lambda: uv.show_and_select_item_from_path("Memoria interna",path_che_simula_la_memoria_interna_del_raspberry
-                                                                                        ,path_che_simula_la_memoria_interna_del_raspberry,
-                                                                                        "Memoria interna"),
+                                      command=lambda: uv.show_and_select_item_from_path(
+                                                "Memoria interna",path_che_simula_la_memoria_interna_del_raspberry,
+                                                path_che_simula_la_memoria_interna_del_raspberry,
+                                                "Memoria interna"),
                                       font=SP.font_piccolo,
                                       fg=SP.button_font_color,
                                       bd=SP.bord_size,

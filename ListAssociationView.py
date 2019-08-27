@@ -112,7 +112,7 @@ class ListAssociationView:
 
     def new_list_view(root):
         root.destroy()
-        new_list_name = kv.keyBoard()
+        new_list_name = kv.keyboard()
         fm.create_list(new_list_name)
         ListAssociationView.schermata_associazioni()
 

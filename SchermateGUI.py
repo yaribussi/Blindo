@@ -98,8 +98,8 @@ class SchermateGUI:
         menu.add_cascade(label="Impostazioni", font=SP.font_medio, menu=subMenu, )  # menu a cascata
         # riga di separazione
         subMenu.add_separator()
-        subMenu.add_command(label="Impostazioni     ", font=SP.font_medio)#, command=lambda:sv.setting_view())
-        subMenu.add_separator()
+        #subMenu.add_command(label="Impostazioni     ", font=SP.font_medio)#, command=lambda:sv.setting_view())
+        #subMenu.add_separator()
         subMenu.add_command(label="Spegni    ", font=SP.font_medio, command=lambda: uv.spegni_con_conferma())
 
         subMenu.add_separator()
