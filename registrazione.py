@@ -1,5 +1,4 @@
 import Recorder
-import pyaudio
 from Recorder import *
 
 
@@ -9,7 +8,7 @@ from Recorder import *
 
 def start(name):
     global rec_file
-    rec=Recorder()
+    rec = Recorder()
     rec_file = rec.open(name, 'wb')
     rec_file.start_recording()
    

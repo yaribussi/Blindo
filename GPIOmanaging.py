@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 from ButtonController import Button_controller as bc
-import ButtonController
-import SchermateGUI
+import UtilityView as uv
 import Pause
 import fileManaging as fm
 import registrazione
@@ -12,8 +11,8 @@ import os
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 
-path= "/home/pi/Documents/fileAudio"
-pathfileaudio="/home/pi/Documents/fileAudio"
+path = "/home/pi/Documents/fileAudio"
+pathfileaudio = "/home/pi/Documents/fileAudio"
 
 
 '''
@@ -50,6 +49,8 @@ GPIO.setup(red_led, GPIO.OUT)
 
 
 levetta_registrazione_attivata=False
+
+# accendo il led verde all'avvio
 GPIO.output(green_led, GPIO.HIGH)
 GPIO.output(red_led, GPIO.LOW)
 
@@ -58,8 +59,8 @@ def falling(channel, id_button):
 
     registrazione.stop()
     
-    recoded_name_file="audio_pulsante_"+str(id_button)+".wav"
-    fm.bind(recoded_name_file,id_button)
+    recoded_name_file = "audio_pulsante_"+str(id_button)+".wav"
+    fm.bind(recoded_name_file, id_button)
     
     GPIO.remove_event_detect(channel)
     GPIO.add_event_detect(channel, GPIO.RISING, callback=lambda x: rising(channel, id_button), bouncetime=100)
@@ -99,11 +100,11 @@ def my_play_and_pause(pulsante):
 
 
 def turn_off_device(pulsante):
-    SchermateGUI.SchermateGUI.spegni_con_conferma()
+    uv.spegni_con_conferma()
 
 
 def interrupt():
-    for i in range(5): #6
+    for i in range(5):
         GPIO.add_event_detect(pulsanti[i], GPIO.RISING, callback=lambda x,  button=i+1, channel=pulsanti[i]: rising(channel, button), bouncetime=300)
 
     GPIO.add_event_detect(pulsante_levetta_registrazione, GPIO.RISING, callback=levetta_registrazione, bouncetime=300)
@@ -111,8 +112,6 @@ def interrupt():
     GPIO.add_event_detect(pulsante_pause, GPIO.RISING, callback=my_play_and_pause, bouncetime=300)
 
     GPIO.add_event_detect(quit_device_button, GPIO.FALLING, callback=turn_off_device, bouncetime=3000)
-
-
 
 
 bc_object = bc(Pause.Pause())
