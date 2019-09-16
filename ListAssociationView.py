@@ -1,9 +1,11 @@
 from tkinter import *
+import pickle as pk
 import fileManaging as fm
 import UtilityView as uv
 import KeyboardView as kv
 import StaticParameter as SP
 import os
+import shutil
 
 
 class ListAssociationView:
@@ -11,7 +13,7 @@ class ListAssociationView:
     #  schermata che appare dopo aver cliccato il pulsante ASSOCIAZIONI nel MENU PRINCIPALE
     def schermata_associazioni():
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen', SP.full_screen_option)
 
         root.config(bg=SP.root_background_color)
         current_list = fm.name_file
@@ -51,7 +53,7 @@ class ListAssociationView:
 
         closingroot.destroy()
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen', SP.full_screen_option)
 
         frame = Frame(root)
 
@@ -112,8 +114,29 @@ class ListAssociationView:
 
     def new_list_view(root):
         root.destroy()
+        find_list_existing_name = False
+        existing_list=os.listdir(SP.path_liste)
+
         new_list_name = kv.keyboard()
-        fm.create_list(new_list_name)
+
+        for list in existing_list:
+            if list == new_list_name:
+                find_list_existing_name=True
+
+        if find_list_existing_name:
+            choice = uv.multi_choice_view("Esiste già una lista\ncon questo nome\nVuoi sostituirla o preferisci\nassegnare un altro nome?"
+                                 ,"Sostituisci",
+                                 "Annulla")
+
+            if choice:
+                fm.create_list(new_list_name)
+            else:
+                return
+
+        else:
+            fm.create_list(new_list_name)
+
+
         ListAssociationView.schermata_associazioni()
 
     def show_list(closing_root):
@@ -138,9 +161,109 @@ class ListAssociationView:
             root.destroy()
             ListAssociationView.schermata_associazioni()
 
+        def show_chiavette():
+            root = Tk()
+            root.attributes('-fullscreen', SP.full_screen_option)
+            root.config(bg=SP.root_background_color)
+
+            frame = Frame(root, bg=SP.root_background_color)
+            frame.pack()
+
+            # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
+            dirs = os.listdir(SP.path_punto_accesso_chiavette)
+
+            label = Label(frame,
+                          text="Selezionare la chiavetta su cui esportare la lista",
+                          bd=20,
+                          bg=SP.root_background_color,
+                          font=SP.font_piccolo,
+                          fg=SP.root_font_color)
+            label.grid(row=1, column=0)
+            label.config(width=50, height=4)
+
+            # index necessario a ??
+            index = 2
+
+
+            # ciclo che stampa tante "chiavette" quante inserite nel device
+            for USB_key in dirs:
+
+                path_chiavetta = os.path.join(SP.path_punto_accesso_chiavette, USB_key)
+                pulsante = Button(frame, text=USB_key,
+                                  bg=SP.button_background_color,
+                                  font=SP.font_piccolo,
+                                  fg=SP.button_font_color,
+                                  bd=SP.bord_size,
+                                  relief=SP.bord_style,
+                                  activebackground=SP.active_background_color,
+                                  # Using the "path_chiavetta=path_chiavetta" trick
+                                  # causes your function to store the current value
+                                  # of "path_chiavetta" at the time your lambda is defined,
+                                  # instead of waiting to look up the value of "path_chiavetta" later.
+                                  command=lambda path_chiavetta=path_chiavetta: esporta_lista(root, path_chiavetta)
+                                  )
+                pulsante.config(width=40, height=3)
+                pulsante.grid()
+                index += 1
+
+            uv.exit_button_with_text(root, SP.exit_text)
+
+            root.mainloop()
+
+        def esporta_lista(root,path_chiavetta_destinazione):
+            root.destroy()
+            list_name = mylist.get('active')
+            final_path_list = os.path.join(SP.path_liste, list_name)
+            final_path_chiavetta = os.path.join(path_chiavetta_destinazione, list_name)
+            rewite = True
+
+            if os.path.exists(final_path_chiavetta):
+
+                # variabile booleana assegnata dalla risposta dell' utente
+                user_choice = uv.multi_choice_view("Attenzione!\nEsiste già una versione di "+list_name+
+                                                   "\nScegli l'azione desiderata",
+
+                                                   "Sovrascrivi",
+                                                   "Annulla")
+
+                if user_choice:
+                    shutil.rmtree(final_path_chiavetta)
+                    rewite = True
+                    # umask serve a farantire tutti i diritti di scrittura/lettura
+                    # alla cartella creata con makedirs
+                    oldmask = os.umask(0o77)#0o22
+                    os.makedirs(final_path_chiavetta, 0o777)
+                    os.umask(oldmask)
+                else:
+                    rewite=False
+                    print(user_choice)
+            else:
+                os.makedirs(final_path_chiavetta)
+
+
+            # carico la lista selezionata dall'utente e la metto nell'oggetto "list_obj"
+            if rewite:
+
+                try:
+                    with open(final_path_list, 'rb') as io:
+                        list_objects = pk.load(io)
+                        fm.copy_file_from_path_to_another(final_path_list, final_path_chiavetta)
+
+                        for audio in list_objects:
+                            if audio.name != "DEFAULT":
+                                name_file = str(audio.name)
+                                path_scr = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry,name_file)
+
+                                fm.copy_file_from_path_to_another(path_scr,
+                                                                  final_path_chiavetta)
+
+
+                except (FileNotFoundError, IOError) as e:
+                    print(e)
+
         #   START OF show_list
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen', SP.full_screen_option)
 
         scrollbar = Scrollbar(root)
         scrollbar.config(width = 70)
@@ -161,30 +284,43 @@ class ListAssociationView:
         mylist.pack(side=LEFT, fill=BOTH, expand=1, )
         scrollbar.config(command=mylist.yview)
 
-        #  pulsante che si trova alla destra della lista di file audio NELLA schermata  ASSOCIA
-        pulstante_associa_fileAudio = Button(root,
-                                             text="CARICA LISTA",
-                                             command=lambda: upload_list(root),
-                                             bg=SP.button_background_color,
-                                             font=SP.font_piccolo,
-                                             fg=SP.button_font_color,
-                                             bd=SP.bord_size,
-                                             relief=SP.bord_style,
-                                             activebackground=SP.root_background_color)
-        pulstante_associa_fileAudio.config(height=5, width=25)
-        pulstante_associa_fileAudio.pack(side=TOP, fill=BOTH)
 
-        #  pulsante per eliminare i file audio selezionati     ###############
-        pulstante_elimina_fileAudio = Button(root,
-                                             text="ELIMINA LISTA",
-                                             command=lambda: delete_item(root),
-                                             bg=SP.button_background_color,
-                                             bd=SP.bord_size,
-                                             relief=SP.bord_style,
-                                             activebackground=SP.root_background_color,
-                                             font=SP.font_piccolo,
-                                             fg=SP.button_font_color)
-        pulstante_elimina_fileAudio.config(height=4, width=25)
-        pulstante_elimina_fileAudio.pack( fill=BOTH)
+        pulstante_esporta_lista = Button(root,
+                                         text="Carica lista",
+                                         command=lambda: upload_list(root),
+                                         bg=SP.button_background_color,
+                                         font=SP.font_piccolo,
+                                         fg=SP.button_font_color,
+                                         bd=SP.bord_size,
+                                         relief=SP.bord_style,
+                                         activebackground=SP.root_background_color)
+        pulstante_esporta_lista.config(height=5, width=25)
+        pulstante_esporta_lista.pack(side=TOP, fill=BOTH)
+
+        pulstante_esporta_lista = Button(root,
+                                         text="Esporta lista",
+                                         command=lambda:show_chiavette(),
+                                         bg=SP.button_background_color,
+                                         font=SP.font_piccolo,
+                                         fg=SP.button_font_color,
+                                         bd=SP.bord_size,
+                                         relief=SP.bord_style,
+                                         activebackground=SP.root_background_color)
+        pulstante_esporta_lista.config(height=5, width=25)
+        pulstante_esporta_lista.pack(side=TOP, fill=BOTH)
+
+        #  pulsante per eliminare le liste selezionate     ###############
+        pulstante_elimina_lista = Button(root,
+                                         text="Elimina lista",
+                                         command=lambda: delete_item(root),
+                                         bg=SP.button_background_color,
+                                         bd=SP.bord_size,
+                                         relief=SP.bord_style,
+                                         activebackground=SP.root_background_color,
+                                         font=SP.font_piccolo,
+                                         fg=SP.button_font_color)
+        pulstante_elimina_lista.config(height=4, width=25)
+        pulstante_elimina_lista.pack(fill=BOTH)
 
         uv.exit_button_with_text(root, "Torna al menu principale ")
+

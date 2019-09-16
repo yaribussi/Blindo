@@ -8,7 +8,7 @@ import UtilityView as uv
 class SettingsView:
     def set_aspect():
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen', SP.full_screen_option)
         root.config(bg=SP.root_background_color)
         frame = Frame(root)
         frame.config(bg=SP.root_background_color)
@@ -38,7 +38,7 @@ class SettingsView:
 
     def choose_button_aspect():
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen', SP.full_screen_option)
         root.config(bg=SP.root_background_color)
         frame = Frame(root)
         frame.config(bg=SP.root_background_color)
@@ -79,7 +79,7 @@ class SettingsView:
 
     def setting_view():
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen', SP.full_screen_option)
         root.config(bg=SP.root_background_color)
         frame = Frame(root)
         frame.config(bg=SP.root_background_color)
@@ -135,7 +135,7 @@ class SettingsView:
                 change_volume_on_display()
 
             root = Tk()
-            root.attributes('-fullscreen', True)
+            root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.root_background_color)
             frame = Frame(root)
             frame.config(bg=SP.root_background_color)

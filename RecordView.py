@@ -17,7 +17,7 @@ class RecordView:
 
     def registra(path_che_simula_la_memoria_interna_del_raspberry):
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen', SP.full_screen_option)
         root.config(bg=SP.root_background_color)
 
         frame = Frame(root)
@@ -65,6 +65,7 @@ class RecordView:
 
                 # funzione che richiama la tastiera e chiede all'utente il nome del file
                 new_name = key.keyboard()
+
 
                 # path completo del nome del file appena registrato
                 initial = os.path.join(path_che_simula_la_memoria_interna_del_raspberry, "reg.wav")

@@ -9,7 +9,7 @@ class ImportExportView:
     # schermata che permette di importare ed esportare i file da/su chiavetta
     def import_export(path_punto_accesso_chiavette, path_che_simula_la_memoria_interna_del_raspberry):
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen', SP.full_screen_option)
         root.config(bg=SP.root_background_color)
 
         frame = Frame(root)
@@ -77,7 +77,7 @@ class ImportExportView:
         #    funzione che richiama la sottoschermata dopo aver cliccato su "ESPORTA"
         def scegli_chiavetta_esporta():
             root = Tk()
-            root.attributes('-fullscreen', True)
+            root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.root_background_color)
 
             frame = Frame(root, bg=SP.root_background_color)
@@ -112,7 +112,7 @@ class ImportExportView:
         #    funzione che richiama la sottoschermata dopo aver cliccato su "IMPORTA"
         def scegli_chiavetta_importa():
             root = Tk()
-            root.attributes('-fullscreen', True)
+            root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.root_background_color)
 
             frame = Frame(root, bg=SP.root_background_color)

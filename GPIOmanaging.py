@@ -5,9 +5,9 @@ import Pause
 import fileManaging as fm
 import registrazione
 import os
-
+import subprocess
 #os.chdir("/home/pi/Desktop/Main/")
-
+import StaticParameter as SP
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 
@@ -100,7 +100,14 @@ def my_play_and_pause(pulsante):
 
 
 def turn_off_device(pulsante):
-    uv.spegni_con_conferma()
+    choice=uv.multi_choice_view(SP.message_label_quit_device,
+                                SP.message_text_button_confirm,
+                                SP.message_text_button_abort)
+    if choice:
+        subprocess.Popen(['shutdown', '-h', 'now'])
+    else:
+        return
+
 
 
 def interrupt():

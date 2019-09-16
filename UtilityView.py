@@ -1,9 +1,8 @@
 from tkinter import *
 import fileManaging as fm
-import subprocess
 import os
 import StaticParameter as SP
-
+from ListAssociationView import ListAssociationView as lav
 
 #    funzione che mostra a video un messaggio
 #    passatole come primo parametro per un tempo (in secondi) passato come secondo parametrp
@@ -68,47 +67,6 @@ def bottom_with_text(frame, text):
             return pulsante
 
 
-# funzione che crea una schermata che chiede all'utente la conferma dello spegnimento del device
-def spegni_con_conferma():
-    root = Tk()
-    root.attributes('-fullscreen', True)
-    root.config(bg=SP.root_background_color)
-    frame = Frame(root)
-    frame.config(bg=SP.root_background_color)
-    frame.pack()
-    label = Label(frame, text="Vuoi spegnere il dispositivo?",
-                  bg=SP.root_background_color,
-                  fg=SP.root_font_color,
-                  width=90, height=4,
-                  font=SP.font_medio
-                  )
-    label.pack()
-
-    pulsante_spegni = Button(frame,
-                             text="Spegni",
-                             bg=SP.button_background_color,
-                             command=lambda: subprocess.Popen(['shutdown', '-h', 'now']),
-                             font=SP.font_piccolo,
-                             fg=SP.button_font_color,
-                             relief=SP.bord_style,
-                             bd=SP.bord_size,
-                             activebackground=SP.active_background_color)
-    pulsante_spegni.config(height=5, width=23)
-    pulsante_spegni.pack(side=LEFT)
-
-    pulsante_annulla = Button(frame,
-                              text="Annulla",
-                              bg=SP.button_background_color,
-                              fg=SP.button_font_color,
-                              command=lambda: root.destroy(),
-                              font=SP.font_piccolo,
-                              relief=SP.bord_style,
-                              bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
-    pulsante_annulla.config(height=5, width=23)  # altezza 5
-    pulsante_annulla.pack(side=RIGHT)
-    root.mainloop()
-
 
 # funzione che richiama una schermata chiedendo all'utente la conferma dell'eliminazione del file selezionato
 def elimina_file_con_conferma(path, nome_file):
@@ -125,7 +83,7 @@ def elimina_file_con_conferma(path, nome_file):
         root.destroy()
 
     root = Tk()
-    root.attributes('-fullscreen', True)
+    root.attributes('-fullscreen', SP.full_screen_option)
     root.config(bg=SP.root_background_color)
 
     frame = Frame(root)
@@ -166,6 +124,7 @@ def elimina_file_con_conferma(path, nome_file):
     root.mainloop()
 
 
+
 def elimina_file_con_conferma_multipla(selected_file):
 
     def confirmed_deletion():
@@ -183,7 +142,7 @@ def elimina_file_con_conferma_multipla(selected_file):
         root.destroy()
 
     root = Tk()
-    root.attributes('-fullscreen', True)
+    root.attributes('-fullscreen', SP.full_screen_option)
     root.config(bg=SP.root_background_color)
 
     frame = Frame(root)
@@ -224,6 +183,61 @@ def elimina_file_con_conferma_multipla(selected_file):
     root.mainloop()
 
 
+def multi_choice_view(text_label,yes_button_text,no_button_text):
+    #choice=True
+    def confirmed_seletion():
+        global choice
+        choice=True
+        root.quit()
+        root.destroy()
+
+    def abort_deletion():
+        global choice
+        choice=False
+        root.quit()
+        root.destroy()
+
+    root = Tk()
+    root.attributes('-fullscreen', SP.full_screen_option)
+    root.config(bg=SP.root_background_color)
+
+    frame = Frame(root)
+    frame.config(bg=SP.root_background_color)
+    frame.pack()
+
+    label = Label(
+        frame, text=text_label,
+        bg=SP.root_background_color,
+        fg=SP.root_font_color,
+        width=90, height=3,
+        font=SP.font_medio)
+    label.pack()
+
+    pulsante_conferma = Button(frame,
+                               text=yes_button_text,
+                               bg=SP.button_background_color,
+                               command=lambda: confirmed_seletion(),
+                               font=SP.font_piccolo,
+                               fg=SP.button_font_color,
+                               relief=SP.bord_style,
+                               bd=SP.bord_size,
+                               activebackground=SP.active_background_color)
+    pulsante_conferma.config(height=5, width=23)
+    pulsante_conferma.pack(side=LEFT)
+
+    pulsante_annulla = Button(frame,
+                              text=no_button_text,
+                              bg=SP.button_background_color,
+                              command=lambda: abort_deletion(),
+                              font=SP.font_piccolo,
+                              fg=SP.button_font_color,
+                              relief=SP.bord_style,
+                              bd=SP.bord_size,
+                              activebackground=SP.active_background_color)
+    pulsante_annulla.config(height=5, width=23)  # altezza 5
+    pulsante_annulla.pack(side=RIGHT)
+    root.mainloop()
+    return choice
 
 # schermata che appare DOPO aver cliccato uno dei pulsatni della lista
 # che vengono mostrati DOPO aver cliccato il pulsante ASSOCIA nel MENUPRINCIPALE
@@ -246,7 +260,7 @@ def show_file(idButton):
 
     #   START OF show_file
     root = Tk()
-    root.attributes('-fullscreen', True)
+    root.attributes('-fullscreen', SP.full_screen_option)
 
     scrollbar = Scrollbar(root)
     scrollbar.config(width=70)
@@ -343,6 +357,19 @@ def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
     pulsante.config(width=40, height=3)
     return pulsante
 
+def button_USB_key_list(frame, nome_chiavetta):
+    pulsante = Button(frame, text=nome_chiavetta,
+                      bg=SP.button_background_color,
+                      font=SP.font_piccolo,
+                      fg=SP.button_font_color,
+                      bd=SP.bord_size,
+                      relief=SP.bord_style,
+                      activebackground=SP.active_background_color,
+                     # command=lav.show_list().es
+                      )
+    pulsante.config(width=40, height=3)
+    return pulsante
+
 
 # schermata che stampa a video i file contenuti in un determinato path
 def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_chiavetta):
@@ -374,7 +401,7 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
         root.destroy()
 
     root = Tk()
-    root.attributes('-fullscreen', True)
+    root.attributes('-fullscreen', SP.full_screen_option)
     formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
 
     if mod == "esportare":
@@ -401,7 +428,7 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                      bg=SP.root_background_color)
     mydict = {}
 
-    #ciclo che aggiunge i file audio alla scrolbar
+    # ciclo che aggiunge i file audio alla scrolbar
     for radice, cartelle, files in os.walk(path_origine, topdown=False):
         for name in files:
             for tipo in formats:

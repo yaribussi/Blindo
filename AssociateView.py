@@ -1,6 +1,6 @@
 from tkinter import *
 import UtilityView as uv
-from StaticParameter import Setting as SP
+from StaticParameter as SP
 
 
 class AssociateView:
@@ -10,7 +10,7 @@ class AssociateView:
 
         closingroot.quit()
         root = Tk()
-        root.attributes('-fullscreen', True)
+        root.attributes('-fullscreen',SP.full_screen_option)
 
         frame = Frame(root)
 
