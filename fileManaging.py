@@ -54,7 +54,7 @@ def delete_element_from_list(nome_file_da_rimuovere, nome_lista): # aggiungere l
                 for audio in my_objects:
                     if audio.name == nome_file_da_rimuovere:
                         my_objects.remove(audio)
-                        #print(audio.name)
+
 
             save_file_audio_list(my_objects, nome_lista)
 

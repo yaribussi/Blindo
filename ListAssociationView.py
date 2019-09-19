@@ -13,6 +13,7 @@ class ListAssociationView:
     #  schermata che appare dopo aver cliccato il pulsante ASSOCIAZIONI nel MENU PRINCIPALE
     def schermata_associazioni():
 
+        ListAssociationView.auto_import_list()
         # variablile globale
         # in questo modo è più semplice gestire la chiusura di questa schermata
         global root
@@ -46,7 +47,7 @@ class ListAssociationView:
             my_list.insert(END, audio)
 
 
-        my_list.bind('<<ListboxSelect>>', ListAssociationView.drop_menu_list_association)
+       # my_list.bind('<<ListboxSelect>>', ListAssociationView.drop_menu_list_association)
 
         frame.pack()
         my_list.pack()
@@ -54,6 +55,33 @@ class ListAssociationView:
         uv.exit_button_with_text(root, SP.exit_text)
         root.mainloop()
 
+    def auto_import_list():
+        chiavetta=os.listdir(SP.path_punto_accesso_chiavette)
+        formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
+        if len(chiavetta)>0:
+            path_folder_liste = os.path.join(SP.path_punto_accesso_chiavette,
+                                        os.path.join(chiavetta[0],SP.expor_folder_name))
+
+            folder_lista = os.listdir(path_folder_liste)
+
+            path_folder_lista=os.path.join(path_folder_liste,folder_lista[0])
+
+
+            for file in os.listdir(path_folder_lista):
+
+                path_file=os.path.join(path_folder_lista,file)
+                if file==folder_lista[0]:
+
+                    fm.copy_file_from_path_to_another(path_file, SP.path_liste)
+                else:
+                    fm.copy_file_from_path_to_another(path_file,SP.path_che_simula_la_memoria_interna_del_raspberry)
+
+            fm.change_list(folder_lista[0])
+
+
+
+        else:
+            print("nessuna chiavetta inserita")
     def drop_menu_list_association(evt):
 
         def unbind_and_closing(unbind_root):
@@ -444,17 +472,21 @@ class ListAssociationView:
 
     def show_and_import_list(path_usb_key):
 
+
         def drop_menu_list_manager(evt):
 
-            def import_list_and_closing(unbind_root):
+            def import_list_and_closing():
 
                 # root del drop_menu
-                unbind_root.destroy()
+                #unbind_root.destroy()
                 fm.change_list(name_list)
                 # path della cartella contenente la lista e i file sulla chiavetta
-                list_folder = os.path.join(path_list_folders, name_list)
-                saved_list=os.listdir(SP.path_liste)
 
+                list_folder = os.path.join(path_list_folders, name_list)
+
+                ''' questa parte abilita il controllo in fase di import, momentaneamente disabilitata
+                saved_list=os.listdir(SP.path_liste)
+                
                 found_existing_list=False
 
                 for list in saved_list:
@@ -468,16 +500,16 @@ class ListAssociationView:
                     user_choice=uv.multi_choice_view("lista stesso nome","sovrascrivi","annulla")
 
                 if user_choice:
-                    for file in os.listdir(list_folder):
+                '''
+                for file in os.listdir(list_folder):
 
-                        # path del singolo file analizzato
-                        path_file = os.path.join(list_folder, file)
-                        if file == name_list:
-                            fm.copy_file_from_path_to_another(path_file, SP.path_liste)
-                        else:
-                            fm.copy_file_from_path_to_another(path_file,
-                                                              SP.path_che_simula_la_memoria_interna_del_raspberry)
-
+                    # path del singolo file analizzato
+                    path_file = os.path.join(list_folder, file)
+                    if file == name_list:
+                        fm.copy_file_from_path_to_another(path_file, SP.path_liste)
+                    else:
+                        fm.copy_file_from_path_to_another(path_file,
+                                                          SP.path_che_simula_la_memoria_interna_del_raspberry)
 
 
             def delete_list(drop_menu_root):
@@ -550,6 +582,39 @@ class ListAssociationView:
 
             frame.pack(fill=BOTH, expand=YES)
             # ###########  End of drop menu list
+        def auto_import_list_button(name_list,cl_root):
+            cl_root.destroy()
+            # root del drop_menu
+            # unbind_root.destroy()
+            fm.change_list(name_list)
+            # path della cartella contenente la lista e i file sulla chiavetta
+
+            list_folder = os.path.join(path_list_folders, name_list)
+            saved_list = os.listdir(SP.path_liste)
+
+            found_existing_list = False
+
+            for list in saved_list:
+                if list == name_list:
+                    found_existing_list = True
+                    break
+                else:
+                    found_existing_list = False
+            user_choice = True
+            if found_existing_list:
+                user_choice = uv.multi_choice_view("lista stesso nome", "sovrascrivi", "annulla")
+
+            if user_choice:
+
+                for file in os.listdir(list_folder):
+
+                    # path del singolo file analizzato
+                    path_file = os.path.join(list_folder, file)
+                    if file == name_list:
+                        fm.copy_file_from_path_to_another(path_file, SP.path_liste)
+                    else:
+                        fm.copy_file_from_path_to_another(path_file,
+                                                          SP.path_che_simula_la_memoria_interna_del_raspberry)
 
         # start of show import list
         path_list_folders = os.path.join(path_usb_key, SP.expor_folder_name)
@@ -568,7 +633,6 @@ class ListAssociationView:
                            font=SP.font_piccolo
                            )
         label_info.pack()
-
         # visualizzazione liste con scrollbar
         scrollbar = Scrollbar(main_root)
         scrollbar.pack(side=LEFT, fill=Y)
@@ -582,11 +646,24 @@ class ListAssociationView:
         for list in os.listdir(path_list_folders):
             my_list.insert(END, list)
 
-
-
-        my_list.bind('<<ListboxSelect>>', drop_menu_list_manager)
+        # my_list.bind('<<ListboxSelect>>', drop_menu_list_manager)
         my_list.pack(side=LEFT, fill=BOTH, expand=True)
         scrollbar.config(width=70, command=my_list.yview)
+
+        list_name=list_name = my_list.get('active')
+        pulstante_importa_lista = Button(main_root,
+                                         text="Importa lista",
+                                         command=lambda:auto_import_list_button(list_name,main_root),
+                                         bg=SP.button_background_color,
+                                         font=SP.font_piccolo,
+                                         fg=SP.button_font_color,
+                                         bd=SP.bord_size,
+                                         relief=SP.bord_style,
+                                         activebackground=SP.root_background_color)
+        pulstante_importa_lista.config(height=4, width=25)
+        pulstante_importa_lista.pack(side=TOP, fill=BOTH)
+
+
 
         uv.exit_button_with_text(main_root, "Torna indietro")
 
