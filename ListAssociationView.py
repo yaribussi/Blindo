@@ -313,7 +313,7 @@ class ListAssociationView:
                     os.umask(oldmask)
                 else:
                     rewite = False
-                    print(user_choice)
+
             else:
                 os.makedirs(final_path_chiavetta)
 
@@ -370,7 +370,7 @@ class ListAssociationView:
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
                                          activebackground=SP.root_background_color)
-        pulstante_esporta_lista.config(height=5, width=25)
+        pulstante_esporta_lista.config(height=4, width=25)
         pulstante_esporta_lista.pack(side=TOP, fill=BOTH)
 
         pulstante_esporta_lista = Button(root,
@@ -382,7 +382,7 @@ class ListAssociationView:
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
                                          activebackground=SP.root_background_color)
-        pulstante_esporta_lista.config(height=5, width=25)
+        pulstante_esporta_lista.config(height=4, width=25)
         pulstante_esporta_lista.pack(side=TOP, fill=BOTH)
 
         #  pulsante per eliminare le liste selezionate     ###############
@@ -447,25 +447,41 @@ class ListAssociationView:
         def drop_menu_list_manager(evt):
 
             def import_list_and_closing(unbind_root):
+
                 # root del drop_menu
                 unbind_root.destroy()
                 fm.change_list(name_list)
                 # path della cartella contenente la lista e i file sulla chiavetta
                 list_folder = os.path.join(path_list_folders, name_list)
+                saved_list=os.listdir(SP.path_liste)
 
-                for file in os.listdir(list_folder):
+                found_existing_list=False
 
-                    # path del singolo file analizzato
-                    path_file = os.path.join(list_folder, file)
-                    if file == name_list:
-                        fm.copy_file_from_path_to_another(path_file, SP.path_liste)
+                for list in saved_list:
+                    if list==name_list:
+                        found_existing_list=True
+                        break
                     else:
-                        fm.copy_file_from_path_to_another(path_file,
-                                                          SP.path_che_simula_la_memoria_interna_del_raspberry)
+                        found_existing_list=False
+                user_choice=True
+                if found_existing_list:
+                    user_choice=uv.multi_choice_view("lista stesso nome","sovrascrivi","annulla")
+
+                if user_choice:
+                    for file in os.listdir(list_folder):
+
+                        # path del singolo file analizzato
+                        path_file = os.path.join(list_folder, file)
+                        if file == name_list:
+                            fm.copy_file_from_path_to_another(path_file, SP.path_liste)
+                        else:
+                            fm.copy_file_from_path_to_another(path_file,
+                                                              SP.path_che_simula_la_memoria_interna_del_raspberry)
 
 
 
             def delete_list(drop_menu_root):
+
                 drop_menu_root.destroy()
                 main_root.destroy()
                 uv.elimina_file_con_conferma(path_list_folders, name_list)
@@ -481,7 +497,7 @@ class ListAssociationView:
             root.overrideredirect(True)
 
             root_width = 140
-            root_height = 200
+            root_height = 150
 
             screen_width = root.winfo_screenwidth()
             screen_height = root.winfo_screenheight()
@@ -566,6 +582,8 @@ class ListAssociationView:
         for list in os.listdir(path_list_folders):
             my_list.insert(END, list)
 
+
+
         my_list.bind('<<ListboxSelect>>', drop_menu_list_manager)
         my_list.pack(side=LEFT, fill=BOTH, expand=True)
         scrollbar.config(width=70, command=my_list.yview)
@@ -591,7 +609,7 @@ class ListAssociationView:
                          font=SP.font_medio,
                          menu=subMenu, )  # menu a cascata
         # riga di separazione
-        subMenu.add_separator()
+        #subMenu.add_separator()
         subMenu.add_command(label="Nuova Lista     ", font=SP.font_medio,
                             command=lambda: ListAssociationView.new_list_view(master))
         subMenu.add_separator()
@@ -603,4 +621,4 @@ class ListAssociationView:
         subMenu.add_separator()
         subMenu.add_command(label="Importa Liste  ", font=SP.font_medio,
                             command=lambda: ListAssociationView.import_list(master))
-        subMenu.add_separator()
+        #subMenu.add_separator()

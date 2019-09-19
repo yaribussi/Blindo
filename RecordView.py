@@ -65,7 +65,7 @@ class RecordView:
             file_audio_memoria_interna= os.listdir(path_che_simula_la_memoria_interna_del_raspberry)
 
             if recording:
-                #reg.stop()
+                reg.stop()
 
                 # funzione che richiama la tastiera e chiede all'utente il nome del file
                 file_not_found = True

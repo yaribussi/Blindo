@@ -1,7 +1,7 @@
 import pickle as pk
 import os
 
-from IPython.utils.tests.test_wildcard import obj_t
+#from IPython.utils.tests.test_wildcard import obj_t
 
 from fileAudio import FileAudio
 import shutil
