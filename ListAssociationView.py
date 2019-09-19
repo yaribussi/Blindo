@@ -21,6 +21,7 @@ class ListAssociationView:
         root.attributes('-fullscreen', SP.full_screen_option)
 
         root.config(bg=SP.root_background_color)
+        
         current_list = fm.name_file
         frame = Frame(root)
         frame.config(bg=SP.root_background_color)
