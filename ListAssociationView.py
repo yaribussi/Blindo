@@ -192,7 +192,7 @@ class ListAssociationView:
         find_list_existing_name = False
         existing_list=os.listdir(SP.path_liste)
 
-        new_list_name = kv.keyboard()
+        new_list_name = kv.keyboard("Sciegli con che nome vuoi salvare lalista")
 
         for list in existing_list:
             if list == new_list_name:

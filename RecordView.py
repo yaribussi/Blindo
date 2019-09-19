@@ -48,7 +48,7 @@ class RecordView:
             #cambio il contenuto del label informativo
             label["text"] = "Registrazione in corso.....\nPremi il pulsante per interrompere"
 
-            final_path = path_che_simula_la_memoria_interna_del_raspberry + name_recoded_file
+            final_path = os.path.join(path_che_simula_la_memoria_interna_del_raspberry, name_recoded_file)
 
             reg.start(final_path)
 
@@ -60,19 +60,40 @@ class RecordView:
             # abilito il pulsante play
             pulsante_play.pack()
 
+
+            # lista dei file presenti nella cartella della memoria interna
+            file_audio_memoria_interna= os.listdir(path_che_simula_la_memoria_interna_del_raspberry)
+
             if recording:
-                reg.stop()
+                #reg.stop()
 
                 # funzione che richiama la tastiera e chiede all'utente il nome del file
-                new_name = key.keyboard()
+                file_not_found = True
 
-                ########### controllo nome ################
+                label_keboard = "Scegli il nome del file appena registrato"
+
+                while file_not_found:
+
+                    new_name = key.keyboard(label_keboard)
+
+                    new_name_with_format = new_name+".wav"
+
+                    for file in file_audio_memoria_interna:
+                        if new_name_with_format == file:
+                            #print("-----------------------------------trovato")
+                            file_not_found = True
+                            label_keboard = "File già esistente"
+                            break
+                        else:
+                            #print("-----------------------------------non trovato")
+                            file_not_found = False
+
 
                 # path completo del nome del file appena registrato
-                initial = os.path.join(path_che_simula_la_memoria_interna_del_raspberry, "reg.wav")
+                initial = os.path.join(path_che_simula_la_memoria_interna_del_raspberry, SP.name_recoded_file)
 
                 # path completo del file registrato rinominato
-                final = os.path.join(path_che_simula_la_memoria_interna_del_raspberry, new_name + ".wav")
+                final = os.path.join(path_che_simula_la_memoria_interna_del_raspberry, new_name_with_format)
 
                 # funzione che rinomina il file audio appena registrato
                 os.rename(initial, final)

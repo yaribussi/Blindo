@@ -108,10 +108,10 @@ def hoso_pop(kb):
 			var_row += 1
 
 
-def keyboard():
+def keyboard(label_keyboard):
 	label_font = ("Helvetica",30)
 	label_bg_color = "#708090"
-	label_text = "Scegli con che nome vuoi salvare il file"
+	label_text = label_keyboard
 
 	entry_font = ("Helvetica",30)
 	entry_background = SP.root_font_color

@@ -62,7 +62,7 @@ bord_style = bord_styles_set[2]
 number_of_phisical_button=5
 
 # nome di default del file registrato
-name_recoded_file= "/reg.wav"
+name_recoded_file= "reg.wav"
 
 # abilita fullscreen con True, disabilita con False
 full_screen_option=True
