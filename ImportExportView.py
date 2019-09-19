@@ -95,7 +95,7 @@ class ImportExportView:
             label.grid(row=1, column=0)
             label.config(width=50, height=4)
 
-            # index necessario a ??
+            # index necessario all' incolonnamento dei pulsanti, utilizzato in pulsante.grid() qualche riga sotto
             index = 2
             # ciclo che stampa tante "chiavette" quante inserite nel device
             for cartella in dirs:

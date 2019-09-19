@@ -3,6 +3,7 @@ import fileManaging as fm
 import os
 import StaticParameter as SP
 from ListAssociationView import ListAssociationView as lav
+import shutil
 
 #    funzione che mostra a video un messaggio
 #    passatole come primo parametro per un tempo (in secondi) passato come secondo parametrp
@@ -74,7 +75,16 @@ def elimina_file_con_conferma(path, nome_file):
     def confirmed_deletion(path, nome_file):
         for list in os.listdir(SP.path_liste):
             fm.delete_element_from_list(nome_file, list)
-        os.remove(os.path.join(path, nome_file))
+
+        path_file = os.path.join(path, nome_file)
+
+        # se si vuole eliminare una cartella, si usa il comando shutile.rmtree
+        # se si vuole eliminare un file si usa il comando di os
+        if os.path.isdir(path_file):
+            shutil.rmtree(path_file)
+
+        else:
+            os.remove(path_file)
         root.quit()
         root.destroy()
 

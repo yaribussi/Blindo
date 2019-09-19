@@ -66,6 +66,7 @@ class RecordView:
                 # funzione che richiama la tastiera e chiede all'utente il nome del file
                 new_name = key.keyboard()
 
+                ########### controllo nome ################
 
                 # path completo del nome del file appena registrato
                 initial = os.path.join(path_che_simula_la_memoria_interna_del_raspberry, "reg.wav")

@@ -1,5 +1,8 @@
 import pickle as pk
 import os
+
+from IPython.utils.tests.test_wildcard import obj_t
+
 from fileAudio import FileAudio
 import shutil
 import StaticParameter as SP
@@ -59,7 +62,6 @@ def delete_element_from_list(nome_file_da_rimuovere, nome_lista): # aggiungere l
             print(e)
 
 
-
 def create_list(list_name):
 
     default = FileAudio('DEFAULT', 0)
@@ -67,10 +69,19 @@ def create_list(list_name):
     save_file_audio_list(my_objects, list_name)
 
 
+def delete_bind(id,audio_name):
+    obj_list = load_list()
+
+    for audio in obj_list:
+        if audio.idButton == id and audio.name == audio_name:
+            obj_list.remove(audio)
+            save_file_audio(obj_list)
+
+
+
 # binding between the button and the name of the file audio
 def bind(audio_name, id):
     # default element needed to pass through the list of file audio if it has only one element
-
     file_audio = FileAudio(audio_name, id)
     final_path = os.path.join(SP.path_liste, name_file)
     my_objects = []

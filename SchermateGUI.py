@@ -46,9 +46,9 @@ class SchermateGUI:
 
         # PULSANTE IMPOSTAZIONI
         pulsante_impostazioni = Button(frame,
-                                       text="Volume",
+                                       text="Gestione Archivio",
                                        bg=SP.button_background_color,
-                                       command=lambda:sv.volume_view(),
+                                       #command=lambda:,
                                        font=SP.font_piccolo,
                                        fg=SP.button_font_color,
                                        relief=SP.bord_style,
@@ -107,8 +107,8 @@ class SchermateGUI:
         menu.add_cascade(label="Impostazioni", font=SP.font_medio, menu=subMenu, )  # menu a cascata
         # riga di separazione
         subMenu.add_separator()
-        #subMenu.add_command(label="Impostazioni     ", font=SP.font_medio)#, command=lambda:sv.setting_view())
-        #subMenu.add_separator()
+        subMenu.add_command(label="Volume     ", font=SP.font_medio, command=lambda:sv.volume_view())
+        subMenu.add_separator()
         subMenu.add_command(label="Spegni    ", font=SP.font_medio, command=lambda: turn_off_device())
 
         subMenu.add_separator()
