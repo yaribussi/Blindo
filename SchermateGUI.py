@@ -114,4 +114,4 @@ class SchermateGUI:
         subMenu.add_separator()
         subMenu.add_command(label="Chiudi programma", font=SP.font_medio, command=master.destroy)
         subMenu.add_separator()
-        subMenu.add_command(label="auto_carico", font=SP.font_medio, command=lambda:lav.auto_import_list())
+        #subMenu.add_command(label="auto_carico", font=SP.font_medio, command=lambda:lav.auto_import_list())
