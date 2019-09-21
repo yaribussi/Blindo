@@ -46,7 +46,6 @@ pop_up_colour_background="#505050"
 root_font_color= "white"
 black="black"
 
-
 recode_view_button_color= "#C00F44"
 import_export_button_color="#2355BF"
 list_association_button_color="#159338"

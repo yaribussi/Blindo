@@ -8,8 +8,22 @@ import os
 import subprocess
 #os.chdir("/home/pi/Desktop/Main/")
 import StaticParameter as SP
+from ListAssociationView import ListAssociationView as lav
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BCM) # Use physical pin numbering
+
+from pyudev import Contex, Monitor
+from pyudev.monitor import MonitorObserver
+context=Context()
+monitor=Monitor.from_netlink(context)
+monitor.filter_by(subsystem='usb')
+
+def auto_import(device):
+    if (device.action==add):
+        lav.auto_import_list()
+
+observer=MonitorObserver(monitor,callback=auto_import,name='monitor-observer')
+
 
 path = "/home/pi/Documents/fileAudio"
 pathfileaudio = "/home/pi/Documents/fileAudio"

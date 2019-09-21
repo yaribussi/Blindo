@@ -58,8 +58,11 @@ class ListAssociationView:
         root.mainloop()
 
     def auto_import_list():
+
         chiavetta=os.listdir(SP.path_punto_accesso_chiavette)
-        formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
+        while (len(chiavetta)==0):
+            chiavetta = os.listdir(SP.path_punto_accesso_chiavette)
+
         if len(chiavetta)>0:
             path_folder_liste = os.path.join(SP.path_punto_accesso_chiavette,
                                         os.path.join(chiavetta[0],SP.expor_folder_name))
@@ -393,7 +396,7 @@ class ListAssociationView:
         scrollbar.config(command=mylist.yview)
 
 
-        pulstante_esporta_lista = Button(root,
+        pulstante_carica_lista = Button(root,
                                          text="Carica lista",
                                          command=lambda: upload_list(root),
                                          bg=SP.standard_color_setting("import_button_background"),
@@ -402,8 +405,8 @@ class ListAssociationView:
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
                                          activebackground=SP.root_background_color)
-        pulstante_esporta_lista.config(height=4, width=25)
-        pulstante_esporta_lista.pack(side=TOP, fill=BOTH)
+        pulstante_carica_lista.config(height=4, width=25)
+        pulstante_carica_lista.pack(side=TOP, fill=BOTH)
 
         pulstante_esporta_lista = Button(root,
                                          text="Esporta lista",

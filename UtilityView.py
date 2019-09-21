@@ -103,7 +103,7 @@ def elimina_file_con_conferma(path, nome_file):
 
     label = Label(
         frame, text="Attenzione!\nVuoi eliminare\n" + nome_file + " ?",
-        bg=SP.root_background_color,
+        bg=SP.standard_color_setting("root_utility_view"),
         fg=SP.root_font_color,
         width=90, height=3,
         font=SP.font_medio)
@@ -123,7 +123,7 @@ def elimina_file_con_conferma(path, nome_file):
 
     pulsante_annulla = Button(frame,
                               text="Annulla",
-                              bg=SP.button_background_color,
+                              bg=SP.standard_color_setting("confirm_button_background"),
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
                               fg=SP.button_font_color,
@@ -272,17 +272,19 @@ def show_file(idButton):
     #   START OF show_file
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
+    #root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
     scrollbar = Scrollbar(root)
     scrollbar.config(width=70)
     scrollbar.pack(side=LEFT, fill=Y)
+
     formats = SP.formats_audio
     mydict = {}
     mylist = Listbox(root,
                      yscrollcommand=scrollbar.set,
                      font=SP.font_piccolo,
                      fg=SP.root_font_color,
-                     bg=SP.standard_color_setting("listbox_utility_view"))
+                     bg=SP.standard_color_setting("root_list_association_view"))
     # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
     # e inserisce in mylist tutti i file con un'estensione contenuta in "formats"
     for radice, cartelle, files in os.walk(SP.path_che_simula_la_memoria_interna_del_raspberry, topdown=False):
