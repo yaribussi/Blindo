@@ -59,9 +59,11 @@ class ListAssociationView:
 
     def auto_import_list():
 
-        chiavetta=os.listdir(SP.path_punto_accesso_chiavette)
+        chiavetta = os.listdir(SP.path_punto_accesso_chiavette)
+
         while (len(chiavetta)==0):
             chiavetta = os.listdir(SP.path_punto_accesso_chiavette)
+            print((len(chiavetta)))
 
         if len(chiavetta)>0:
             path_folder_liste = os.path.join(SP.path_punto_accesso_chiavette,
