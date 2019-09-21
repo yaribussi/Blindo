@@ -18,14 +18,14 @@ class RecordView:
     def registra(path_che_simula_la_memoria_interna_del_raspberry):
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
-        root.config(bg=SP.root_background_color)
+        root.config(bg=SP.standard_color_setting("root_record_view"))
 
         frame = Frame(root)
-        frame.config(bg=SP.root_background_color)
+        frame.config(bg=SP.standard_color_setting("frame_record_view"))
         frame.pack()
 
         label = Label(frame, text="Premi su Start per registrare",
-                      bg=SP.root_background_color,
+                      bg=SP.standard_color_setting("label_record_view"),
                       width=90,
                       height=3,
                       font=SP.font_medio,
@@ -105,26 +105,28 @@ class RecordView:
         # caratteristiche pulsante INIZIA REGISTRAZIONE
         pulsante_play = Button(frame,
                                text="Inizia a registrare",
-                               bg=SP.button_background_color,
+                               bg=SP.standard_color_setting("confirm_button_background"),
                                command=lambda: start_recoding(SP.name_recoded_file),
                                font=SP.font_piccolo,
                                fg=SP.button_font_color,
                                relief=SP.bord_style,
                                bd=SP.bord_size,
-                               activebackground=SP.active_background_color)
+                               #activebackground=SP.active_background_color
+                                )
         pulsante_play.config(height=5, width=23)
         pulsante_play.pack()
 
         # caratteristiche pulsante  STOP REGISTRAZIONE
         pulsante_stop = Button(frame,
                                text="Interrompi la registrazione",
-                               bg=SP.button_background_color,
+                               bg=SP.standard_color_setting("delete_button_background"),
                                command=lambda: stop_recording(),
                                font=SP.font_piccolo,
                                fg=SP.button_font_color,
                                relief=SP.bord_style,
                                bd=SP.bord_size,
-                               activebackground=SP.active_background_color)
+                               #activebackground=SP.active_background_color
+                               )
         pulsante_stop.config(height=5, width=23)
 
         uv.exit_button_with_text(root, SP.exit_text)

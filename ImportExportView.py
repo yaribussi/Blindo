@@ -10,14 +10,14 @@ class ImportExportView:
     def import_export(path_punto_accesso_chiavette, path_che_simula_la_memoria_interna_del_raspberry):
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
-        root.config(bg=SP.root_background_color)
+        root.config(bg=SP.standard_color_setting("root_import_export_view"))
 
         frame = Frame(root)
-        frame.config(bg=SP.root_background_color)
+        frame.config(bg=SP.standard_color_setting("frame_import_export_view"))
         frame.pack()
 
         label = Label(frame, text="Scegli l'azione desiderata",
-                      bg=SP.root_background_color,
+                      bg=SP.standard_color_setting("label_import_export_view"),
                       width=90, height=3,
                       font=SP.font_medio,
                       fg=SP.root_font_color
@@ -32,25 +32,27 @@ class ImportExportView:
         if numbers_of_key > 0:
             pulsante_importa = Button(frame,
                                       text="Importa",
-                                      bg=SP.button_background_color,
+                                      bg=SP.standard_color_setting("import_button_background"),
                                       command=lambda: scegli_chiavetta_importa(),
                                       font=SP.font_piccolo,
                                       fg=SP.button_font_color,
                                       bd=SP.bord_size,
                                       relief=SP.bord_style,
-                                      activebackground=SP.active_background_color)
+                                      #activebackground=SP.active_background_color
+                                      )
             pulsante_importa.pack(side=LEFT)
             pulsante_importa.config(height=5, width=22)
 
             pulsante_esporta = Button(frame,
                                       text="Esporta",
-                                      bg=SP.button_background_color,
+                                      bg=SP.standard_color_setting("export_button_background"),
                                       command=lambda: scegli_chiavetta_esporta(),
                                       font=SP.font_piccolo,
                                       fg=SP.button_font_color,
                                       bd=SP.bord_size,
                                       relief=SP.bord_style,
-                                      activebackground=SP.active_background_color)
+                                      #activebackground=SP.active_background_color
+                                      )
             pulsante_esporta.pack(side=RIGHT)
             pulsante_esporta.config(height=5, width=22)
         else:
@@ -61,7 +63,7 @@ class ImportExportView:
             # pulsante mostrato solo se NON è inserita nessuna chiavetta
             pulsante_memoria_interna = Button(frame,
                                       text="Accedi alla memoria interna",
-                                      bg=SP.button_background_color,
+                                      bg=SP.standard_color_setting("button_button_import_export_view"),
                                       command=lambda: uv.show_and_select_item_from_path(
                                                 "Memoria interna",path_che_simula_la_memoria_interna_del_raspberry,
                                                 path_che_simula_la_memoria_interna_del_raspberry,
@@ -70,7 +72,8 @@ class ImportExportView:
                                       fg=SP.button_font_color,
                                       bd=SP.bord_size,
                                       relief=SP.bord_style,
-                                      activebackground=SP.active_background_color)
+                                      #activebackground=SP.active_background_color
+                                              )
             pulsante_memoria_interna.pack()
             pulsante_memoria_interna.config(height=5, width=25)
 
@@ -78,9 +81,9 @@ class ImportExportView:
         def scegli_chiavetta_esporta():
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
-            root.config(bg=SP.root_background_color)
+            root.config(bg=SP.standard_color_setting("root_import_export_view"))
 
-            frame = Frame(root, bg=SP.root_background_color)
+            frame = Frame(root, bg=SP.standard_color_setting("frame_import_export_view"))
             frame.pack()
 
             # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
@@ -89,7 +92,7 @@ class ImportExportView:
             label = Label(frame,
                           text="Selezionare la chiavetta su cui esportare i file audio",
                           bd=20,
-                          bg=SP.root_background_color,
+                          bg=SP.standard_color_setting("label_import_export_view"),
                           font=SP.font_piccolo,
                           fg=SP.root_font_color)
             label.grid(row=1, column=0)
@@ -113,9 +116,9 @@ class ImportExportView:
         def scegli_chiavetta_importa():
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
-            root.config(bg=SP.root_background_color)
+            root.config(bg=SP.standard_color_setting("root_import_export_view"))
 
-            frame = Frame(root, bg=SP.root_background_color)
+            frame = Frame(root, bg=SP.standard_color_setting("frame_import_export_view"))
             frame.pack()
 
             # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
@@ -123,7 +126,7 @@ class ImportExportView:
 
             label = Label(frame, text="Selezionare la chiavetta da dove importare i file audio",
                           bd=20,
-                          bg=SP.root_background_color,
+                          bg=SP.standard_color_setting("label_import_export_view"),
                           font=SP.font_piccolo,
                           fg=SP.root_font_color)
             label.grid(row=1, column=0)

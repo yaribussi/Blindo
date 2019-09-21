@@ -8,7 +8,7 @@ class FileAudio:
         self.name=name
         self.idButton=idButton
 
-    # getter e setter del file
+    # Buttongetter e setter del file
     def get_name(self):
         return self.name
 

@@ -35,9 +35,9 @@ def close(root):
 
 
 def hoso_pop(kb):
-	key_background = SP.button_background_color
+	key_background = SP.standard_color_setting("key_button_background")
 	key_foreground = SP.button_font_color
-	key_active_background = SP.active_background_color
+	key_active_background = key_background
 	key_active_foreground = SP.root_font_color
 	key_font = SP.keyboard_key_font
 
@@ -50,10 +50,9 @@ def hoso_pop(kb):
 		if button == "CANCELLA":
 			tkinter.Button(
 						kb, text=button, width=15, heigh=6,
-						bg=key_background,
+						bg=SP.standard_color_setting("delete_button_background"),
 						fg=key_foreground,
-						activebackground=key_active_background,
-						activeforeground=key_active_foreground,
+						#activebackground=SP.delete_button_active_background,
 						font=key_font,
 						padx=1, pady=1,
 						bd=5,
@@ -74,10 +73,10 @@ def hoso_pop(kb):
 		elif button == "SALVA":
 			tkinter.Button(
 						kb, text=button, width=15, heigh=6,
-						bg=key_background,
+						bg=SP.standard_color_setting("confirm_button_background"),
 						font=key_font,
 						fg=key_foreground,
-						activebackground=key_active_background,
+						activebackground=SP.standard_color_setting("confirm_button_background"),
 						activeforeground=key_active_background,
 						padx=1, pady=1,
 						bd=5,
@@ -110,7 +109,6 @@ def hoso_pop(kb):
 
 def keyboard(label_keyboard):
 	label_font = ("Helvetica",30)
-	label_bg_color = "#708090"
 	label_text = label_keyboard
 
 	entry_font = ("Helvetica",30)
@@ -118,13 +116,13 @@ def keyboard(label_keyboard):
 	entry_foreground = "black"
 	kb = tkinter.Tk()
 
-	kb.attributes('-fullscreen', True)
-	kb.config(bg="#708090")
+	kb.attributes('-fullscreen', SP.full_screen_option)
+	kb.config(bg=SP.standard_color_setting("root_keyboard"))
 	label_scritta=Label(
 						kb,
 						text=label_text,
 						font=label_font,
-						bg=label_bg_color,
+						bg=SP.standard_color_setting("root_keyboard"),
 						fg=SP.root_font_color)
 
 	label_scritta.grid(row=0,column=1, columnspan=11)

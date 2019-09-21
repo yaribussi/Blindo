@@ -31,7 +31,7 @@ class SettingsView:
                                 bg=SP.button_background_color,
                                 relief=SP.bord_styles_set[i],
                                 bd=20,
-                                activebackground=SP.active_background_color,
+                                #activebackground=SP.active_background_color,
                                 activeforeground=SP.button_font_color)
             relif_button.config(height=4, width=10)
             relif_button.grid(row=3,column=i)
@@ -59,7 +59,8 @@ class SettingsView:
                                     fg=SP.button_font_color,
                                     relief=SP.bord_style,
                                     bd=SP.bord_size,
-                                    activebackground=SP.active_background_color)
+                                    #activebackground=SP.active_background_color
+                                    )
         change_size_button.config(height=5, width=23)
         change_size_button.pack(side=LEFT)
 
@@ -71,7 +72,8 @@ class SettingsView:
                                      font=SP.font_piccolo,
                                      relief=SP.bord_style,
                                      bd=SP.bord_size,
-                                     activebackground=SP.active_background_color)
+                                     #activebackground=SP.active_background_color
+                                     )
         change_style_button.config(height=5, width=23)  # altezza 5
         change_style_button.pack(side=RIGHT)
         uv.exit_button_with_text(root, SP.exit_text)
@@ -100,7 +102,8 @@ class SettingsView:
                                     fg=SP.button_font_color,
                                     relief=SP.bord_style,
                                     bd=SP.bord_size,
-                                    activebackground=SP.active_background_color)
+                                    #activebackground=SP.active_background_color
+                                    )
         change_size_button.config(height=5, width=23)
         change_size_button.pack(side=LEFT)
 
@@ -112,7 +115,8 @@ class SettingsView:
                                      font=SP.font_piccolo,
                                      relief=SP.bord_style,
                                      bd=SP.bord_size,
-                                     activebackground=SP.active_background_color)
+                                     #activebackground=SP.active_background_color
+                                     )
         change_style_button.config(height=5, width=23)  # altezza 5
         change_style_button.pack(side=RIGHT)
         uv.exit_button_with_text(root, SP.exit_text)
@@ -136,9 +140,9 @@ class SettingsView:
 
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
-            root.config(bg=SP.root_background_color)
+            root.config(bg=SP.standard_color_setting("root_setting_view"))
             frame = Frame(root)
-            frame.config(bg=SP.root_background_color)
+            frame.config(bg=SP.standard_color_setting("frame_setting_view"))
             frame.pack()
 
 
@@ -148,7 +152,7 @@ class SettingsView:
                                     text=current_volume,
                                     font=SP.font_grande,
                                     width=4,
-                                    bg=SP.root_background_color,
+                                    bg=SP.standard_color_setting("label_setting_view"),
                                     fg=SP.root_font_color
                                     )
             current_vol_label.grid(row=1, column=1)
@@ -160,10 +164,10 @@ class SettingsView:
                                   font=SP.font_grande,
                                   fg=SP.button_font_color,
                                   command=decrese_and_change,
-                                  bg=SP.button_background_color,
+                                  bg=SP.standard_color_setting("button_setting_view"),
                                   relief=SP.bord_style,
                                   bd=SP.bord_size,
-                                  activebackground=SP.active_background_color,
+                                 # activebackground=SP.active_background_color,
                                   activeforeground=SP.button_font_color)
             decrese_vol_button.grid(row=1)
             decrese_vol_button.config(height=1, width=2)
@@ -175,8 +179,8 @@ class SettingsView:
                                   font=SP.font_grande,
                                   fg=SP.button_font_color,
                                   command=increse_and_change,
-                                  bg=SP.button_background_color,
-                                  activebackground=SP.active_background_color,
+                                  bg=SP.standard_color_setting("button_setting_view"),
+                                  #activebackground=SP.active_background_color,
                                   activeforeground=SP.button_font_color,
                                   relief=SP.bord_style,
                                   bd=SP.bord_size)
@@ -188,7 +192,7 @@ class SettingsView:
                                 heigh=2,
                                 font=SP.font_medio,
                                 fg=SP.root_font_color,
-                                bg=SP.root_background_color)
+                                bg=SP.standard_color_setting("label_setting_view"))
 
             scritta_vol.grid(row=0, column=1)
             uv.exit_button_with_text(root, SP.exit_text)

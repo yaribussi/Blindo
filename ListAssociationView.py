@@ -13,27 +13,28 @@ class ListAssociationView:
     #  schermata che appare dopo aver cliccato il pulsante ASSOCIAZIONI nel MENU PRINCIPALE
     def schermata_associazioni():
 
-        ListAssociationView.auto_import_list()
+        #ListAssociationView.auto_import_list()
+        #ListAssociationView.auto_import_list()
         # variablile globale
         # in questo modo è più semplice gestire la chiusura di questa schermata
         global root
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
 
-        root.config(bg=SP.root_background_color)
+        root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
         current_list = fm.name_file
         frame = Frame(root)
-        frame.config(bg=SP.root_background_color)
+        frame.config(bg=SP.standard_color_setting("frame_list_association_view"))
 
         label_memo = Label(frame, text=current_list,
                            font=SP.font_piccolo,
-                           bg=SP.root_background_color,
+                           bg=SP.standard_color_setting("label_list_association_view"),
                            fg=SP.root_font_color,
                            bd=20,
                            width=200,
                            height=2)
-        label_memo.pack(side=TOP)
+        label_memo.pack(side=TOP,)
         sorted_list = fm.give_sorted_list()
 
         my_list = Listbox(root,  # yscrollcommand = scrollbar.set ,
@@ -41,7 +42,7 @@ class ListAssociationView:
                           font=SP.font_piccolo,
                           fg=SP.root_font_color,
                           width=90, height=8,
-                          bg=SP.root_background_color,
+                          bg=SP.standard_color_setting("listbox_list_association_view"),
                           activestyle="none")
 
         for audio in sorted_list:
@@ -66,7 +67,6 @@ class ListAssociationView:
             folder_lista = os.listdir(path_folder_liste)
 
             path_folder_lista=os.path.join(path_folder_liste,folder_lista[0])
-
 
             for file in os.listdir(path_folder_lista):
 
@@ -120,7 +120,7 @@ class ListAssociationView:
         root.geometry('%dx%d+%d+%d' % (root_width, root_height, x, y))
 
         frame = Frame(root,
-                      bg=SP.root_background_color)
+                      bg=SP.standard_color_setting("frame_list_association_view"))
 
         # str(value)[a:b] ritorna la substring con i caratteri
         # str(value)[a:b] ritorna la substring con i caratteri
@@ -134,7 +134,7 @@ class ListAssociationView:
         unbind_button = Button(frame,
                                   text="Disassocia",
                                   height=1, width=8,
-                                  bg=SP.button_background_color,
+                                  bg=SP.standard_color_setting("button_list_association_view"),
                                   fg=SP.button_font_color,
                                   command=lambda: unbind_and_closing(root),
                                   font = SP.font_piccolo,
@@ -145,7 +145,7 @@ class ListAssociationView:
         pulsante_annulla = Button(frame,
                                   text="  Annulla  ",
                                   height=1, width=8,
-                                  bg=SP.button_background_color,
+                                  bg=SP.standard_color_setting("button_list_association_view"),
                                   fg=SP.button_font_color,
                                   command=lambda: root.destroy(),
                                   font=SP.font_piccolo,
@@ -155,7 +155,7 @@ class ListAssociationView:
         pulsante_elimina = Button(frame,
                                   text="   Elimina   ",
                                   height=1, width=8,
-                                  bg=SP.button_background_color,
+                                  bg=SP.standard_color_setting("button_list_association_view"),
                                   fg=SP.button_font_color,
                                   command=lambda: delete_and_closing(root),
                                   font=SP.font_piccolo,
@@ -182,10 +182,12 @@ class ListAssociationView:
         closingroot.destroy()
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
+        root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
         frame = Frame(root)
+        frame.config(bg=SP.standard_color_setting("frame_list_association_view"))
 
-        text = Text(frame, wrap="none", bg=SP.root_background_color)
+        text = Text(frame, wrap="none", bg=SP.standard_color_setting("frame_list_association_view"))
         vsb = Scrollbar(frame, orient="vertical", command=text.yview,width=40)
         vsb.config(width=90)
         text.configure(yscrollcommand=vsb.set,width=3,bg=SP.root_background_color)
@@ -197,10 +199,11 @@ class ListAssociationView:
                                   command=lambda: close(root),
                                   bd=SP.bord_size,
                                   relief=SP.bord_style,
-                                  bg=SP.button_background_color,
+                                  bg=SP.standard_color_setting("exit_button_with_text"),
                                   font=SP.font_piccolo,
-                                  fg=SP.button_font_color,
-                                  activebackground=SP.active_background_color)
+                                  fg=SP.button_font_color
+                                  #activebackground=SP.active_background_color
+                                  )
         pulstante_uscita.config(height=50, width=18)
 
         #  ciclo che crea "number_of_button" pulsanti
@@ -269,9 +272,9 @@ class ListAssociationView:
         def show_chiavette():
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
-            root.config(bg=SP.root_background_color)
+            root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
-            frame = Frame(root, bg=SP.root_background_color)
+            frame = Frame(root, bg=SP.standard_color_setting("frame_list_association_view"))
             frame.pack()
 
             # passo alla funzione pi\media e quindi verranno visualizzate a schermo le chiavette disponibili
@@ -280,7 +283,7 @@ class ListAssociationView:
             label = Label(frame,
                           text="Selezionare la chiavetta su cui esportare la lista",
                           bd=20,
-                          bg=SP.root_background_color,
+                          bg=SP.standard_color_setting("frame_list_association_view"),
                           font=SP.font_piccolo,
                           fg=SP.root_font_color)
             label.grid(row=1, column=0)
@@ -294,7 +297,7 @@ class ListAssociationView:
 
                 path_chiavetta = os.path.join(SP.path_punto_accesso_chiavette, USB_key)
                 pulsante = Button(frame, text=USB_key,
-                                  bg=SP.button_background_color,
+                                  bg=SP.standard_color_setting("button_list_association_view"),
                                   font=SP.font_piccolo,
                                   fg=SP.button_font_color,
                                   bd=SP.bord_size,
@@ -377,7 +380,7 @@ class ListAssociationView:
         mylist = Listbox(root,
                          yscrollcommand=scrollbar.set,
                          font=SP.font_piccolo,
-                         bg=SP.root_background_color,
+                         bg=SP.standard_color_setting("listbox_list_association_view"),
                          fg=SP.root_font_color, )
 
         # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
@@ -393,7 +396,7 @@ class ListAssociationView:
         pulstante_esporta_lista = Button(root,
                                          text="Carica lista",
                                          command=lambda: upload_list(root),
-                                         bg=SP.button_background_color,
+                                         bg=SP.standard_color_setting("import_button_background"),
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
                                          bd=SP.bord_size,
@@ -405,7 +408,7 @@ class ListAssociationView:
         pulstante_esporta_lista = Button(root,
                                          text="Esporta lista",
                                          command=lambda:show_chiavette(),
-                                         bg=SP.button_background_color,
+                                         bg=SP.standard_color_setting("export_button_background"),
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
                                          bd=SP.bord_size,
@@ -418,10 +421,10 @@ class ListAssociationView:
         pulstante_elimina_lista = Button(root,
                                          text="Elimina lista",
                                          command=lambda: delete_item(root),
-                                         bg=SP.button_background_color,
+                                         bg=SP.standard_color_setting("delete_button_background"),
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
-                                         activebackground=SP.root_background_color,
+                                         #activebackground=SP.root_background_color,
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color)
         pulstante_elimina_lista.config(height=4, width=25)
@@ -435,14 +438,14 @@ class ListAssociationView:
 
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
-        root.config(bg=SP.root_background_color)
+        root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
-        frame = Frame(root, bg=SP.root_background_color)
+        frame = Frame(root, bg=SP.standard_color_setting("frame_list_association_view"))
         frame.pack()
         label = Label(frame,
                       text="Selezionare la chiavetta da cui importare le liste",
-                      bd=20,
-                      bg=SP.root_background_color,
+                      bd=SP.bord_size,
+                      bg=SP.standard_color_setting("label_list_association_view"),
                       font=SP.font_piccolo,
                       fg=SP.root_font_color)
         label.grid(row=1, column=0)
@@ -460,12 +463,12 @@ class ListAssociationView:
         path_key = os.path.join(SP.path_punto_accesso_chiavette, nome_chiavetta)
 
         pulsante = Button(frame, text=nome_chiavetta,
-                          bg=SP.button_background_color,
+                          bg=SP.standard_color_setting("usb_key_button"),
                           font=SP.font_piccolo,
                           fg=SP.button_font_color,
                           bd=SP.bord_size,
                           relief=SP.bord_style,
-                          activebackground=SP.active_background_color,
+                          #activebackground=SP.active_background_color,
                           command=lambda: ListAssociationView.show_and_import_list(path_key)
                           )
         pulsante.config(width=40, height=3)
@@ -473,7 +476,8 @@ class ListAssociationView:
 
     def show_and_import_list(path_usb_key):
 
-
+        # funziono disabilitata per problematiche di esecuzione su raspberry
+        # il drop menu si apre tante volte quante sono le selezioni dell'utente
         def drop_menu_list_manager(evt):
 
             def import_list_and_closing():
@@ -541,39 +545,42 @@ class ListAssociationView:
             root.geometry('%dx%d+%d+%d' % (root_width, root_height, x, y))
 
             frame = Frame(root,
-                          bg=SP.root_background_color)
+                          bg=SP.standard_color_setting("frame_list_association_view"))
 
             import_list_button = Button(frame,
                                         text="Importa",
                                         height=1, width=8,
-                                        bg=SP.button_background_color,
+                                        bg=SP.standard_color_setting("import_button_background"),
                                         fg=SP.button_font_color,
                                         command=lambda: import_list_and_closing(root),
                                         font=SP.font_piccolo,
                                         relief=SP.bord_style,
                                         bd=SP.bord_size,
-                                        activebackground=SP.active_background_color)
+                                        #activebackground=SP.active_background_color
+                                        )
 
             pulsante_annulla = Button(frame,
                                       text="  Annulla  ",
                                       height=1, width=8,
-                                      bg=SP.button_background_color,
+                                      bg=SP.standard_color_setting("button_list_association_view"),
                                       fg=SP.button_font_color,
                                       command=lambda: root.destroy(),
                                       font=SP.font_piccolo,
                                       relief=SP.bord_style,
                                       bd=SP.bord_size,
-                                      activebackground=SP.active_background_color)
+                                      #activebackground=SP.active_background_color
+                                      )
             pulsante_elimina = Button(frame,
                                       text="   Elimina   ",
                                       height=1, width=8,
-                                      bg=SP.button_background_color,
+                                      bg=SP.standard_color_setting("delete_button_background"),
                                       fg=SP.button_font_color,
                                       command=lambda: delete_list(root),
                                       font=SP.font_piccolo,
                                       relief=SP.bord_style,
                                       bd=SP.bord_size,
-                                      activebackground=SP.active_background_color)
+                                      #activebackground=SP.active_background_color
+                                      )
 
             orientation = TOP
             # label.pack(side=TOP)
@@ -622,16 +629,16 @@ class ListAssociationView:
 
         main_root = Tk()
         main_root.attributes('-fullscreen', SP.full_screen_option)
-        main_root.config(bg=SP.root_background_color)
+        main_root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
-        frame = Frame(main_root, bg=SP.root_background_color)
+        frame = Frame(main_root, bg=SP.standard_color_setting("frame_list_association_view"))
         frame.pack()
 
         label_info = Label(main_root, text="Scegli lista e importa",
-                           bg=SP.root_background_color,
+                           bg=SP.standard_color_setting("label_list_association_view"),
                            fg=SP.root_font_color,
+                           font=SP.font_piccolo,
                            width=90, height=3,
-                           font=SP.font_piccolo
                            )
         label_info.pack()
         # visualizzazione liste con scrollbar
@@ -642,12 +649,13 @@ class ListAssociationView:
 
                           font=SP.font_piccolo,
                           fg=SP.root_font_color,
-                          bg=SP.root_background_color)
+                          bg=SP.standard_color_setting("listbox_list_association_view")
+                            )
 
         for list in os.listdir(path_list_folders):
             my_list.insert(END, list)
 
-        # my_list.bind('<<ListboxSelect>>', drop_menu_list_manager)
+        #my_list.bind('<<ListboxSelect>>', drop_menu_list_manager)
         my_list.pack(side=LEFT, fill=BOTH, expand=True)
         scrollbar.config(width=70, command=my_list.yview)
 
@@ -655,12 +663,13 @@ class ListAssociationView:
         pulstante_importa_lista = Button(main_root,
                                          text="Importa lista",
                                          command=lambda:auto_import_list_button(list_name,main_root),
-                                         bg=SP.button_background_color,
+                                         bg=SP.standard_color_setting("import_button_background"),
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
-                                         activebackground=SP.root_background_color)
+                                         #activebackground=SP.root_background_color
+                                         )
         pulstante_importa_lista.config(height=4, width=25)
         pulstante_importa_lista.pack(side=TOP, fill=BOTH)
 
@@ -675,13 +684,13 @@ class ListAssociationView:
         master.option_add('*tearOff', FALSE)
         menu = Menu(master,
                     font=SP.font_medio,
-                    bg=SP.root_background_color,
+                    bg=SP.standard_color_setting("menu_list_association_view"),
                     fg=SP.root_font_color, )
         master.config(menu=menu)
         # crea il menu a cascata
         subMenu = Menu(menu,
                        font=SP.font_medio,
-                       bg=SP.root_background_color,
+                       bg=SP.standard_color_setting("menu_list_association_view"),
                        fg=SP.root_font_color, )
         menu.add_cascade(label="Opzioni",
                          font=SP.font_medio,

@@ -18,7 +18,7 @@ def show_dialog_with_time(text, time):
     dialog.overrideredirect(1)  # rimuove la barra che permetterebbe di chiudere la finestra appena creata
 
     label = Label(dialog, text=text,
-                  bg=SP.pop_up_colour_background,
+                  bg=SP.standard_color_setting("label_utility_view"),
                   font=SP.font_piccolo,
                   wraplength=500,
                   bd=4,
@@ -39,11 +39,12 @@ def exit_button_with_text(root, text):
             pulstante_uscita = Button(root,
                                       text=text,
                                       command=lambda: root.destroy(),
-                                      bg=SP.button_background_color,
+                                      bg=SP.standard_color_setting("exit_button_with_text"),
                                       font=SP.font_piccolo,
                                       fg=SP.button_font_color,
                                       bd=SP.bord_size,
-                                      activebackground=SP.active_background_color)
+                                      #activebackground="#"+str(hex(int(SP.standard_color_setting("exit_button_with_text").replace("#",""))+hex(1000))
+                                      )
             pulstante_uscita.config(height=3, width=10)
             pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
 
@@ -55,7 +56,7 @@ def exit_button_with_text(root, text):
 def bottom_with_text(frame, text):
             pulsante = Button(frame,
                               text=text,
-                              bg=SP.button_background_color,
+                              bg=SP.standard_color_setting("button_utility_view"),
                               font=SP.font_piccolo,
                               fg=SP.button_font_color,
                               bd=SP.bord_size,
@@ -94,10 +95,10 @@ def elimina_file_con_conferma(path, nome_file):
 
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
-    root.config(bg=SP.root_background_color)
+    root.config(bg=SP.standard_color_setting("root_utility_view"))
 
     frame = Frame(root)
-    frame.config(bg=SP.root_background_color)
+    frame.config(bg=SP.standard_color_setting("frame_utility_view"))
     frame.pack()
 
     label = Label(
@@ -110,7 +111,7 @@ def elimina_file_con_conferma(path, nome_file):
 
     pulsante_elimina = Button(frame,
                               text="Elimina",
-                              bg=SP.button_background_color,
+                              bg=SP.standard_color_setting("delete_button_background"),
                               command=lambda: confirmed_deletion(path, nome_file),
                               font=SP.font_piccolo,
                               fg=SP.button_font_color,
@@ -153,15 +154,15 @@ def elimina_file_con_conferma_multipla(selected_file):
 
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
-    root.config(bg=SP.root_background_color)
+    root.config(bg=SP.standard_color_setting("root_utility_view"))
 
     frame = Frame(root)
-    frame.config(bg=SP.root_background_color)
+    frame.config(bg=SP.standard_color_setting("frame_utility_view"))
     frame.pack()
 
     label = Label(
         frame, text="Attenzione!\nVuoi eliminare " +str(len(selected_file))+" file audio?",
-        bg=SP.root_background_color,
+        bg=SP.standard_color_setting("label_utility_view"),
         fg=SP.button_font_color,
         width=90, height=3,
         font=SP.font_medio)
@@ -169,7 +170,7 @@ def elimina_file_con_conferma_multipla(selected_file):
 
     pulsante_elimina = Button(frame,
                               text="Elimina",
-                              bg=SP.button_background_color,
+                              bg=SP.standard_color_setting("delete_button_background"),
                               fg=SP.button_font_color,
                               command=lambda: confirmed_deletion(),
                               font=SP.font_piccolo,
@@ -181,7 +182,7 @@ def elimina_file_con_conferma_multipla(selected_file):
 
     pulsante_annulla = Button(frame,
                               text="Annulla",
-                              bg=SP.button_background_color,
+                              bg=SP.standard_color_setting("confirm_button_background"),
                               fg=SP.button_font_color,
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
@@ -209,15 +210,15 @@ def multi_choice_view(text_label,yes_button_text,no_button_text):
 
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
-    root.config(bg=SP.root_background_color)
+    root.config(bg=SP.standard_color_setting("root_utility_view"))
 
     frame = Frame(root)
-    frame.config(bg=SP.root_background_color)
+    frame.config(bg=SP.standard_color_setting("frame_utility_view"))
     frame.pack()
 
     label = Label(
         frame, text=text_label,
-        bg=SP.root_background_color,
+        bg=SP.standard_color_setting("label_utility_view"),
         fg=SP.root_font_color,
         width=90, height=3,
         font=SP.font_medio)
@@ -225,7 +226,7 @@ def multi_choice_view(text_label,yes_button_text,no_button_text):
 
     pulsante_conferma = Button(frame,
                                text=yes_button_text,
-                               bg=SP.button_background_color,
+                               bg=SP.standard_color_setting("confirm_button_background"),
                                command=lambda: confirmed_seletion(),
                                font=SP.font_piccolo,
                                fg=SP.button_font_color,
@@ -237,7 +238,7 @@ def multi_choice_view(text_label,yes_button_text,no_button_text):
 
     pulsante_annulla = Button(frame,
                               text=no_button_text,
-                              bg=SP.button_background_color,
+                              bg=SP.standard_color_setting("delete_button_background"),
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
                               fg=SP.button_font_color,
@@ -281,7 +282,7 @@ def show_file(idButton):
                      yscrollcommand=scrollbar.set,
                      font=SP.font_piccolo,
                      fg=SP.root_font_color,
-                     bg=SP.root_background_color)
+                     bg=SP.standard_color_setting("listbox_utility_view"))
     # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
     # e inserisce in mylist tutti i file con un'estensione contenuta in "formats"
     for radice, cartelle, files in os.walk(SP.path_che_simula_la_memoria_interna_del_raspberry, topdown=False):
@@ -303,7 +304,7 @@ def show_file(idButton):
                                               "al Pulsante" + idButton + "\n"
                                                                          "e poi clicca qui \n",
                                          command=lambda: bind_button(int(idButton), root),
-                                         bg=SP.button_background_color,
+                                         bg=SP.standard_color_setting("button_utility_view"),
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
                                          bd=SP.bord_size,
@@ -318,7 +319,7 @@ def show_file(idButton):
                                               "che vuoi eliminare\n"
                                               "e clicca qui",
                                          command=lambda: delete_item(root),
-                                         bg=SP.button_background_color,
+                                         bg=SP.standard_color_setting("delete_button_background"),
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
                                          activebackground=SP.active_background_color,
@@ -338,14 +339,15 @@ def show_file(idButton):
 def bottom_with_text(frame, text):
     pulsante = Button(frame,
                       text=text,
-                      bg=SP.button_background_color,
+                      bg=SP.standard_color_setting("button_list_association_view"),
                       font=SP.font_piccolo,
                       fg=SP.button_font_color,
                       bd=SP.bord_size,
                       relief=SP.bord_style,
                       command=lambda: show_file(text.replace("Pulsante", "")),
-                      activebackground=SP.active_background_color,
-                      activeforeground="black")
+                      #activebackground=SP.active_background_color,
+                      #activeforeground="black"
+                      )
 
     pulsante.config(width=20, height=3)
     return pulsante
@@ -356,7 +358,7 @@ def bottom_with_text(frame, text):
 # mod: può essere "ESPORTA" o "IMPORTA" serve a rendere questa funzione più generale
 def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
     pulsante = Button(frame, text=nome_chiavetta,
-                      bg=SP.button_background_color,
+                      bg=SP.standard_color_setting("usb_key_button"),
                       font=SP.font_piccolo,
                       fg=SP.button_font_color,
                       bd=SP.bord_size,
@@ -369,7 +371,7 @@ def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
 
 def button_USB_key_list(frame, nome_chiavetta):
     pulsante = Button(frame, text=nome_chiavetta,
-                      bg=SP.button_background_color,
+                      bg=SP.standard_color_setting("usb_key_button"),
                       font=SP.font_piccolo,
                       fg=SP.button_font_color,
                       bd=SP.bord_size,
@@ -379,6 +381,67 @@ def button_USB_key_list(frame, nome_chiavetta):
                       )
     pulsante.config(width=40, height=3)
     return pulsante
+
+def raspberry_memory_manager():
+
+    def delete_selected_elements(root):
+        selected = [mylist.get(idx) for idx in mylist.curselection()]
+
+        # elimina_file_con_conferma(path_origine, str(number_of_deleted_file) + " file audio")
+        elimina_file_con_conferma_multipla(selected)
+        root.destroy()
+
+    root = Tk()
+    root.attributes('-fullscreen', SP.full_screen_option)
+    formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
+
+    text_layer = "Memoria interna"
+
+    label_info = Label(root, text=text_layer,
+                       bg=SP.standard_color_setting("label_utility_view"),
+                       fg=SP.root_font_color,
+                       width=90, height=3,
+                       font=SP.font_piccolo
+                       )
+    label_info.pack()
+
+    # visualizzazione brani con scrollbar
+    scrollbar = Scrollbar(root)
+    scrollbar.pack(side=LEFT, fill=Y)
+    mylist = Listbox(root,
+                     yscrollcommand=scrollbar.set,
+                     selectmode=MULTIPLE,
+                     font=SP.font_piccolo,
+                     fg=SP.root_font_color,
+                     bg=SP.standard_color_setting("listbox_utility_view")
+                     )
+    mydict = {}
+
+    # ciclo che aggiunge i file audio alla scrolbar
+    for radice, cartelle, files in os.walk(SP.path_che_simula_la_memoria_interna_del_raspberry, topdown=False):
+        for name in files:
+            for tipo in formats:
+                if tipo in name:
+                    temp_str = os.path.join(radice, name)
+                    mydict[name] = temp_str
+                    mylist.insert(END, name)
+    mylist.pack(side=LEFT, fill=BOTH, expand=True)
+    scrollbar.config(width=70, command=mylist.yview)
+    pulstante_elimina = Button(root,
+                               text="Scegli il file \nche vuoi eliminare",
+                               bg=SP.standard_color_setting("delete_button_background"),
+                               fg=SP.button_font_color,
+                               command=lambda: delete_selected_elements(root),
+                               font=SP.font_piccolo,
+                               bd=SP.bord_size,
+                               relief=SP.bord_style,
+                               # activebackground=SP.delete_button_active_background
+                               )
+    pulstante_elimina.config(height=4, width=20)
+    pulstante_elimina.pack(side=TOP, fill=BOTH)
+
+    exit_button_with_text(root, "Torna indietro")
+
 
 
 # schermata che stampa a video i file contenuti in un determinato path
@@ -408,7 +471,7 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
 
         # elimina_file_con_conferma(path_origine, str(number_of_deleted_file) + " file audio")
         elimina_file_con_conferma_multipla(selected)
-        root.destroy()
+        #root.destroy()
 
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
@@ -416,11 +479,14 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
 
     if mod == "esportare":
         text_layer = "Memoria interna"
+        bg_label_color=SP.standard_color_setting("export_root_background")
+        bg_list_color=SP.standard_color_setting("export_root_background")
     else:
         text_layer = nome_chiavetta
-
+        bg_label_color = SP.standard_color_setting("import_root_background")
+        bg_list_color = SP.standard_color_setting("import_root_background")
     label_info = Label(root, text=text_layer,
-                       bg=SP.root_background_color,
+                       bg=bg_label_color,
                        fg=SP.root_font_color,
                        width=90, height=3,
                        font=SP.font_piccolo
@@ -435,7 +501,8 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                      selectmode=MULTIPLE,
                      font=SP.font_piccolo,
                      fg=SP.root_font_color,
-                     bg=SP.root_background_color)
+                     bg=bg_list_color
+                     )
     mydict = {}
 
     # ciclo che aggiunge i file audio alla scrolbar
@@ -459,7 +526,7 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
     if mod != "Memoria interna":
         pulstante_importa = Button(root,
                                    text=testo_pulsante,
-                                   bg=SP.button_background_color,
+                                   bg=SP.standard_color_setting("import_button_background"),
                                    command=lambda: select_items_and_copy(root),
                                    font=SP.font_piccolo,
                                    fg=SP.button_font_color,
@@ -473,13 +540,14 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
     if mod == "esportare" or mod == "Memoria interna":
         pulstante_elimina = Button(root,
                                    text="Scegli il file \nche vuoi eliminare",
-                                   bg=SP.button_background_color,
+                                   bg=SP.standard_color_setting("delete_button_background"),
                                    fg=SP.button_font_color,
                                    command=lambda: delete_selected_elements(root),
                                    font=SP.font_piccolo,
                                    bd=SP.bord_size,
                                    relief=SP.bord_style,
-                                   activebackground=SP.active_background_color)
+                                   #activebackground=SP.delete_button_active_background
+                                   )
         pulstante_elimina.config(height=4, width=20)
         pulstante_elimina.pack(side=TOP, fill=BOTH)
 

@@ -41,10 +41,98 @@ font_grande = (font_stile, font_size_grande)
 button_background_color = "#404040"
 active_background_color="#C8D7DC"
 root_background_color = "#708090"
-button_font_color = "#E0E0E0"
+button_font_color = "black"
 pop_up_colour_background="#505050"
 root_font_color= "white"
 black="black"
+
+
+recode_view_button_color= "#C00F44"
+import_export_button_color="#2355BF"
+list_association_button_color="#159338"
+setting_button_color="#554F9D"
+utility_button_color="#DFB606"
+archive_manager_button_color="#ECE640"
+
+recode_view_root_color= "#C26A84"
+import_export_root_color="#607EBE"
+list_association_root_color="#4FA266"
+setting_root_color="#775DC0"
+utility_root_color="#E3CB63"
+archive_manager_root_color="#ECE868"
+
+key_keyboard_color = "#463479"
+root_keyboard_color = "#B989C4"
+
+cascade_main_menu= "#554F9D"
+cascade_list_association_menu="#554F9F"
+
+import_button_color="#916C0A"
+export_button_color= "#00FFFD"
+
+import_root_color="#D0A940"
+export_root_color= "#7BF4F3"
+
+
+green="#69F505"
+red="#D55858"
+
+exit_button_color="#FFF700"
+currentTheme = 1  #0 for default theme - 1 for coloured theme
+theme={
+
+        "confirm_button_background":    [button_background_color, green],
+        "delete_button_background":     [button_background_color, red],
+
+        "exit_button_with_text":        [button_background_color, exit_button_color],
+        "import_button_background":        [button_background_color, import_button_color],
+        "export_button_background":        [button_background_color, export_button_color],
+
+        "import_root_background": [root_background_color, import_root_color],
+        "export_root_background": [root_background_color, export_root_color],
+
+        "key_button_background":        [button_background_color, key_keyboard_color],
+        "root_keyboard":                [root_background_color, root_keyboard_color],
+
+        "usb_key_button":[button_background_color, key_keyboard_color],
+
+        "setting_main_menu": [root_background_color, cascade_main_menu],
+
+        "root_setting_view": [root_background_color, setting_root_color],
+        "frame_setting_view": [root_background_color, setting_root_color],
+        "label_setting_view": [root_background_color, setting_root_color],
+        "button_setting_view": [button_background_color, setting_button_color],
+
+        "root_list_association_view": [root_background_color, list_association_root_color],
+        "frame_list_association_view":[root_background_color, list_association_root_color],
+        "label_list_association_view":[root_background_color, list_association_root_color],
+        "button_list_association_view": [button_background_color, list_association_button_color],
+        "listbox_list_association_view":[root_background_color, list_association_root_color],
+        "menu_list_association_view":[root_background_color, cascade_list_association_menu],
+
+        "root_utility_view": [root_background_color, utility_root_color],
+        "frame_utility_view":[root_background_color, utility_root_color],
+        "label_utility_view":[root_background_color, utility_root_color],
+        "button_utility_view": [button_background_color, utility_button_color],
+        "listbox_utility_view": [root_background_color, utility_root_color],
+
+        "root_import_export_view": [root_background_color, import_export_root_color],
+        "frame_import_export_view": [root_background_color, import_export_root_color],
+        "label_import_export_view": [root_background_color, import_export_root_color],
+        "button_import_export_view": [button_background_color, import_export_button_color],
+
+        "root_record_view": [root_background_color, recode_view_root_color],
+        "frame_record_view": [root_background_color, recode_view_root_color],
+        "label_record_view": [root_background_color, recode_view_root_color],
+        "button_record_view": [button_background_color, recode_view_button_color],
+
+        "root_archive_manager_view":[root_background_color,archive_manager_root_color],
+        "frame_archive_manager_view": [root_background_color,archive_manager_root_color],
+        "label_archive_manager_view": [root_background_color,archive_manager_root_color],
+        "button_archive_manager_view": [button_background_color,archive_manager_button_color]
+}
+def standard_color_setting(guiObjectName):
+    return theme[guiObjectName].__getitem__(currentTheme)
 
 # testo visualizzato nel pulsante che torna al menu principale
 exit_text= "Torna al menu principale"
