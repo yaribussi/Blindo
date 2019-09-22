@@ -193,7 +193,7 @@ class ListAssociationView:
         frame.config(bg=SP.standard_color_setting("frame_list_association_view"))
 
         text = Text(frame, wrap="none", bg=SP.standard_color_setting("frame_list_association_view"))
-        vsb = Scrollbar(frame, orient="vertical", command=text.yview,width=40,bg=SP.standard_color_setting("frame_list_association_view"))
+        vsb = Scrollbar(frame, orient="vertical", command=text.yview,width=40)
         vsb.config(width=90)
         text.configure(yscrollcommand=vsb.set,width=3,bg=SP.standard_color_setting("frame_list_association_view"))
         vsb.pack(side="left", fill="y")
@@ -377,6 +377,7 @@ class ListAssociationView:
         #   START OF show_list
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
+        root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
         scrollbar = Scrollbar(root)
         scrollbar.config(width=70)
@@ -555,7 +556,7 @@ class ListAssociationView:
             import_list_button = Button(frame,
                                         text="Importa",
                                         height=1, width=8,
-                                        bg=SP.standard_color_setting("root_archive_manager_view"),
+                                        bg=SP.standard_color_setting("button_list_association_view"),
                                         fg=SP.button_font_color,
                                         command=lambda: import_list_and_closing(root),
                                         font=SP.font_piccolo,
@@ -668,7 +669,7 @@ class ListAssociationView:
         pulstante_importa_lista = Button(main_root,
                                          text="Importa lista",
                                          command=lambda:auto_import_list_button(list_name,main_root),
-                                         bg=SP.standard_color_setting("import_button_background"),
+                                         bg=SP.standard_color_setting("button_list_association_view"),
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
                                          bd=SP.bord_size,

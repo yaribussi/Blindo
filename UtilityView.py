@@ -402,7 +402,7 @@ def raspberry_memory_manager():
     text_layer = "Memoria interna"
 
     label_info = Label(root, text=text_layer,
-                       bg=SP.standard_color_setting("label_utility_view"),
+                       bg=SP.standard_color_setting("label_archive_manager_view"),
                        fg=SP.root_font_color,
                        width=90, height=3,
                        font=SP.font_piccolo
@@ -417,7 +417,7 @@ def raspberry_memory_manager():
                      selectmode=MULTIPLE,
                      font=SP.font_piccolo,
                      fg=SP.root_font_color,
-                     bg=SP.standard_color_setting("listbox_utility_view")
+                     bg=SP.standard_color_setting("listbox_archive_manager_view")
                      )
     mydict = {}
 

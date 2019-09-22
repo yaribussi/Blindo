@@ -13,7 +13,7 @@ class SchermateGUI:
     def menu_principale():
 
         root = Tk()
-        root.config(bg=SP.root_background_color)
+        root.config(bg=SP.standard_color_setting("setting_main_menu"))
         root.attributes('-fullscreen', SP.full_screen_option)
         frame = Frame(root)
 
