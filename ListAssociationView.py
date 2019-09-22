@@ -193,9 +193,9 @@ class ListAssociationView:
         frame.config(bg=SP.standard_color_setting("frame_list_association_view"))
 
         text = Text(frame, wrap="none", bg=SP.standard_color_setting("frame_list_association_view"))
-        vsb = Scrollbar(frame, orient="vertical", command=text.yview,width=40)
+        vsb = Scrollbar(frame, orient="vertical", command=text.yview,width=40,bg=SP.standard_color_setting("frame_list_association_view"))
         vsb.config(width=90)
-        text.configure(yscrollcommand=vsb.set,width=3,bg=SP.root_background_color)
+        text.configure(yscrollcommand=vsb.set,width=3,bg=SP.standard_color_setting("frame_list_association_view"))
         vsb.pack(side="left", fill="y")
         text.pack(side ="left",fill="both",expand=True)
 
@@ -219,7 +219,7 @@ class ListAssociationView:
             text.insert("end", "\n")
 
         text.configure(state="disabled")
-        frame.pack(fill="both", expand=True)
+        frame.pack(fill=BOTH, expand=True)
         pulstante_uscita.pack(side=RIGHT, fill=BOTH)
         root.mainloop()
 
@@ -555,7 +555,7 @@ class ListAssociationView:
             import_list_button = Button(frame,
                                         text="Importa",
                                         height=1, width=8,
-                                        bg=SP.standard_color_setting("import_button_background"),
+                                        bg=SP.standard_color_setting("root_archive_manager_view"),
                                         fg=SP.button_font_color,
                                         command=lambda: import_list_and_closing(root),
                                         font=SP.font_piccolo,

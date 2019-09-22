@@ -272,7 +272,7 @@ def show_file(idButton):
     #   START OF show_file
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
-    #root.config(bg=SP.standard_color_setting("root_list_association_view"))
+    root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
     scrollbar = Scrollbar(root)
     scrollbar.config(width=70)
@@ -299,6 +299,7 @@ def show_file(idButton):
     mylist.pack(side=LEFT, fill=BOTH, expand=1, )
     scrollbar.config(command=mylist.yview)
 
+
     #  pulsante che si trova alla destra della lista di file audio NELLA schermata  ASSOCIA
     pulstante_associa_fileAudio = Button(root,
                                          text="Scegli il file \n"
@@ -306,7 +307,7 @@ def show_file(idButton):
                                               "al Pulsante" + idButton + "\n"
                                                                          "e poi clicca qui \n",
                                          command=lambda: bind_button(int(idButton), root),
-                                         bg=SP.standard_color_setting("button_utility_view"),
+                                         bg=SP.standard_color_setting("button_list_association_view"),
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
                                          bd=SP.bord_size,
@@ -395,8 +396,9 @@ def raspberry_memory_manager():
 
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
-    formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
+    root.config(bg=SP.standard_color_setting("root_archive_manager_view"))
 
+    formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
     text_layer = "Memoria interna"
 
     label_info = Label(root, text=text_layer,
@@ -477,6 +479,7 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
 
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
+    root.config(bg=SP.standard_color_setting("root_import_export_view"))
     formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
 
     if mod == "esportare":

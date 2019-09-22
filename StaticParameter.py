@@ -2,19 +2,19 @@
 ATTENZIONE ABILITARE LE LINEE  [5 6 7] PER UTILIZZO SU PC
 '''
 
-path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
-path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
-path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
+#path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+#path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
+#path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
 
 '''
 ATTENZIONE ABILITARE LE LINEE  [14 15 16 17 18] PER UTILIZZO SU RASPBERRY
 
 ABILITARE NEL FILE "RECORD_VIEW" L'IMPORT ALLA RIGA 5 
 '''
-#import GPIOmanaging
-#path_punto_accesso_chiavette = "/media/pi"
-#path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio"
-#path_liste ="/home/pi/Documents/Lists"
+import GPIOmanaging
+path_punto_accesso_chiavette = "/media/pi"
+path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio"
+path_liste ="/home/pi/Documents/Lists"
 #os.chdir("/home/pi/Desktop/Main/")
 #subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
 
@@ -48,14 +48,14 @@ black="black"
 
 recode_view_button_color= "#C0392B"
 import_export_button_color="#5499C7"
-list_association_button_color="#45B39D"
+list_association_button_color="#27AE60"
 setting_button_color="#554F9D"
 utility_button_color="#DFB606"
-archive_manager_button_color="#FFE526"
+archive_manager_button_color="#F7DC6F"
 
 recode_view_root_color= "#D98880"
 import_export_root_color="#85C1E9"
-list_association_root_color="#73C6B6"
+list_association_root_color="#58D68D"
 setting_root_color="#775DC0"
 utility_root_color="#E3CB63"
 archive_manager_root_color="#F0B27A"
@@ -66,17 +66,20 @@ root_keyboard_color = "#B989C4"
 cascade_main_menu= "#554F9D"
 cascade_list_association_menu="#554F9F"
 
-import_button_color="#916C0A"
-export_button_color= "#00FFFD"
+import_button_color=import_export_button_color
+export_button_color= import_export_button_color
 
-import_root_color="#D0A940"
-export_root_color= "#7BF4F3"
+import_root_color=import_export_root_color
+export_root_color= import_export_root_color
 
 
 green="#69F505"
 red="#D55858"
 
 exit_button_color="#BDC3C7"
+
+
+
 
 
 currentTheme = 1  #0 for default theme - 1 for coloured theme
