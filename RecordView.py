@@ -108,11 +108,11 @@ class RecordView:
                                bg=SP.standard_color_setting("confirm_button_background"),
                                command=lambda: start_recoding(SP.name_recoded_file),
                                font=SP.font_piccolo,
-                               fg=SP.button_font_color,
+                               fg=SP.button_font_color_gray_scale,
                                relief=SP.bord_style,
                                bd=SP.bord_size,
-                               #activebackground=SP.active_background_color
-                                )
+                               activebackground=SP.standard_color_setting("confirm_button_background")
+                               )
         pulsante_play.config(height=5, width=23)
         pulsante_play.pack()
 
@@ -122,10 +122,10 @@ class RecordView:
                                bg=SP.standard_color_setting("delete_button_background"),
                                command=lambda: stop_recording(),
                                font=SP.font_piccolo,
-                               fg=SP.button_font_color,
+                               fg=SP.button_font_color_gray_scale,
                                relief=SP.bord_style,
                                bd=SP.bord_size,
-                               #activebackground=SP.active_background_color
+                               activebackground=SP.standard_color_setting("delete_button_background")
                                )
         pulsante_stop.config(height=5, width=23)
 

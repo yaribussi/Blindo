@@ -137,36 +137,36 @@ class ListAssociationView:
         id_button = int(str(value)[9:11])
 
         unbind_button = Button(frame,
-                                  text="Disassocia",
-                                  height=1, width=8,
-                                  bg=SP.standard_color_setting("button_list_association_view"),
-                                  fg=SP.button_font_color,
-                                  command=lambda: unbind_and_closing(root),
-                                  font = SP.font_piccolo,
-                                  relief = SP.bord_style,
-                                  bd = SP.bord_size,
-                                  activebackground = SP.active_background_color)
+                               text="Disassocia",
+                               height=1, width=8,
+                               bg=SP.standard_color_setting("button_list_association_view"),
+                               fg=SP.button_font_color_gray_scale,
+                               command=lambda: unbind_and_closing(root),
+                               font = SP.font_piccolo,
+                               relief = SP.bord_style,
+                               bd = SP.bord_size,
+                               activebackground = SP.active_background_color_gray_scale)
 
         pulsante_annulla = Button(frame,
                                   text="  Annulla  ",
                                   height=1, width=8,
                                   bg=SP.standard_color_setting("button_list_association_view"),
-                                  fg=SP.button_font_color,
+                                  fg=SP.button_font_color_gray_scale,
                                   command=lambda: root.destroy(),
                                   font=SP.font_piccolo,
                                   relief=SP.bord_style,
                                   bd=SP.bord_size,
-                                  activebackground=SP.active_background_color)
+                                  activebackground=SP.active_background_color_gray_scale)
         pulsante_elimina = Button(frame,
                                   text="   Elimina   ",
                                   height=1, width=8,
                                   bg=SP.standard_color_setting("button_list_association_view"),
-                                  fg=SP.button_font_color,
+                                  fg=SP.button_font_color_gray_scale,
                                   command=lambda: delete_and_closing(root),
                                   font=SP.font_piccolo,
                                   relief=SP.bord_style,
                                   bd=SP.bord_size,
-                                  activebackground=SP.active_background_color)
+                                  activebackground=SP.active_background_color_gray_scale)
 
         orientation=TOP
         unbind_button.pack(side=orientation)
@@ -206,8 +206,8 @@ class ListAssociationView:
                                   relief=SP.bord_style,
                                   bg=SP.standard_color_setting("exit_button_with_text"),
                                   font=SP.font_piccolo,
-                                  fg=SP.button_font_color
-                                  #activebackground=SP.active_background_color
+                                  fg=SP.button_font_color_gray_scale
+                                  #activebackground=SP.active_background_color_gray_scale
                                   )
         pulstante_uscita.config(height=50, width=18)
 
@@ -229,16 +229,16 @@ class ListAssociationView:
         find_list_existing_name = False
         existing_list=os.listdir(SP.path_liste)
 
-        new_list_name = kv.keyboard("Sciegli con che nome vuoi salvare lalista")
+        new_list_name = kv.keyboard("Inserisci il nome della lista")
 
         for list in existing_list:
             if list == new_list_name:
                 find_list_existing_name=True
 
         if find_list_existing_name:
-            choice = uv.multi_choice_view("Esiste già una lista\ncon questo nome\nVuoi sostituirla o preferisci\nassegnare un altro nome?"
-                                 ,"Sostituisci",
-                                 "Annulla")
+            choice = uv.multi_choice_view("Lista già presente!\nSostituisci oppure \nannulla l'operazione",
+                                          "Sostituisci",
+                                          "Annulla")
 
             if choice:
                 fm.create_list(new_list_name)
@@ -263,8 +263,9 @@ class ListAssociationView:
 
             # senza questo destroy() l'eliminazione della lista non avviene finchè il programma non viene chiuso
             # questa tecnica è usata anche nella funzione select_items_and_copy
-            root.destroy()
-            ListAssociationView.schermata_associazioni()
+            #root.destroy()
+            #istAssociationView.show_list(root)
+            #ListAssociationView.schermata_associazioni()
             # #############   END OF delete_item ####################
 
         def upload_list(root):
@@ -304,10 +305,10 @@ class ListAssociationView:
                 pulsante = Button(frame, text=USB_key,
                                   bg=SP.standard_color_setting("button_list_association_view"),
                                   font=SP.font_piccolo,
-                                  fg=SP.button_font_color,
+                                  fg=SP.button_font_color_gray_scale,
                                   bd=SP.bord_size,
                                   relief=SP.bord_style,
-                                  activebackground=SP.active_background_color,
+                                  activebackground=SP.active_background_color_gray_scale,
                                   # Using the "path_chiavetta=path_chiavetta" trick
                                   # causes your function to store the current value
                                   # of "path_chiavetta" at the time your lambda is defined,
@@ -400,14 +401,14 @@ class ListAssociationView:
 
 
         pulstante_carica_lista = Button(root,
-                                         text="Carica lista",
-                                         command=lambda: upload_list(root),
-                                         bg=SP.standard_color_setting("button_list_association_view"),
-                                         font=SP.font_piccolo,
-                                         fg=SP.button_font_color,
-                                         bd=SP.bord_size,
-                                         relief=SP.bord_style,
-                                         activebackground=SP.root_background_color)
+                                        text="Carica lista",
+                                        command=lambda: upload_list(root),
+                                        bg=SP.standard_color_setting("button_list_association_view"),
+                                        font=SP.font_piccolo,
+                                        fg=SP.button_font_color_gray_scale,
+                                        bd=SP.bord_size,
+                                        relief=SP.bord_style,
+                                        activebackground=SP.standard_color_setting("button_list_association_view"))
         pulstante_carica_lista.config(height=4, width=25)
         pulstante_carica_lista.pack(side=TOP, fill=BOTH)
 
@@ -416,10 +417,10 @@ class ListAssociationView:
                                          command=lambda:show_chiavette(),
                                          bg=SP.standard_color_setting("button_list_association_view"),
                                          font=SP.font_piccolo,
-                                         fg=SP.button_font_color,
+                                         fg=SP.button_font_color_gray_scale,
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
-                                         activebackground=SP.root_background_color)
+                                         activebackground=SP.standard_color_setting("button_list_association_view"))
         pulstante_esporta_lista.config(height=4, width=25)
         pulstante_esporta_lista.pack(side=TOP, fill=BOTH)
 
@@ -430,9 +431,9 @@ class ListAssociationView:
                                          bg=SP.standard_color_setting("delete_button_background"),
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
-                                         #activebackground=SP.root_background_color,
+                                         activebackground=SP.standard_color_setting("button_list_association_view"),
                                          font=SP.font_piccolo,
-                                         fg=SP.button_font_color)
+                                         fg=SP.button_font_color_gray_scale)
         pulstante_elimina_lista.config(height=4, width=25)
         pulstante_elimina_lista.pack(fill=BOTH)
 
@@ -471,10 +472,10 @@ class ListAssociationView:
         pulsante = Button(frame, text=nome_chiavetta,
                           bg=SP.standard_color_setting("button_list_association_view"),
                           font=SP.font_piccolo,
-                          fg=SP.button_font_color,
+                          fg=SP.button_font_color_gray_scale,
                           bd=SP.bord_size,
                           relief=SP.bord_style,
-                          #activebackground=SP.active_background_color,
+                          activebackground=SP.standard_color_setting("button_list_association_view"),
                           command=lambda: ListAssociationView.show_and_import_list(path_key)
                           )
         pulsante.config(width=40, height=3)
@@ -557,35 +558,35 @@ class ListAssociationView:
                                         text="Importa",
                                         height=1, width=8,
                                         bg=SP.standard_color_setting("button_list_association_view"),
-                                        fg=SP.button_font_color,
+                                        fg=SP.button_font_color_gray_scale,
                                         command=lambda: import_list_and_closing(root),
                                         font=SP.font_piccolo,
                                         relief=SP.bord_style,
                                         bd=SP.bord_size,
-                                        #activebackground=SP.active_background_color
+                                        activebackground=SP.standard_color_setting("button_list_association_view")
                                         )
 
             pulsante_annulla = Button(frame,
                                       text="  Annulla  ",
                                       height=1, width=8,
                                       bg=SP.standard_color_setting("button_list_association_view"),
-                                      fg=SP.button_font_color,
+                                      fg=SP.button_font_color_gray_scale,
                                       command=lambda: root.destroy(),
                                       font=SP.font_piccolo,
                                       relief=SP.bord_style,
                                       bd=SP.bord_size,
-                                      #activebackground=SP.active_background_color
+                                      activebackground=SP.standard_color_setting("button_list_association_view")
                                       )
             pulsante_elimina = Button(frame,
                                       text="   Elimina   ",
                                       height=1, width=8,
                                       bg=SP.standard_color_setting("delete_button_background"),
-                                      fg=SP.button_font_color,
+                                      fg=SP.button_font_color_gray_scale,
                                       command=lambda: delete_list(root),
                                       font=SP.font_piccolo,
                                       relief=SP.bord_style,
                                       bd=SP.bord_size,
-                                      #activebackground=SP.active_background_color
+                                      activebackground=SP.standard_color_setting("button_list_association_view")
                                       )
 
             orientation = TOP
@@ -671,10 +672,10 @@ class ListAssociationView:
                                          command=lambda:auto_import_list_button(list_name,main_root),
                                          bg=SP.standard_color_setting("button_list_association_view"),
                                          font=SP.font_piccolo,
-                                         fg=SP.button_font_color,
+                                         fg=SP.button_font_color_gray_scale,
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
-                                         #activebackground=SP.root_background_color
+                                         activebackground=SP.standard_color_setting("button_list_association_view")
                                          )
         pulstante_importa_lista.config(height=4, width=25)
         pulstante_importa_lista.pack(side=TOP, fill=BOTH)

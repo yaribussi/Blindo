@@ -4,13 +4,13 @@ import StaticParameter as SP
 
 
 buttons = [
-'1','2','3','4','5','6','7','8','9','0','(',')','$','CANCELLA',
+'1','2','3','4','5','6','7','8','9','0','','(',')','CANCELLA',
 
-'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p','[',']','€','SALVA',
+'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p','','[',']','SALVA',
 
-'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l','/','!','?','"',''
+'', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k','l','','€','$',''
 ,
-'z', 'x', 'c', 'v', 'b', 'n', 'm', '_', '-','#','*','+','.',
+'', '', 'z', 'x', 'c', 'v', 'b', 'n', 'm','','_','-','+',
 'SPAZIO'
 ]
 result=""
@@ -36,7 +36,7 @@ def close(root):
 
 def hoso_pop(kb):
 	key_background = SP.standard_color_setting("key_button_background")
-	key_foreground = SP.button_font_color
+	key_foreground = SP.button_font_color_gray_scale
 	key_active_background = key_background
 	key_active_foreground = SP.root_font_color
 	key_font = SP.keyboard_key_font
@@ -52,7 +52,7 @@ def hoso_pop(kb):
 						kb, text=button, width=15, heigh=6,
 						bg=SP.standard_color_setting("delete_button_background"),
 						fg=key_foreground,
-						#activebackground=SP.delete_button_active_background,
+						activebackground=SP.standard_color_setting("delete_button_background"),
 						font=key_font,
 						padx=1, pady=1,
 						bd=5,
@@ -65,7 +65,6 @@ def hoso_pop(kb):
 						bg=key_background,
 						font=key_font, fg=key_foreground,
 						activebackground=key_active_background,
-						activeforeground=key_active_foreground,
 						padx=1, pady=1,
 						bd=5,
 						relief=SP.bord_style,
@@ -77,7 +76,6 @@ def hoso_pop(kb):
 						font=key_font,
 						fg=key_foreground,
 						activebackground=SP.standard_color_setting("confirm_button_background"),
-						activeforeground=key_active_background,
 						padx=1, pady=1,
 						bd=5,
 						relief=SP.bord_style,
@@ -112,7 +110,7 @@ def keyboard(label_keyboard):
 	label_text = label_keyboard
 
 	entry_font = ("Helvetica",30)
-	entry_background = SP.root_font_color
+	entry_background = "white"
 	entry_foreground = "black"
 	kb = tkinter.Tk()
 

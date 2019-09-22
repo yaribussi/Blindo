@@ -13,7 +13,7 @@ def show_dialog_with_time(text, time):
         to_close.destroy()
 
     dialog = Tk()
-    dialog.config(bg=SP.root_background_color)
+    dialog.config(bg=SP.root_background_color_gray_scale)
     dialog.geometry("+210+180")  # distanza da sinistra e dall'alto del popup
     dialog.overrideredirect(1)  # rimuove la barra che permetterebbe di chiudere la finestra appena creata
 
@@ -41,7 +41,7 @@ def exit_button_with_text(root, text):
                                       command=lambda: root.destroy(),
                                       bg=SP.standard_color_setting("exit_button_with_text"),
                                       font=SP.font_piccolo,
-                                      fg=SP.button_font_color,
+                                      fg=SP.button_font_color_gray_scale,
                                       bd=SP.bord_size,
                                       #activebackground="#"+str(hex(int(SP.standard_color_setting("exit_button_with_text").replace("#",""))+hex(1000))
                                       )
@@ -58,11 +58,11 @@ def bottom_with_text(frame, text):
                               text=text,
                               bg=SP.standard_color_setting("button_utility_view"),
                               font=SP.font_piccolo,
-                              fg=SP.button_font_color,
+                              fg=SP.button_font_color_gray_scale,
                               bd=SP.bord_size,
                               relief=SP.bord_style,
                               command=lambda: show_file(text.replace("Pulsante ", "")),
-                              activebackground=SP.active_background_color,
+                              activebackground=SP.active_background_color_gray_scale,
                               activeforeground=SP.black)
 
             pulsante.config(width=20, height=3)
@@ -114,10 +114,10 @@ def elimina_file_con_conferma(path, nome_file):
                               bg=SP.standard_color_setting("delete_button_background"),
                               command=lambda: confirmed_deletion(path, nome_file),
                               font=SP.font_piccolo,
-                              fg=SP.button_font_color,
+                              fg=SP.button_font_color_gray_scale,
                               relief=SP.bord_style,
                               bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
+                              activebackground=SP.active_background_color_gray_scale)
     pulsante_elimina.config(height=5, width=23)
     pulsante_elimina.pack(side=LEFT)
 
@@ -126,10 +126,10 @@ def elimina_file_con_conferma(path, nome_file):
                               bg=SP.standard_color_setting("confirm_button_background"),
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
-                              fg=SP.button_font_color,
+                              fg=SP.button_font_color_gray_scale,
                               relief=SP.bord_style,
                               bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
+                              activebackground=SP.active_background_color_gray_scale)
     pulsante_annulla.config(height=5, width=23)  # altezza 5
     pulsante_annulla.pack(side=RIGHT)
     root.mainloop()
@@ -163,7 +163,7 @@ def elimina_file_con_conferma_multipla(selected_file):
     label = Label(
         frame, text="Attenzione!\nVuoi eliminare " +str(len(selected_file))+" file audio?",
         bg=SP.standard_color_setting("label_utility_view"),
-        fg=SP.button_font_color,
+        fg=SP.button_font_color_gray_scale,
         width=90, height=3,
         font=SP.font_medio)
     label.pack()
@@ -171,24 +171,24 @@ def elimina_file_con_conferma_multipla(selected_file):
     pulsante_elimina = Button(frame,
                               text="Elimina",
                               bg=SP.standard_color_setting("delete_button_background"),
-                              fg=SP.button_font_color,
+                              fg=SP.button_font_color_gray_scale,
                               command=lambda: confirmed_deletion(),
                               font=SP.font_piccolo,
                               relief=SP.bord_style,
                               bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
+                              activebackground=SP.active_background_color_gray_scale)
     pulsante_elimina.config(height=5, width=23)
     pulsante_elimina.pack(side=LEFT)
 
     pulsante_annulla = Button(frame,
                               text="Annulla",
                               bg=SP.standard_color_setting("confirm_button_background"),
-                              fg=SP.button_font_color,
+                              fg=SP.button_font_color_gray_scale,
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
                               relief=SP.bord_style,
                               bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
+                              activebackground=SP.active_background_color_gray_scale)
     pulsante_annulla.config(height=5, width=23)  # altezza 5
     pulsante_annulla.pack(side=RIGHT)
     root.mainloop()
@@ -229,10 +229,10 @@ def multi_choice_view(text_label,yes_button_text,no_button_text):
                                bg=SP.standard_color_setting("confirm_button_background"),
                                command=lambda: confirmed_seletion(),
                                font=SP.font_piccolo,
-                               fg=SP.button_font_color,
+                               fg=SP.button_font_color_gray_scale,
                                relief=SP.bord_style,
                                bd=SP.bord_size,
-                               activebackground=SP.active_background_color)
+                               activebackground=SP.active_background_color_gray_scale)
     pulsante_conferma.config(height=5, width=23)
     pulsante_conferma.pack(side=LEFT)
 
@@ -241,10 +241,10 @@ def multi_choice_view(text_label,yes_button_text,no_button_text):
                               bg=SP.standard_color_setting("delete_button_background"),
                               command=lambda: abort_deletion(),
                               font=SP.font_piccolo,
-                              fg=SP.button_font_color,
+                              fg=SP.button_font_color_gray_scale,
                               relief=SP.bord_style,
                               bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
+                              activebackground=SP.active_background_color_gray_scale)
     pulsante_annulla.config(height=5, width=23)  # altezza 5
     pulsante_annulla.pack(side=RIGHT)
     root.mainloop()
@@ -309,10 +309,10 @@ def show_file(idButton):
                                          command=lambda: bind_button(int(idButton), root),
                                          bg=SP.standard_color_setting("button_list_association_view"),
                                          font=SP.font_piccolo,
-                                         fg=SP.button_font_color,
+                                         fg=SP.button_font_color_gray_scale,
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
-                                         activebackground=SP.active_background_color)
+                                         activebackground=SP.standard_color_setting("button_list_association_view"))
     pulstante_associa_fileAudio.config(height=5, width=25)
     pulstante_associa_fileAudio.pack(side=TOP, fill=BOTH)
 
@@ -325,9 +325,9 @@ def show_file(idButton):
                                          bg=SP.standard_color_setting("delete_button_background"),
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
-                                         activebackground=SP.active_background_color,
+                                         activebackground=SP.standard_color_setting("delete_button_background"),
                                          font=SP.font_piccolo,
-                                         fg=SP.button_font_color)
+                                         fg=SP.button_font_color_gray_scale)
     pulstante_elimina_fileAudio.config(height=4, width=25)
     pulstante_elimina_fileAudio.pack(fill=BOTH)
 
@@ -344,12 +344,12 @@ def bottom_with_text(frame, text):
                       text=text,
                       bg=SP.standard_color_setting("button_list_association_view"),
                       font=SP.font_piccolo,
-                      fg=SP.button_font_color,
+                      fg=SP.button_font_color_gray_scale,
                       bd=SP.bord_size,
                       relief=SP.bord_style,
                       command=lambda: show_file(text.replace("Pulsante", "")),
-                      #activebackground=SP.active_background_color,
-                      #activeforeground="black"
+                      activebackground=SP.standard_color_setting("button_list_association_view"),
+
                       )
 
     pulsante.config(width=20, height=3)
@@ -363,10 +363,10 @@ def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
     pulsante = Button(frame, text=nome_chiavetta,
                       bg=SP.standard_color_setting("usb_key_button"),
                       font=SP.font_piccolo,
-                      fg=SP.button_font_color,
+                      fg=SP.button_font_color_gray_scale,
                       bd=SP.bord_size,
                       relief=SP.bord_style,
-                      activebackground=SP.active_background_color,
+                      activebackground=SP.standard_color_setting("usb_key_button"),
                       command=lambda: show_and_select_item_from_path(mod, path_origine, path_destinzaione,nome_chiavetta)
                       )
     pulsante.config(width=40, height=3)
@@ -376,11 +376,11 @@ def button_USB_key_list(frame, nome_chiavetta):
     pulsante = Button(frame, text=nome_chiavetta,
                       bg=SP.standard_color_setting("usb_key_button"),
                       font=SP.font_piccolo,
-                      fg=SP.button_font_color,
+                      fg=SP.button_font_color_gray_scale,
                       bd=SP.bord_size,
                       relief=SP.bord_style,
-                      activebackground=SP.active_background_color,
-                     # command=lav.show_list().es
+                      activebackground=SP.standard_color_setting("usb_key_button"),
+                      # command=lav.show_list().es
                       )
     pulsante.config(width=40, height=3)
     return pulsante
@@ -434,12 +434,12 @@ def raspberry_memory_manager():
     pulstante_elimina = Button(root,
                                text="Scegli il file \nche vuoi eliminare",
                                bg=SP.standard_color_setting("delete_button_background"),
-                               fg=SP.button_font_color,
+                               fg=SP.button_font_color_gray_scale,
                                command=lambda: delete_selected_elements(root),
                                font=SP.font_piccolo,
                                bd=SP.bord_size,
                                relief=SP.bord_style,
-                               # activebackground=SP.delete_button_active_background
+                               activebackground=SP.standard_color_setting("delete_button_background")
                                )
     pulstante_elimina.config(height=4, width=20)
     pulstante_elimina.pack(side=TOP, fill=BOTH)
@@ -534,10 +534,10 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                                    bg=SP.standard_color_setting("import_button_background"),
                                    command=lambda: select_items_and_copy(root),
                                    font=SP.font_piccolo,
-                                   fg=SP.button_font_color,
+                                   fg=SP.button_font_color_gray_scale,
                                    bd=SP.bord_size,
                                    relief=SP.bord_style,
-                                   activebackground=SP.active_background_color)
+                                   activebackground=SP.standard_color_setting("import_button_background"))
         pulstante_importa.config(height=3, width=20)
         pulstante_importa.pack(side=TOP, fill=BOTH)
 
@@ -546,12 +546,12 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
         pulstante_elimina = Button(root,
                                    text="Scegli il file \nche vuoi eliminare",
                                    bg=SP.standard_color_setting("delete_button_background"),
-                                   fg=SP.button_font_color,
+                                   fg=SP.button_font_color_gray_scale,
                                    command=lambda: delete_selected_elements(root),
                                    font=SP.font_piccolo,
                                    bd=SP.bord_size,
                                    relief=SP.bord_style,
-                                   #activebackground=SP.delete_button_active_background
+                                   activebackground=SP.standard_color_setting("delete_button_background")
                                    )
         pulstante_elimina.config(height=4, width=20)
         pulstante_elimina.pack(side=TOP, fill=BOTH)

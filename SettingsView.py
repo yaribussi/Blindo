@@ -9,12 +9,12 @@ class SettingsView:
     def set_aspect():
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
-        root.config(bg=SP.root_background_color)
+        root.config(bg=SP.root_background_color_gray_scale)
         frame = Frame(root)
-        frame.config(bg=SP.root_background_color)
+        frame.config(bg=SP.root_background_color_gray_scale)
         frame.pack()
         label = Label(root, text="Scegli il tuo bordo preferito",
-                      bg=SP.root_background_color,
+                      bg=SP.root_background_color_gray_scale,
                       fg=SP.root_font_color,
                       width=0, height=1,
                       font=SP.font_medio
@@ -26,25 +26,25 @@ class SettingsView:
                                 frame,
                                 text=SP.bord_styles_set[i],
                                 font=SP.font_piccolo,
-                                fg=SP.button_font_color,
+                                fg=SP.button_font_color_gray_scale,
                                 command=lambda: SP.set_bord_style(i),
-                                bg=SP.button_background_color,
+                                bg=SP.button_background_color_grey_scale,
                                 relief=SP.bord_styles_set[i],
                                 bd=20,
-                                #activebackground=SP.active_background_color,
-                                activeforeground=SP.button_font_color)
+                                activebackground=SP.active_background_color_gray_scale,
+                                activeforeground=SP.button_font_color_gray_scale)
             relif_button.config(height=4, width=10)
             relif_button.grid(row=3,column=i)
 
     def choose_button_aspect():
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
-        root.config(bg=SP.root_background_color)
+        root.config(bg=SP.root_background_color_gray_scale)
         frame = Frame(root)
-        frame.config(bg=SP.root_background_color)
+        frame.config(bg=SP.root_background_color_gray_scale)
         frame.pack()
         label = Label(frame, text="Cosa vuoi?",
-                      bg=SP.root_background_color,
+                      bg=SP.root_background_color_gray_scale,
                       fg=SP.root_font_color,
                       width=90, height=4,
                       font=SP.font_medio
@@ -53,26 +53,26 @@ class SettingsView:
 
         change_size_button = Button(frame,
                                     text="set size",
-                                    bg=SP.button_background_color,
+                                    bg=SP.button_background_color_grey_scale,
                                     command=lambda: SP.set_bord_size(),
                                     font=SP.font_piccolo,
-                                    fg=SP.button_font_color,
+                                    fg=SP.button_font_color_gray_scale,
                                     relief=SP.bord_style,
                                     bd=SP.bord_size,
-                                    #activebackground=SP.active_background_color
+                                    #activebackground=SP.active_background_color_gray_scale
                                     )
         change_size_button.config(height=5, width=23)
         change_size_button.pack(side=LEFT)
 
         change_style_button = Button(frame,
                                      text="set style",
-                                     bg=SP.button_background_color,
-                                     fg=SP.button_font_color,
+                                     bg=SP.button_background_color_grey_scale,
+                                     fg=SP.button_font_color_gray_scale,
                                      command=lambda: SettingsView.set_aspect(),
                                      font=SP.font_piccolo,
                                      relief=SP.bord_style,
                                      bd=SP.bord_size,
-                                     #activebackground=SP.active_background_color
+                                     #activebackground=SP.active_background_color_gray_scale
                                      )
         change_style_button.config(height=5, width=23)  # altezza 5
         change_style_button.pack(side=RIGHT)
@@ -82,12 +82,12 @@ class SettingsView:
     def setting_view():
         root = Tk()
         root.attributes('-fullscreen', SP.full_screen_option)
-        root.config(bg=SP.root_background_color)
+        root.config(bg=SP.root_background_color_gray_scale)
         frame = Frame(root)
-        frame.config(bg=SP.root_background_color)
+        frame.config(bg=SP.root_background_color_gray_scale)
         frame.pack()
         label = Label(frame, text="Impostazioni varie",
-                      bg=SP.root_background_color,
+                      bg=SP.root_background_color_gray_scale,
                       fg=SP.root_font_color,
                       width=90, height=4,
                       font=SP.font_medio
@@ -96,26 +96,26 @@ class SettingsView:
 
         change_size_button = Button(frame,
                                     text="caratteristiche pulsanti",
-                                    bg=SP.button_background_color,
+                                    bg=SP.button_background_color_grey_scale,
                                     command=lambda: SettingsView.choose_button_aspect(),
                                     font=SP.font_piccolo,
-                                    fg=SP.button_font_color,
+                                    fg=SP.button_font_color_gray_scale,
                                     relief=SP.bord_style,
                                     bd=SP.bord_size,
-                                    #activebackground=SP.active_background_color
+                                    #activebackground=SP.active_background_color_gray_scale
                                     )
         change_size_button.config(height=5, width=23)
         change_size_button.pack(side=LEFT)
 
         change_style_button = Button(frame,
                                      text="volume",
-                                     bg=SP.button_background_color,
-                                     fg=SP.button_font_color,
+                                     bg=SP.button_background_color_grey_scale,
+                                     fg=SP.button_font_color_gray_scale,
                                      command=lambda: SettingsView.volume_view(),
                                      font=SP.font_piccolo,
                                      relief=SP.bord_style,
                                      bd=SP.bord_size,
-                                     #activebackground=SP.active_background_color
+                                     #activebackground=SP.active_background_color_gray_scale
                                      )
         change_style_button.config(height=5, width=23)  # altezza 5
         change_style_button.pack(side=RIGHT)
@@ -162,13 +162,13 @@ class SettingsView:
                                   frame,
                                   text="-",
                                   font=SP.font_grande,
-                                  fg=SP.button_font_color,
+                                  fg=SP.button_font_color_gray_scale,
                                   command=decrese_and_change,
                                   bg=SP.standard_color_setting("button_setting_view"),
                                   relief=SP.bord_style,
                                   bd=SP.bord_size,
-                                 # activebackground=SP.active_background_color,
-                                  activeforeground=SP.button_font_color)
+                                  activebackground=SP.standard_color_setting("button_setting_view"),
+                                  activeforeground=SP.button_font_color_gray_scale)
             decrese_vol_button.grid(row=1)
             decrese_vol_button.config(height=1, width=2)
 
@@ -177,11 +177,11 @@ class SettingsView:
                                   frame,
                                   text="+",
                                   font=SP.font_grande,
-                                  fg=SP.button_font_color,
+                                  fg=SP.button_font_color_gray_scale,
                                   command=increse_and_change,
                                   bg=SP.standard_color_setting("button_setting_view"),
-                                  #activebackground=SP.active_background_color,
-                                  activeforeground=SP.button_font_color,
+                                  activebackground=SP.standard_color_setting("button_setting_view"),
+                                  activeforeground=SP.button_font_color_gray_scale,
                                   relief=SP.bord_style,
                                   bd=SP.bord_size)
             increse_vol_button.grid(row=1, column=2)
