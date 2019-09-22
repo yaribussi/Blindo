@@ -46,21 +46,21 @@ pop_up_colour_background="#505050"
 root_font_color= "white"
 black="black"
 
-recode_view_button_color= "#C00F44"
-import_export_button_color="#2355BF"
-list_association_button_color="#159338"
+recode_view_button_color= "#C0392B"
+import_export_button_color="#5499C7"
+list_association_button_color="#45B39D"
 setting_button_color="#554F9D"
 utility_button_color="#DFB606"
-archive_manager_button_color="#ECE640"
+archive_manager_button_color="#FFE526"
 
-recode_view_root_color= "#C26A84"
-import_export_root_color="#607EBE"
-list_association_root_color="#4FA266"
+recode_view_root_color= "#D98880"
+import_export_root_color="#85C1E9"
+list_association_root_color="#73C6B6"
 setting_root_color="#775DC0"
 utility_root_color="#E3CB63"
-archive_manager_root_color="#ECE868"
+archive_manager_root_color="#F0B27A"
 
-key_keyboard_color = "#463479"
+key_keyboard_color = "#5499C7"
 root_keyboard_color = "#B989C4"
 
 cascade_main_menu= "#554F9D"
@@ -76,7 +76,9 @@ export_root_color= "#7BF4F3"
 green="#69F505"
 red="#D55858"
 
-exit_button_color="#FFF700"
+exit_button_color="#BDC3C7"
+
+
 currentTheme = 1  #0 for default theme - 1 for coloured theme
 theme={
 
@@ -107,7 +109,7 @@ theme={
         "label_list_association_view":[root_background_color, list_association_root_color],
         "button_list_association_view": [button_background_color, list_association_button_color],
         "listbox_list_association_view":[root_background_color, list_association_root_color],
-        "menu_list_association_view":[root_background_color, cascade_list_association_menu],
+        "menu_list_association_view":[root_background_color, list_association_button_color],
 
         "root_utility_view": [root_background_color, utility_root_color],
         "frame_utility_view":[root_background_color, utility_root_color],
@@ -125,10 +127,10 @@ theme={
         "label_record_view": [root_background_color, recode_view_root_color],
         "button_record_view": [button_background_color, recode_view_button_color],
 
-        "root_archive_manager_view":[root_background_color,archive_manager_root_color],
-        "frame_archive_manager_view": [root_background_color,archive_manager_root_color],
-        "label_archive_manager_view": [root_background_color,archive_manager_root_color],
-        "button_archive_manager_view": [button_background_color,archive_manager_button_color]
+        "root_archive_manager_view":[root_background_color, archive_manager_root_color],
+        "frame_archive_manager_view": [root_background_color, archive_manager_root_color],
+        "label_archive_manager_view": [root_background_color, archive_manager_root_color],
+        "button_archive_manager_view": [button_background_color, archive_manager_button_color]
 }
 def standard_color_setting(guiObjectName):
     return theme[guiObjectName].__getitem__(currentTheme)

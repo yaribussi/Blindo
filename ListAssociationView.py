@@ -401,7 +401,7 @@ class ListAssociationView:
         pulstante_carica_lista = Button(root,
                                          text="Carica lista",
                                          command=lambda: upload_list(root),
-                                         bg=SP.standard_color_setting("import_button_background"),
+                                         bg=SP.standard_color_setting("button_list_association_view"),
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
                                          bd=SP.bord_size,
@@ -413,7 +413,7 @@ class ListAssociationView:
         pulstante_esporta_lista = Button(root,
                                          text="Esporta lista",
                                          command=lambda:show_chiavette(),
-                                         bg=SP.standard_color_setting("export_button_background"),
+                                         bg=SP.standard_color_setting("button_list_association_view"),
                                          font=SP.font_piccolo,
                                          fg=SP.button_font_color,
                                          bd=SP.bord_size,
@@ -468,7 +468,7 @@ class ListAssociationView:
         path_key = os.path.join(SP.path_punto_accesso_chiavette, nome_chiavetta)
 
         pulsante = Button(frame, text=nome_chiavetta,
-                          bg=SP.standard_color_setting("usb_key_button"),
+                          bg=SP.standard_color_setting("button_list_association_view"),
                           font=SP.font_piccolo,
                           fg=SP.button_font_color,
                           bd=SP.bord_size,
