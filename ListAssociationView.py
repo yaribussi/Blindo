@@ -74,6 +74,7 @@ class ListAssociationView:
 
         # ulteriore controllo ridondante
         if len(chiavetta) > 0:
+            # 'C:\\Users\\yari7\\Downloads\\UNIBS\\IEEE\\Projects\\Blindo\\fileAudiofromChiavetta\\Chiavetta1\\Liste'
             path_folder_liste = os.path.join(SP.path_punto_accesso_chiavette,
                                         os.path.join(chiavetta[0],SP.expor_folder_name))
 
@@ -344,11 +345,16 @@ class ListAssociationView:
             list_name = mylist.get('active')
 
             final_path_list = os.path.join(SP.path_liste, list_name)
-            final_path_chiavetta = os.path.join(path_chiavetta_destinazione, os.path.join(SP.expor_folder_name,list_name))
+
+            final_path_cartella_liste= os.path.join(path_chiavetta_destinazione, SP.expor_folder_name)
+            print(final_path_cartella_liste)
+
+            cartella_lista_esportata = os.path.join(final_path_cartella_liste, list_name)
+            print(cartella_lista_esportata)
 
             rewite = True
 
-            if os.path.exists(final_path_chiavetta):
+            if os.path.exists(cartella_lista_esportata):
 
                 # variabile booleana assegnata dalla risposta dell' utente
                 user_choice = uv.multi_choice_view("Attenzione!\nEsiste già una versione di "+list_name +
@@ -357,18 +363,23 @@ class ListAssociationView:
                                                    "Annulla")
 
                 if user_choice:
-                    shutil.rmtree(final_path_chiavetta)
+                    shutil.rmtree(cartella_lista_esportata)
                     rewite = True
+
                     # umask serve a garantire tutti i diritti di scrittura/lettura
                     # alla cartella creata con makedirs
-                    oldmask = os.umask(0o77)#0o22
-                    os.makedirs(final_path_chiavetta, 0o777)
+                    oldmask = os.umask(0o77)
+                    os.makedirs(cartella_lista_esportata, 0o1411)
                     os.umask(oldmask)
                 else:
                     rewite = False
 
             else:
-                os.makedirs(final_path_chiavetta)
+
+                oldmask = os.umask(0o77)
+                os.makedirs(final_path_cartella_liste, 0o1411)
+                os.makedirs(cartella_lista_esportata, 0o1411)
+                os.umask(oldmask)
 
             uv.show_dialog_with_time("Esportazione in corso...",2)
             # carico la lista selezionata dall'utente e la metto nell'oggetto "list_obj"
@@ -377,7 +388,7 @@ class ListAssociationView:
                 try:
                     with open(final_path_list, 'rb') as io:
                         list_objects = pk.load(io)
-                        fm.copy_file_from_path_to_another(final_path_list, final_path_chiavetta)
+                        fm.copy_file_from_path_to_another(final_path_list, cartella_lista_esportata)
 
                         for audio in list_objects:
                             if audio.name != "DEFAULT":
@@ -385,13 +396,13 @@ class ListAssociationView:
                                 path_scr = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry,name_file)
 
                                 fm.copy_file_from_path_to_another(path_scr,
-                                                                  final_path_chiavetta)
+                                                                  cartella_lista_esportata)
 
                 except (FileNotFoundError, IOError) as e:
                     print(e)
             # pop up informativo
             uv.show_dialog_with_time("Operazione conclusa con successo",2)
-             # ____________________________  end of esport_list
+            # ____________________________  end of esport_list ____________________________
 
 
         def rename_selected_element(root):
@@ -752,7 +763,7 @@ class ListAssociationView:
                          font=SP.font_medio,
                          menu=subMenu, )  # menu a cascata
         # riga di separazione
-
+        menu.config(bd=SP.bord_size)
         subMenu.add_command(label="Nuova Lista     ", font=SP.font_medio,
                             command=lambda: ListAssociationView.new_list_view(master))
         subMenu.add_separator()
@@ -764,3 +775,5 @@ class ListAssociationView:
         subMenu.add_separator()
         subMenu.add_command(label="Importa Liste  ", font=SP.font_medio,
                             command=lambda: ListAssociationView.import_list(master))
+
+

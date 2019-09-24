@@ -23,11 +23,12 @@ def show_dialog_with_time(text, time):
     screen_height = dialog.winfo_screenheight()
 
     # calculate position x and y coordinates
-    x = (screen_width / 2) - (200)
-    y = (screen_height / 2) - (100)
+    x = (screen_width / 2) - 180
+    y = (screen_height / 2) - 150
     dialog.geometry('+%d+%d' % (x, y))
 
-    label = Label(dialog, text=text,
+    label = Label(dialog,
+                  text=text,
                   bg=SP.standard_color_setting("pop_up_background_color"),
                   font=SP.font_piccolo,
                   wraplength=500,
@@ -240,7 +241,7 @@ def multi_choice_view(text_label,yes_button_text,no_button_text):
                             fg=SP.button_font_color_gray_scale,
                             relief=SP.bord_style,
                             bd=SP.bord_size,
-                            activebackground=SP.active_background_color_gray_scale)
+                            activebackground=SP.standard_color_setting("confirm_button_background"))
     confirm_button.config(height=5, width=23)
     confirm_button.pack(side=LEFT)
 
@@ -252,7 +253,7 @@ def multi_choice_view(text_label,yes_button_text,no_button_text):
                           fg=SP.button_font_color_gray_scale,
                           relief=SP.bord_style,
                           bd=SP.bord_size,
-                          activebackground=SP.active_background_color_gray_scale)
+                          activebackground=SP.standard_color_setting("delete_button_background"))
     abort_button.config(height=5, width=23)  # altezza 5
     abort_button.pack(side=RIGHT)
     root.mainloop()
