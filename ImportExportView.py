@@ -60,7 +60,7 @@ class ImportExportView:
             # cambio il contenuto e la grandezza del label
             label["text"] = "Inserisci una chiavetta \nper accedere alle altre funzionalità"
             label["height"] = 3
-
+            '''
             # pulsante mostrato solo se NON è inserita nessuna chiavetta
             raspberry_memory_button = Button(frame,
                                              text="Accedi alla memoria interna",
@@ -74,7 +74,7 @@ class ImportExportView:
                                              )
             raspberry_memory_button.pack()
             raspberry_memory_button.config(height=5, width=25)
-
+            '''
         #    funzione che richiama la sottoschermata dopo aver cliccato su "ESPORTA"
         def choose_key_and_export():
             root = Tk()

@@ -6,7 +6,7 @@ import KeyboardView as kv
 import StaticParameter as SP
 import os
 import shutil
-
+from time import sleep
 
 class ListAssociationView:
 
@@ -71,6 +71,7 @@ class ListAssociationView:
         # l'event detect può essere trovato nel file GPIO mamaging
         while len(chiavetta) == 0:
             chiavetta = os.listdir(SP.path_punto_accesso_chiavette)
+            sleep(1)
 
         # ulteriore controllo ridondante
         if len(chiavetta) > 0:
@@ -97,7 +98,7 @@ class ListAssociationView:
                     fm.copy_file_from_path_to_another(path_file,SP.path_che_simula_la_memoria_interna_del_raspberry)
 
             fm.change_list(folder_lista[0])
-
+            uv.show_dialog_with_time("Lista "+folder_lista[0]+" importata con successo",2)
 
 
         else:
@@ -347,10 +348,10 @@ class ListAssociationView:
             final_path_list = os.path.join(SP.path_liste, list_name)
 
             final_path_cartella_liste= os.path.join(path_chiavetta_destinazione, SP.expor_folder_name)
-            print(final_path_cartella_liste)
+            #print(final_path_cartella_liste)
 
             cartella_lista_esportata = os.path.join(final_path_cartella_liste, list_name)
-            print(cartella_lista_esportata)
+            #print(cartella_lista_esportata)
 
             rewite = True
 
@@ -371,17 +372,21 @@ class ListAssociationView:
                     oldmask = os.umask(0o77)
                     os.makedirs(cartella_lista_esportata, 0o1411)
                     os.umask(oldmask)
+                    uv.show_dialog_with_time("Esportazione in corso...", 2)
+                    uv.show_dialog_with_time("Operazione conclusa con successo", 2)
                 else:
                     rewite = False
 
             else:
 
                 oldmask = os.umask(0o77)
-                os.makedirs(final_path_cartella_liste, 0o1411)
+#                os.makedirs(final_path_cartella_liste, 0o1411)
                 os.makedirs(cartella_lista_esportata, 0o1411)
                 os.umask(oldmask)
+                uv.show_dialog_with_time("Esportazione in corso...", 2)
+                uv.show_dialog_with_time("Operazione conclusa con successo", 2)
 
-            uv.show_dialog_with_time("Esportazione in corso...",2)
+
             # carico la lista selezionata dall'utente e la metto nell'oggetto "list_obj"
             if rewite:
 
@@ -401,7 +406,7 @@ class ListAssociationView:
                 except (FileNotFoundError, IOError) as e:
                     print(e)
             # pop up informativo
-            uv.show_dialog_with_time("Operazione conclusa con successo",2)
+
             # ____________________________  end of esport_list ____________________________
 
 
@@ -456,7 +461,7 @@ class ListAssociationView:
                                     bd=SP.bord_size,
                                     relief=SP.bord_style,
                                     activebackground=SP.standard_color_setting("button_list_association_view"))
-        upload_list_button.config(height=3, width=25)
+        upload_list_button.config(height=2, width=25)
         upload_list_button.pack(side=TOP, fill=BOTH)
 
         export_list_button = Button(root,
@@ -468,7 +473,7 @@ class ListAssociationView:
                                     bd=SP.bord_size,
                                     relief=SP.bord_style,
                                     activebackground=SP.standard_color_setting("button_list_association_view"))
-        export_list_button.config(height=3, width=25)
+        export_list_button.config(height=2, width=25)
         export_list_button.pack(side=TOP, fill=BOTH)
 
         rename_list_button = Button(root,
@@ -480,7 +485,7 @@ class ListAssociationView:
                                          bd=SP.bord_size,
                                          relief=SP.bord_style,
                                          activebackground=SP.standard_color_setting("button_list_association_view"))
-        rename_list_button.config(height=3, width=25)
+        rename_list_button.config(height=2, width=25)
         rename_list_button.pack(side=TOP, fill=BOTH)
 
         #  pulsante per eliminare le liste selezionate
@@ -490,11 +495,11 @@ class ListAssociationView:
                                     bg=SP.standard_color_setting("delete_button_background"),
                                     bd=SP.bord_size,
                                     relief=SP.bord_style,
-                                    activebackground=SP.standard_color_setting("button_list_association_view"),
+                                    activebackground=SP.standard_color_setting("delete_button_background"),
                                     font=SP.font_piccolo,
                                     fg=SP.button_font_color_gray_scale)
 
-        delete_list_button.config(height=3, width=25)
+        delete_list_button.config(height=2, width=25)
         delete_list_button.pack(fill=BOTH)
 
         uv.exit_button_with_text(root, "Torna al menu principale ")

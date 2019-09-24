@@ -127,7 +127,7 @@ def elimina_file_con_conferma(path, nome_file):
                            fg=SP.button_font_color_gray_scale,
                            relief=SP.bord_style,
                            bd=SP.bord_size,
-                           activebackground=SP.active_background_color_gray_scale)
+                           activebackground=SP.standard_color_setting("delete_button_background"))
     delete_button.config(height=5, width=23)
     delete_button.pack(side=LEFT)
 
@@ -139,7 +139,7 @@ def elimina_file_con_conferma(path, nome_file):
                           fg=SP.button_font_color_gray_scale,
                           relief=SP.bord_style,
                           bd=SP.bord_size,
-                          activebackground=SP.active_background_color_gray_scale)
+                          activebackground=SP.standard_color_setting("confirm_button_background"))
     abort_button.config(height=5, width=23)  # altezza 5
     abort_button.pack(side=RIGHT)
     root.mainloop()
@@ -185,7 +185,7 @@ def multiple_delete_with_choice(selected_file):
                            font=SP.font_piccolo,
                            relief=SP.bord_style,
                            bd=SP.bord_size,
-                           activebackground=SP.active_background_color_gray_scale)
+                           activebackground=SP.standard_color_setting("delete_button_background"))
     delete_button.config(height=5, width=23)
     delete_button.pack(side=LEFT)
 
@@ -197,7 +197,7 @@ def multiple_delete_with_choice(selected_file):
                           font=SP.font_piccolo,
                           relief=SP.bord_style,
                           bd=SP.bord_size,
-                          activebackground=SP.active_background_color_gray_scale)
+                          activebackground=SP.standard_color_setting("delete_button_background"))
     abort_button.config(height=5, width=23)  # altezza 5
     abort_button.pack(side=RIGHT)
     root.mainloop()
