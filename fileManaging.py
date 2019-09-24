@@ -127,6 +127,7 @@ def save_file_audio_list(my_objects, name_list):
         pk.dump(my_objects, output, -1)
 
 
+
 # funzione che utilizza la funzione di sitema "shutil.copy" per copiare i file da un path ad un altro
 def copy_file_from_path_to_another(initial_path, ending_path):
     shutil.copy(initial_path, ending_path)

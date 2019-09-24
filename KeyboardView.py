@@ -107,7 +107,7 @@ def hoso_pop(kb):
 
 def keyboard(label_keyboard):
 	label_font = ("Helvetica",30)
-	label_text = label_keyboard
+	label_text = label_keyboard[0:30]
 
 	entry_font = ("Helvetica",30)
 	entry_background = "white"

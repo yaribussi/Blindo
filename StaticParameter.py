@@ -72,76 +72,76 @@ cascade_list_association_menu="#554F9F"
 import_button_color=import_export_button_color
 export_button_color= import_export_button_color
 
-import_root_color=import_export_root_color
-export_root_color= import_export_root_color
+import_root_color = import_export_root_color
+export_root_color = import_export_root_color
 
 
-green="#69F505"
-red="#D55858"
+green = "#69F505"
+red = "#D55858"
 
-exit_button_color="#BDC3C7"
+default_sysyem_element= "#BDC3C7"
 
+# 0 for default theme - 1 for coloured theme
+current_theme = 1
 
-
-
-
-currentTheme = 1  #0 for default theme - 1 for coloured theme
 theme={
 
-        "confirm_button_background":    [button_background_color_grey_scale, green],
-        "delete_button_background":     [button_background_color_grey_scale, red],
+        "confirm_button_background":            [button_background_color_grey_scale, green],
+        "delete_button_background":             [button_background_color_grey_scale, red],
 
-        "exit_button_with_text":        [button_background_color_grey_scale, exit_button_color],
-        "import_button_background":        [button_background_color_grey_scale, import_button_color],
-        "export_button_background":        [button_background_color_grey_scale, export_button_color],
+        "pop_up_background_color":              [button_background_color_grey_scale, default_sysyem_element],
+        "exit_button_with_text":                [button_background_color_grey_scale, default_sysyem_element],
 
-        "import_root_background": [root_background_color_gray_scale, import_root_color],
-        "export_root_background": [root_background_color_gray_scale, export_root_color],
+        "import_button_background":             [button_background_color_grey_scale, import_button_color],
+        "export_button_background":             [button_background_color_grey_scale, export_button_color],
 
-        "key_button_background":        [button_background_color_grey_scale, key_keyboard_color],
-        "root_keyboard":                [root_background_color_gray_scale, root_keyboard_color],
+        "import_root_background":               [root_background_color_gray_scale, import_root_color],
+        "export_root_background":               [root_background_color_gray_scale, export_root_color],
 
-        "usb_key_button":[button_background_color_grey_scale, key_keyboard_color],
+        "key_button_background":                [button_background_color_grey_scale, key_keyboard_color],
+        "root_keyboard":                        [root_background_color_gray_scale, root_keyboard_color],
 
-        "setting_main_menu": [root_background_color_gray_scale, cascade_main_menu],
+        "usb_key_button":                       [button_background_color_grey_scale, key_keyboard_color],
 
-        "root_setting_view": [root_background_color_gray_scale, setting_root_color],
-        "frame_setting_view": [root_background_color_gray_scale, setting_root_color],
-        "label_setting_view": [root_background_color_gray_scale, setting_root_color],
-        "button_setting_view": [button_background_color_grey_scale, setting_button_color],
+        "setting_main_menu":                    [root_background_color_gray_scale, cascade_main_menu],
 
-        "root_list_association_view": [root_background_color_gray_scale, list_association_root_color],
-        "frame_list_association_view":[root_background_color_gray_scale, list_association_root_color],
-        "label_list_association_view":[root_background_color_gray_scale, list_association_root_color],
-        "button_list_association_view": [button_background_color_grey_scale, list_association_button_color],
-        "listbox_list_association_view":[root_background_color_gray_scale, list_association_root_color],
-        "menu_list_association_view":[root_background_color_gray_scale, list_association_button_color],
+        "root_setting_view":                    [root_background_color_gray_scale, setting_root_color],
+        "frame_setting_view":                   [root_background_color_gray_scale, setting_root_color],
+        "label_setting_view":                   [root_background_color_gray_scale, setting_root_color],
+        "button_setting_view":                  [button_background_color_grey_scale, setting_button_color],
 
-        "root_utility_view": [root_background_color_gray_scale, utility_root_color],
-        "frame_utility_view":[root_background_color_gray_scale, utility_root_color],
-        "label_utility_view":[root_background_color_gray_scale, utility_root_color],
-        "button_utility_view": [button_background_color_grey_scale, utility_button_color],
-        "listbox_utility_view": [root_background_color_gray_scale, utility_root_color],
+        "root_list_association_view":           [root_background_color_gray_scale, list_association_root_color],
+        "frame_list_association_view":          [root_background_color_gray_scale, list_association_root_color],
+        "label_list_association_view":          [root_background_color_gray_scale, list_association_root_color],
+        "button_list_association_view":         [button_background_color_grey_scale, list_association_button_color],
+        "listbox_list_association_view":        [root_background_color_gray_scale, list_association_root_color],
+        "menu_list_association_view":           [root_background_color_gray_scale, list_association_button_color],
 
-        "root_import_export_view": [root_background_color_gray_scale, import_export_root_color],
-        "frame_import_export_view": [root_background_color_gray_scale, import_export_root_color],
-        "label_import_export_view": [root_background_color_gray_scale, import_export_root_color],
-        "button_import_export_view": [button_background_color_grey_scale, import_export_button_color],
+        "root_utility_view":                    [root_background_color_gray_scale, utility_root_color],
+        "frame_utility_view":                   [root_background_color_gray_scale, utility_root_color],
+        "label_utility_view":                   [root_background_color_gray_scale, utility_root_color],
+        "button_utility_view":                  [button_background_color_grey_scale, utility_button_color],
+        "listbox_utility_view":                 [root_background_color_gray_scale, utility_root_color],
 
-        "root_record_view": [root_background_color_gray_scale, recode_view_root_color],
-        "frame_record_view": [root_background_color_gray_scale, recode_view_root_color],
-        "label_record_view": [root_background_color_gray_scale, recode_view_root_color],
-        "button_record_view": [button_background_color_grey_scale, recode_view_button_color],
+        "root_import_export_view":              [root_background_color_gray_scale, import_export_root_color],
+        "frame_import_export_view":             [root_background_color_gray_scale, import_export_root_color],
+        "label_import_export_view":             [root_background_color_gray_scale, import_export_root_color],
+        "button_import_export_view":            [button_background_color_grey_scale, import_export_button_color],
 
-        "root_archive_manager_view":[root_background_color_gray_scale, archive_manager_root_color],
-        "frame_archive_manager_view": [root_background_color_gray_scale, archive_manager_root_color],
-        "label_archive_manager_view": [root_background_color_gray_scale, archive_manager_root_color],
-        "button_archive_manager_view": [button_background_color_grey_scale, archive_manager_button_color],
-        "listbox_archive_manager_view": [button_background_color_grey_scale, archive_manager_root_color]
+        "root_record_view":                     [root_background_color_gray_scale, recode_view_root_color],
+        "frame_record_view":                    [root_background_color_gray_scale, recode_view_root_color],
+        "label_record_view":                    [root_background_color_gray_scale, recode_view_root_color],
+        "button_record_view":                   [button_background_color_grey_scale, recode_view_button_color],
+
+        "root_archive_manager_view":            [root_background_color_gray_scale, archive_manager_root_color],
+        "frame_archive_manager_view":           [root_background_color_gray_scale, archive_manager_root_color],
+        "label_archive_manager_view":           [root_background_color_gray_scale, archive_manager_root_color],
+        "button_archive_manager_view":          [button_background_color_grey_scale, archive_manager_button_color],
+        "listbox_archive_manager_view":         [button_background_color_grey_scale, archive_manager_root_color]
 
 }
 def standard_color_setting(guiObjectName):
-    return theme[guiObjectName].__getitem__(currentTheme)
+    return theme[guiObjectName].__getitem__(current_theme)
 
 # testo visualizzato nel pulsante che torna al menu principale
 exit_text= "Torna al menu principale"

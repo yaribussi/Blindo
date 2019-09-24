@@ -30,55 +30,53 @@ class ImportExportView:
         # le funzioni IMPORTA/ESPORTA vengono visualizzate
         # solamente se è collegata almeno una chiavetta
         if numbers_of_key > 0:
-            pulsante_importa = Button(frame,
-                                      text="Importa",
-                                      bg=SP.standard_color_setting("import_button_background"),
-                                      command=lambda: scegli_chiavetta_importa(),
-                                      font=SP.font_piccolo,
-                                      fg=SP.button_font_color_gray_scale,
-                                      bd=SP.bord_size,
-                                      relief=SP.bord_style,
-                                      activebackground=SP.standard_color_setting("import_button_background")
-                                      )
-            pulsante_importa.pack(side=LEFT)
-            pulsante_importa.config(height=5, width=22)
+            import_button = Button(frame,
+                                   text="Importa",
+                                   bg=SP.standard_color_setting("import_button_background"),
+                                   command=lambda: choose_key_and_import(),
+                                   font=SP.font_piccolo,
+                                   fg=SP.button_font_color_gray_scale,
+                                   bd=SP.bord_size,
+                                   relief=SP.bord_style,
+                                   activebackground=SP.standard_color_setting("import_button_background")
+                                   )
+            import_button.pack(side=LEFT)
+            import_button.config(height=5, width=22)
 
-            pulsante_esporta = Button(frame,
-                                      text="Esporta",
-                                      bg=SP.standard_color_setting("export_button_background"),
-                                      command=lambda: scegli_chiavetta_esporta(),
-                                      font=SP.font_piccolo,
-                                      fg=SP.button_font_color_gray_scale,
-                                      bd=SP.bord_size,
-                                      relief=SP.bord_style,
-                                      activebackground=SP.standard_color_setting("export_button_background")
+            export_button = Button(frame,
+                                   text="Esporta",
+                                   bg=SP.standard_color_setting("export_button_background"),
+                                   command=lambda: choose_key_and_export(),
+                                   font=SP.font_piccolo,
+                                   fg=SP.button_font_color_gray_scale,
+                                   bd=SP.bord_size,
+                                   relief=SP.bord_style,
+                                   activebackground=SP.standard_color_setting("export_button_background")
                                       )
-            pulsante_esporta.pack(side=RIGHT)
-            pulsante_esporta.config(height=5, width=22)
+            export_button.pack(side=RIGHT)
+            export_button.config(height=5, width=22)
+
         else:
             # cambio il contenuto e la grandezza del label
             label["text"] = "Inserisci una chiavetta \nper accedere alle altre funzionalità"
             label["height"] = 3
 
             # pulsante mostrato solo se NON è inserita nessuna chiavetta
-            pulsante_memoria_interna = Button(frame,
-                                              text="Accedi alla memoria interna",
-                                              bg=SP.standard_color_setting("button_import_export_view"),
-                                              command=lambda: uv.show_and_select_item_from_path(
-                                              "Memoria interna", path_che_simula_la_memoria_interna_del_raspberry,
-                                              path_che_simula_la_memoria_interna_del_raspberry,
-                                              "Memoria interna"),
-                                              font=SP.font_piccolo,
-                                              fg=SP.button_font_color_gray_scale,
-                                              bd=SP.bord_size,
-                                              relief=SP.bord_style,
-                                              activebackground=SP.standard_color_setting("button_import_export_view")
-                                              )
-            pulsante_memoria_interna.pack()
-            pulsante_memoria_interna.config(height=5, width=25)
+            raspberry_memory_button = Button(frame,
+                                             text="Accedi alla memoria interna",
+                                             bg=SP.standard_color_setting("button_import_export_view"),
+                                             command=lambda: uv.raspberry_memory_manager(),
+                                             font=SP.font_piccolo,
+                                             fg=SP.button_font_color_gray_scale,
+                                             bd=SP.bord_size,
+                                             relief=SP.bord_style,
+                                             activebackground=SP.standard_color_setting("button_import_export_view")
+                                             )
+            raspberry_memory_button.pack()
+            raspberry_memory_button.config(height=5, width=25)
 
         #    funzione che richiama la sottoschermata dopo aver cliccato su "ESPORTA"
-        def scegli_chiavetta_esporta():
+        def choose_key_and_export():
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.standard_color_setting("root_import_export_view"))
@@ -103,7 +101,7 @@ class ImportExportView:
             # ciclo che stampa tante "chiavette" quante inserite nel device
             for cartella in dirs:
                 path_chiavetta = os.path.join(path_punto_accesso_chiavette, cartella)
-                pulsante = uv.button_USB_key(frame, "esportare", cartella,
+                pulsante = uv.button_usb_key(frame, "esportare", cartella,
                                              path_che_simula_la_memoria_interna_del_raspberry, path_chiavetta)
                 pulsante.grid(row=index, column=0)
                 index += 1
@@ -113,7 +111,7 @@ class ImportExportView:
             root.mainloop()
 
         #    funzione che richiama la sottoschermata dopo aver cliccato su "IMPORTA"
-        def scegli_chiavetta_importa():
+        def choose_key_and_import():
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.standard_color_setting("root_import_export_view"))
@@ -137,7 +135,7 @@ class ImportExportView:
             # ciclo che stampa tante "chiavette" quante inserite nel device
             for cartella in dirs:
                 path_chiavetta = os.path.join(path_punto_accesso_chiavette, cartella)
-                pulsante = uv.button_USB_key(frame,
+                pulsante = uv.button_usb_key(frame,
                                              "importare",
                                              cartella,
                                              path_chiavetta,
