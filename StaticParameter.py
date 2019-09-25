@@ -57,7 +57,7 @@ number_of_phisical_button=5
 name_recoded_file= "reg.wav"
 
 # abilita fullscreen con True, disabilita con False
-full_screen_option=False
+full_screen_option=True
 
 
 
@@ -90,21 +90,21 @@ root_font_color= "black"
 recode_view_button_color= "#C0392B"
 import_export_button_color="#5499C7"
 list_association_button_color="#27AE60"
-setting_button_color="#554F9D"
+setting_button_color="#767676"
 utility_button_color="#2D42E7"
 archive_manager_button_color="#F7DC6F"
 
 recode_view_root_color= "#D98880"
 import_export_root_color="#85C1E9"
 list_association_root_color="#58D68D"
-setting_root_color="#775DC0"
-utility_root_color=default_sysyem_element
+setting_root_color = default_sysyem_element
+utility_root_color = default_sysyem_element
 archive_manager_root_color="#F0B27A"
 
 key_keyboard_color = "#5499C7"
 root_keyboard_color = "#B989C4"
 
-cascade_main_menu= "#2D42E7"
+cascade_main_menu= default_sysyem_element
 cascade_list_association_menu="#554F9F"
 
 

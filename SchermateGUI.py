@@ -114,17 +114,24 @@ class SchermateGUI:
                        fg=SP.root_font_color,
                        bg=SP.standard_color_setting("setting_main_menu"), )
 
-        menu.config(bd=SP.bord_size)#,activebackround=SP.standard_color_setting("setting_main_menu"))
+        menu.config(bd=SP.bord_size,
+                    activebackground=SP.standard_color_setting("setting_main_menu"),
+                    activeforeground=SP.root_font_color)
 
         menu.add_cascade(label="Impostazioni                                                                  ",
                          font=SP.font_medio, menu=subMenu,)  # menu a cascata
         # riga di separazione
         subMenu.add_separator()
-        subMenu.add_command(label="Volume     ", font=SP.font_medio, command=lambda:sv.volume_view())
+        subMenu.add_command(label="Volume     ", font=SP.font_medio, command=lambda:sv.volume_view(),
+                            activebackground=SP.standard_color_setting("setting_main_menu"),
+                            activeforeground=SP.root_font_color)
         subMenu.add_separator()
-        subMenu.add_command(label="Spegni    ", font=SP.font_medio, command=lambda: turn_off_device())
+        subMenu.add_command(label="Spegni    ", font=SP.font_medio, command=lambda: turn_off_device(),
+                            activebackground=SP.standard_color_setting("setting_main_menu"),
+                            activeforeground=SP.root_font_color)
 
         subMenu.add_separator()
-        subMenu.add_command(label="Chiudi programma", font=SP.font_medio, command=master.destroy)
+        subMenu.add_command(label="Chiudi programma", font=SP.font_medio, command=master.destroy,
+                            activebackground=SP.standard_color_setting("setting_main_menu"),
+                            activeforeground=SP.root_font_color)
         subMenu.add_separator()
-        #subMenu.add_command(label="auto_carico", font=SP.font_medio, command=lambda:lav.auto_import_list())

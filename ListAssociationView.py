@@ -770,17 +770,25 @@ class ListAssociationView:
                          font=SP.font_medio,
                          menu=subMenu, )  # menu a cascata
         # riga di separazione
-        menu.config(bd=SP.bord_size)#,activebackground=SP.standard_color_setting("menu_list_association_view")
+        menu.config(bd=SP.bord_size,activebackground=SP.standard_color_setting("menu_list_association_view"))
         subMenu.add_command(label="Nuova Lista     ", font=SP.font_medio,
-                            command=lambda: ListAssociationView.new_list_view(master))
+                            command=lambda: ListAssociationView.new_list_view(master),
+                            activebackground=SP.standard_color_setting("menu_list_association_view"),
+                            activeforeground=SP.root_font_color)
         subMenu.add_separator()
         subMenu.add_command(label="Mostra Liste    ", font=SP.font_medio,
-                            command=lambda: ListAssociationView.show_list(master))
+                            command=lambda: ListAssociationView.show_list(master),
+                            activebackground=SP.standard_color_setting("menu_list_association_view"),
+                            activeforeground=SP.root_font_color)
         subMenu.add_separator()
         subMenu.add_command(label="Modifica Lista", font=SP.font_medio,
-                            command=lambda: ListAssociationView.schermata_pulsanti(master, 5))
+                            command=lambda: ListAssociationView.schermata_pulsanti(master, 5),
+                            activebackground=SP.standard_color_setting("menu_list_association_view"),
+                            activeforeground=SP.root_font_color)
         subMenu.add_separator()
         subMenu.add_command(label="Importa Liste  ", font=SP.font_medio,
-                            command=lambda: ListAssociationView.import_list(master))
+                            command=lambda: ListAssociationView.import_list(master),
+                            activebackground=SP.standard_color_setting("menu_list_association_view"),
+                            activeforeground=SP.root_font_color)
         #subMenu.add_separator()
 
