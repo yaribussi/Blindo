@@ -668,6 +668,7 @@ class ListAssociationView:
                     break
                 else:
                     found_existing_list = False
+
             user_choice = True
             if found_existing_list:
                 user_choice = uv.multi_choice_view("lista stesso nome", "sovrascrivi", "annulla")
@@ -686,12 +687,12 @@ class ListAssociationView:
                         fm.copy_file_from_path_to_another(path_file,
                                                           SP.path_che_simula_la_memoria_interna_del_raspberry)
 
-            uv.show_dialog_with_time("Caricamento in corso....\n"
-                                     "Attendere qualche secondo.",2)
-            cl_root.destroy()
-            uv.show_dialog_with_time("Operazione conclusa con successo",2)
+                    uv.show_dialog_with_time("Caricamento in corso....\n"
+                                             "Attendere qualche secondo.",2)
+                    uv.show_dialog_with_time("Operazione conclusa con successo",2)
+                    cl_root.destroy()
 
-            ListAssociationView.schermata_associazioni()
+                    ListAssociationView.schermata_associazioni()
             # ____________________________end of import_list_with_button_________________________
 
         # ______________________________start of show_import_list____________________________

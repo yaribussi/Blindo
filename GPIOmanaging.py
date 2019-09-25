@@ -27,7 +27,7 @@ def auto_import(device):
     if device.action == "add" and number_of_called==1:
         lav.auto_import_list()
     else:
-        number_of_called==0
+        number_of_called=0
 
 
 observer = MonitorObserver(monitor, callback=auto_import, name='monitor-observer')
