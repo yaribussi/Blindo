@@ -23,11 +23,11 @@ number_of_called = 0
 def auto_import(device):
     # rimuove il problema della doppia chiamata
     global number_of_called
-    number_of_called+=1
+    number_of_called += 1
     if device.action == "add" and number_of_called==1:
         lav.auto_import_list()
     else:
-        number_of_called=0
+        number_of_called = 0
 
 
 observer = MonitorObserver(monitor, callback=auto_import, name='monitor-observer')
@@ -105,8 +105,7 @@ def levetta_registrazione(channel):
 
     global levetta_registrazione_attivata
     levetta_registrazione_attivata = not levetta_registrazione_attivata
-    print(levetta_registrazione_attivata)
-    
+
     if levetta_registrazione_attivata:
         GPIO.output(red_led, GPIO.HIGH)
         GPIO.output(green_led, GPIO.LOW)

@@ -77,7 +77,7 @@ class ImportExportView:
             '''
         #    funzione che richiama la sottoschermata dopo aver cliccato su "ESPORTA"
         def choose_key_and_export(cl_root):
-            cl_root.destroy()
+
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.standard_color_setting("root_import_export_view"))
@@ -108,12 +108,12 @@ class ImportExportView:
                 index += 1
 
             uv.exit_button_with_text(root, SP.exit_text)
-
+            cl_root.destroy()
             root.mainloop()
 
         #    funzione che richiama la sottoschermata dopo aver cliccato su "IMPORTA"
         def choose_key_and_import(cl_root):
-            cl_root.destroy()
+
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.standard_color_setting("root_import_export_view"))
@@ -146,6 +146,7 @@ class ImportExportView:
                 index += 1
 
             uv.exit_button_with_text(root, SP.exit_text)
+            cl_root.destroy()
             root.mainloop()
 
         uv.exit_button_with_text(root, SP.exit_text)

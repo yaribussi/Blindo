@@ -515,7 +515,7 @@ def raspberry_memory_manager():
 
 # schermata che stampa a video i file contenuti in un determinato path
 def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_chiavetta,cl_root):
-    cl_root.destroy()
+
     #     funzione che copia la lista dei file selezionati in un'altra directory
     #     dall'utente nella schermata IMPORTA, dopo aver cliccato sul pulsante
     #     avente la scritta, appunto IMPORTA
@@ -609,5 +609,5 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
         import_button.pack(side=TOP, fill=BOTH)
 
     # visualizza il pulsante ELIMINA solo in modalità esporta o se NON sono presenti chiavette
-
+    cl_root.destroy()
     root.mainloop()

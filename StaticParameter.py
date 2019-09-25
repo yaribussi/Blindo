@@ -57,7 +57,8 @@ number_of_phisical_button=5
 name_recoded_file= "reg.wav"
 
 # abilita fullscreen con True, disabilita con False
-full_screen_option=True
+full_screen_option=False
+
 
 
 # messaggi interazione utente
@@ -79,6 +80,9 @@ active_background_color_gray_scale= "#C8D7DC"
 root_background_color_gray_scale = "#708090"
 button_font_color_gray_scale = "black"
 
+
+default_sysyem_element= "#BDC3C7"
+
 pop_up_colour_background="#BDC3C7"
 root_font_color= "black"
 
@@ -87,21 +91,22 @@ recode_view_button_color= "#C0392B"
 import_export_button_color="#5499C7"
 list_association_button_color="#27AE60"
 setting_button_color="#554F9D"
-utility_button_color="#DFB606"
+utility_button_color="#2D42E7"
 archive_manager_button_color="#F7DC6F"
 
 recode_view_root_color= "#D98880"
 import_export_root_color="#85C1E9"
 list_association_root_color="#58D68D"
 setting_root_color="#775DC0"
-utility_root_color="#E3CB63"
+utility_root_color=default_sysyem_element
 archive_manager_root_color="#F0B27A"
 
 key_keyboard_color = "#5499C7"
 root_keyboard_color = "#B989C4"
 
-cascade_main_menu= "#8E44AD"
+cascade_main_menu= "#2D42E7"
 cascade_list_association_menu="#554F9F"
+
 
 import_button_color=import_export_button_color
 export_button_color= import_export_button_color
@@ -110,10 +115,8 @@ import_root_color = import_export_root_color
 export_root_color = import_export_root_color
 
 
-green = "#69F505"
-red = "#D55858"
-
-default_sysyem_element= "#BDC3C7"
+green = "#27AE60"
+red = "#C0392B"
 
 # 0 for default theme - 1 for coloured theme
 current_theme = 1

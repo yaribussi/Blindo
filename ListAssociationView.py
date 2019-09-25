@@ -13,8 +13,7 @@ class ListAssociationView:
     #  schermata che appare dopo aver cliccato il pulsante ASSOCIAZIONI nel MENU PRINCIPALE
     def schermata_associazioni():
 
-        #ListAssociationView.auto_import_list()
-        #ListAssociationView.auto_import_list()
+
         # variablile globale
         # in questo modo è più semplice gestire la chiusura di questa schermata
         global root
