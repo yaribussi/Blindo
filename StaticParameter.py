@@ -37,6 +37,40 @@ font_piccolo = (font_stile, font_size_piccolo)
 font_medio = (font_stile, font_size_medio)
 font_grande = (font_stile, font_size_grande)
 
+
+# testo visualizzato nel pulsante che torna al menu principale
+exit_text= "Torna al menu principale"
+
+# stile bordi pulsanti
+bord_styles_set = ["flat", "groove", "raised", "ridge", "solid", "sunken"]
+
+# grandezza bordi pulsanti
+bord_size = 5
+
+# scelta del bordo "RAISED"
+bord_style = bord_styles_set[2]
+
+#  numero di pulsanti collegati
+number_of_phisical_button=5
+
+# nome di default del file registrato
+name_recoded_file= "reg.wav"
+
+# abilita fullscreen con True, disabilita con False
+full_screen_option=True
+
+
+# messaggi interazione utente
+message_label_quit_device="Vuoi spegnere il dispositivo?"
+message_text_button_confirm="Conferma"
+message_text_button_abort="Annulla"
+
+# questo è il nome della cartella contenente le sottocartelle delle singole liste esportate
+expor_folder_name="Liste"
+
+initial_volume_set=0.1
+
+
 # colori GUI
 
 button_background_color_grey_scale = "#404040"
@@ -143,37 +177,6 @@ theme={
 
 def standard_color_setting(guiObjectName):
     return theme[guiObjectName].__getitem__(current_theme)
-
-# testo visualizzato nel pulsante che torna al menu principale
-exit_text= "Torna al menu principale"
-
-# stile bordi pulsanti
-bord_styles_set = ["flat", "groove", "raised", "ridge", "solid", "sunken"]
-
-# grandezza bordi pulsanti
-bord_size = 5
-
-# scelta del bordo "RAISED"
-bord_style = bord_styles_set[2]
-
-#  numero di pulsanti collegati
-number_of_phisical_button=5
-
-# nome di default del file registrato
-name_recoded_file= "reg.wav"
-
-# abilita fullscreen con True, disabilita con False
-full_screen_option=True
-
-
-# messaggi interazione utente
-message_label_quit_device="Vuoi spegnere il dispositivo?"
-message_text_button_confirm="Conferma"
-message_text_button_abort="Annulla"
-
-# questo è il nome della cartella contenente le sottocartelle delle singole liste esportate
-expor_folder_name="Liste"
-
 
 # funzione che modifica la grandezza del bordi dei pulsanti
 def set_bord_size(new_size):

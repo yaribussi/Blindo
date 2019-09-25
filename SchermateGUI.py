@@ -7,6 +7,10 @@ import UtilityView as uv
 from ListAssociationView import ListAssociationView as lav
 from SettingsView import SettingsView as sv
 import subprocess
+import pygame.mixer as PM
+
+PM.init()
+PM.music.set_volume(SP.initial_volume_set)
 class SchermateGUI:
 
     # schermata del MENUPRINCIPALE
