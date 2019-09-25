@@ -140,6 +140,7 @@ theme={
         "listbox_archive_manager_view":         [button_background_color_grey_scale, archive_manager_root_color]
 
 }
+
 def standard_color_setting(guiObjectName):
     return theme[guiObjectName].__getitem__(current_theme)
 
@@ -163,6 +164,7 @@ name_recoded_file= "reg.wav"
 
 # abilita fullscreen con True, disabilita con False
 full_screen_option=True
+
 
 # messaggi interazione utente
 message_label_quit_device="Vuoi spegnere il dispositivo?"

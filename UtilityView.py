@@ -100,7 +100,8 @@ def elimina_file_con_conferma(path, nome_file):
         root.destroy()
 
     def abort_deletion():
-        root.quit()
+
+        #root.quit()
         root.destroy()
 
     root = Tk()
@@ -366,7 +367,8 @@ def bottom_with_text(frame, text):
 # funzione che crea un pulsante che visualizza i file da un path di origine
 # e li copia in un path destinzaione
 # mod: può essere "ESPORTA" o "IMPORTA" serve a rendere questa funzione più generale
-def button_usb_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
+def button_usb_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione,cl_root):
+    #cl_root.destroy
     button = Button(frame, text=nome_chiavetta,
                     bg=SP.standard_color_setting("usb_key_button"),
                     font=SP.font_piccolo,
@@ -374,7 +376,7 @@ def button_usb_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
                     bd=SP.bord_size,
                     relief=SP.bord_style,
                     activebackground=SP.standard_color_setting("usb_key_button"),
-                    command=lambda: show_and_select_item_from_path(mod, path_origine, path_destinzaione,nome_chiavetta)
+                    command=lambda: show_and_select_item_from_path(mod, path_origine, path_destinzaione,nome_chiavetta,cl_root)
                    )
     button.config(width=40, height=3)
     return button
@@ -414,34 +416,36 @@ def raspberry_memory_manager():
         # array con tutti gli elementi selezionati
         selected_items = [mylist.get(idx) for idx in mylist.curselection()]
         # selezione del primo elemento dell'array
-        selected = selected_items[0]
-        size = len(selected)
-        new_name = KeyboardView.keyboard("Rinomina '"+selected[0:size-4]+"'")
-        format = selected[size - 4:size]
-        final_name=new_name+format
-        # format accoglie gli ultimi 4 caratteri del primo elemento di tutti i file selezionati dall'utente
+        if len(selected_items)>0:
+            selected = selected_items[0]
+            size = len(selected)
+            new_name = KeyboardView.keyboard("Rinomina '"+selected[0:size-4]+"'")
+            format = selected[size - 4:size]
+            final_name=new_name+format
+            # format accoglie gli ultimi 4 caratteri del primo elemento di tutti i file selezionati dall'utente
 
-        file_in_memory = os.listdir(SP.path_che_simula_la_memoria_interna_del_raspberry)
-        choice=True
-        for el in file_in_memory:
-            if final_name == el:
-                # richiesta all'utente
-                choice=multi_choice_view("Elemento '"+ el +"' già presente","Sostituisci","Annulla")
-                if choice:
-                    os.remove(os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry,el))
-                break
+            file_in_memory = os.listdir(SP.path_che_simula_la_memoria_interna_del_raspberry)
+            choice=True
+            for el in file_in_memory:
+                if final_name == el:
+                    # richiesta all'utente
+                    choice=multi_choice_view("Elemento '"+ el +"' già presente","Sostituisci","Annulla")
+                    if choice:
+                        os.remove(os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry,el))
+                    break
 
-        if choice:
+            if choice:
 
-            # path file da rinominare
-            scr = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry, selected)
-            # path file rinominato
-            dst = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry, final_name)
+                # path file da rinominare
+                scr = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry, selected)
+                # path file rinominato
+                dst = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry, final_name)
 
-            os.rename(scr,dst)
+                os.rename(scr,dst)
 
-        root.destroy()
-        raspberry_memory_manager()
+            root.destroy()
+            raspberry_memory_manager()
+
 
     root = Tk()
     root.attributes('-fullscreen', SP.full_screen_option)
@@ -510,7 +514,8 @@ def raspberry_memory_manager():
 
 
 # schermata che stampa a video i file contenuti in un determinato path
-def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_chiavetta):
+def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_chiavetta,cl_root):
+    cl_root.destroy()
     #     funzione che copia la lista dei file selezionati in un'altra directory
     #     dall'utente nella schermata IMPORTA, dopo aver cliccato sul pulsante
     #     avente la scritta, appunto IMPORTA
@@ -582,7 +587,7 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                     mylist.insert(END, name)
     mylist.pack(side=LEFT, fill=BOTH, expand=True)
     scrollbar.config(width=70, command=mylist.yview)
-    exit_button_with_text(root, "Torna indietro")
+    exit_button_with_text(root, "Torna al menu principale")
 
 
     # ############        caratteristiche pulsante IMPORTA/ESPORTA        ######################
@@ -604,18 +609,5 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
         import_button.pack(side=TOP, fill=BOTH)
 
     # visualizza il pulsante ELIMINA solo in modalità esporta o se NON sono presenti chiavette
-    if mod == "esportare" or mod == "Memoria interna":
-        delete_button = Button(root,
-                               text="Scegli il file \nche vuoi eliminare",
-                               bg=SP.standard_color_setting("delete_button_background"),
-                               fg=SP.button_font_color_gray_scale,
-                               command=lambda: delete_selected_elements(root),
-                               font=SP.font_piccolo,
-                               bd=SP.bord_size,
-                               relief=SP.bord_style,
-                               activebackground=SP.standard_color_setting("delete_button_background")
-                               )
-        delete_button.config(height=4, width=20)
-        delete_button.pack(side=TOP, fill=BOTH)
 
     root.mainloop()

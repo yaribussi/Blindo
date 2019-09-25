@@ -61,7 +61,7 @@ class ListAssociationView:
     # funzione che importa automaticamente l'unica lista presente sottoforma di cartella
     #nella cartella "Liste" di blindo
     def auto_import_list():
-        uv.show_dialog_with_time("Attendere\ncaricamento automatico in corso...", 2)
+        #uv.show_dialog_with_time("Attendere\ncaricamento automatico in corso...", 2)
         chiavetta = os.listdir(SP.path_punto_accesso_chiavette)
 
         # finchè il path adibito all'accoglienza delle chiavette non viene riempito
@@ -98,7 +98,7 @@ class ListAssociationView:
                     fm.copy_file_from_path_to_another(path_file,SP.path_che_simula_la_memoria_interna_del_raspberry)
 
             fm.change_list(folder_lista[0])
-            uv.show_dialog_with_time("Lista "+folder_lista[0]+" importata con successo",2)
+            #uv.show_dialog_with_time("Lista "+folder_lista[0]+" importata con successo",2)
 
 
         else:
@@ -268,7 +268,7 @@ class ListAssociationView:
 
         else:
             fm.create_list(new_list_name)
-
+        fm.change_list(new_list_name)
         ListAssociationView.schermata_associazioni()
         # ______________________________end of new_list_view__________________
 
@@ -276,6 +276,7 @@ class ListAssociationView:
         closing_root.destroy()
 
         def delete_item(root):
+
             list_name = mylist.get('active')
             uv.elimina_file_con_conferma(SP.path_liste, list_name)
 
@@ -286,6 +287,7 @@ class ListAssociationView:
             # questa tecnica è usata anche nella funzione select_items_and_copy
             #root.destroy()
             #ListAssociationView.show_list(closing_root)
+            root.destroy()
             ListAssociationView.schermata_associazioni()
             # _______________  END OF delete_item _______________________
 
@@ -765,11 +767,11 @@ class ListAssociationView:
                        font=SP.font_medio,
                        bg=SP.standard_color_setting("menu_list_association_view"),
                        fg=SP.root_font_color, )
-        menu.add_cascade(label="Opzioni",
+        menu.add_cascade(label="Opzioni                                                            ",
                          font=SP.font_medio,
                          menu=subMenu, )  # menu a cascata
         # riga di separazione
-        menu.config(bd=SP.bord_size)
+        menu.config(bd=SP.bord_size)#,activebackground=SP.standard_color_setting("menu_list_association_view")
         subMenu.add_command(label="Nuova Lista     ", font=SP.font_medio,
                             command=lambda: ListAssociationView.new_list_view(master))
         subMenu.add_separator()
@@ -781,5 +783,5 @@ class ListAssociationView:
         subMenu.add_separator()
         subMenu.add_command(label="Importa Liste  ", font=SP.font_medio,
                             command=lambda: ListAssociationView.import_list(master))
-
+        #subMenu.add_separator()
 

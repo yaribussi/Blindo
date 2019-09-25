@@ -33,7 +33,7 @@ class ImportExportView:
             import_button = Button(frame,
                                    text="Importa",
                                    bg=SP.standard_color_setting("import_button_background"),
-                                   command=lambda: choose_key_and_import(),
+                                   command=lambda: choose_key_and_import(root),
                                    font=SP.font_piccolo,
                                    fg=SP.button_font_color_gray_scale,
                                    bd=SP.bord_size,
@@ -46,7 +46,7 @@ class ImportExportView:
             export_button = Button(frame,
                                    text="Esporta",
                                    bg=SP.standard_color_setting("export_button_background"),
-                                   command=lambda: choose_key_and_export(),
+                                   command=lambda: choose_key_and_export(root),
                                    font=SP.font_piccolo,
                                    fg=SP.button_font_color_gray_scale,
                                    bd=SP.bord_size,
@@ -76,7 +76,8 @@ class ImportExportView:
             raspberry_memory_button.config(height=5, width=25)
             '''
         #    funzione che richiama la sottoschermata dopo aver cliccato su "ESPORTA"
-        def choose_key_and_export():
+        def choose_key_and_export(cl_root):
+            cl_root.destroy()
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.standard_color_setting("root_import_export_view"))
@@ -102,7 +103,7 @@ class ImportExportView:
             for cartella in dirs:
                 path_chiavetta = os.path.join(path_punto_accesso_chiavette, cartella)
                 pulsante = uv.button_usb_key(frame, "esportare", cartella,
-                                             path_che_simula_la_memoria_interna_del_raspberry, path_chiavetta)
+                                             path_che_simula_la_memoria_interna_del_raspberry, path_chiavetta,root)
                 pulsante.grid(row=index, column=0)
                 index += 1
 
@@ -111,7 +112,8 @@ class ImportExportView:
             root.mainloop()
 
         #    funzione che richiama la sottoschermata dopo aver cliccato su "IMPORTA"
-        def choose_key_and_import():
+        def choose_key_and_import(cl_root):
+            cl_root.destroy()
             root = Tk()
             root.attributes('-fullscreen', SP.full_screen_option)
             root.config(bg=SP.standard_color_setting("root_import_export_view"))
@@ -139,7 +141,7 @@ class ImportExportView:
                                              "importare",
                                              cartella,
                                              path_chiavetta,
-                                             path_che_simula_la_memoria_interna_del_raspberry)
+                                             path_che_simula_la_memoria_interna_del_raspberry,root)
                 pulsante.grid(row=index, column=0)
                 index += 1
 
