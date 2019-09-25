@@ -2,7 +2,7 @@
 Disabilitare l'import sottostante per la versione PC
 Abilitare l'import sottostante per la versione RASPBERRY
 '''
-import registrazione as reg
+#import registrazione as reg
 
 from tkinter import *
 import KeyboardView as key

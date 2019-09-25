@@ -18,11 +18,16 @@ context = Context()
 monitor = Monitor.from_netlink(context)
 monitor.filter_by(subsystem='usb')
 
+number_of_called = 0
 
 def auto_import(device):
-
-    if device.action == "add":
+    # rimuove il problema della doppia chiamata
+    global number_of_called
+    number_of_called+=1
+    if device.action == "add" and number_of_called==1:
         lav.auto_import_list()
+    else:
+        number_of_called==0
 
 
 observer = MonitorObserver(monitor, callback=auto_import, name='monitor-observer')

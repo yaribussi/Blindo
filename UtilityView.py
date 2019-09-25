@@ -23,8 +23,8 @@ def show_dialog_with_time(text, time):
     screen_height = dialog.winfo_screenheight()
 
     # calculate position x and y coordinates
-    x = (screen_width / 2) - 180
-    y = (screen_height / 2) - 150
+    x = (screen_width / 2) - 200
+    y = (screen_height / 2) - 30
     dialog.geometry('+%d+%d' % (x, y))
 
     label = Label(dialog,
@@ -197,7 +197,7 @@ def multiple_delete_with_choice(selected_file):
                           font=SP.font_piccolo,
                           relief=SP.bord_style,
                           bd=SP.bord_size,
-                          activebackground=SP.standard_color_setting("delete_button_background"))
+                          activebackground=SP.standard_color_setting("confirm_button_background"))
     abort_button.config(height=5, width=23)  # altezza 5
     abort_button.pack(side=RIGHT)
     root.mainloop()
@@ -395,15 +395,18 @@ def button_usb_key_list(frame, nome_chiavetta):
     button.config(width=40, height=3)
     return button
 
+
 # funzione che appare nel menu principale dopo aver cliccato su "Gestisci archivio)
 def raspberry_memory_manager():
 
     # funzione che permette du selezionare ed eliminare elementi multipli
     def delete_selected_elements(root):
         selected_items = [mylist.get(idx) for idx in mylist.curselection()]
-        multiple_delete_with_choice(selected_items)
-        root.destroy()
-        raspberry_memory_manager()
+        if len(selected_items)>0:
+            multiple_delete_with_choice(selected_items)
+            root.destroy()
+            raspberry_memory_manager()
+        # _____________________ end of delete_selected_elements______________________________
 
     # funzione che permette du selezionare e rinominare elementi multipli
     #solamente il primo elemento il lista verrà rinominato

@@ -61,7 +61,7 @@ class ListAssociationView:
     # funzione che importa automaticamente l'unica lista presente sottoforma di cartella
     #nella cartella "Liste" di blindo
     def auto_import_list():
-
+        uv.show_dialog_with_time("Attendere\ncaricamento automatico in corso...", 2)
         chiavetta = os.listdir(SP.path_punto_accesso_chiavette)
 
         # finchè il path adibito all'accoglienza delle chiavette non viene riempito
