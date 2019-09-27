@@ -19,8 +19,3 @@ Project members:
 •	Samuele Ponzin
 •	Yari Bussi (referent) yaribussi@ieee.org
 •	Simone Caldarella (observer)
-
-
-ATTENZIONE:
-Seguire le istruzioni del file StaticParameter per 
-switchare tra le versioni Linux/Windows
