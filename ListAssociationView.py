@@ -72,11 +72,19 @@ class ListAssociationView:
             chiavetta = os.listdir(SP.path_punto_accesso_chiavette)
             sleep(1)
 
+        path_folder_liste=os.path.join(SP.path_punto_accesso_chiavette,
+                                        os.path.join(chiavetta[0],SP.expor_folder_name))
+
+        # se non trovo la cartella "Liste" la creo ed esco
+        # dalla funzione auto_import perchè non c'è nulla da importare
+        if not os.path.exists(path_folder_liste):
+            oldmask = os.umask(0o77)
+            os.makedirs(path_folder_liste, 0o1411)
+            os.umask(oldmask)
+            return
+
         # ulteriore controllo ridondante
         if len(chiavetta) > 0:
-            # 'C:\\Users\\yari7\\Downloads\\UNIBS\\IEEE\\Projects\\Blindo\\fileAudiofromChiavetta\\Chiavetta1\\Liste'
-            path_folder_liste = os.path.join(SP.path_punto_accesso_chiavette,
-                                        os.path.join(chiavetta[0],SP.expor_folder_name))
 
             folder_lista = os.listdir(path_folder_liste)
 
@@ -697,7 +705,15 @@ class ListAssociationView:
             # ____________________________end of import_list_with_button_________________________
 
         # ______________________________start of show_import_list____________________________
+
         path_list_folders = os.path.join(path_usb_key, SP.expor_folder_name)
+        #se la cartella "Liste" non esiste la creo immediatamente
+
+        if not os.path.exists(path_list_folders):
+            oldmask = os.umask(0o77)
+            os.makedirs(os.path.join(path_usb_key, SP.expor_folder_name), 0o1411)
+            os.umask(oldmask)
+
 
         main_root = Tk()
         main_root.attributes('-fullscreen', SP.full_screen_option)

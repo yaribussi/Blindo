@@ -1,9 +1,8 @@
 import Recorder
 from Recorder import *
 
-
-#funzioni per la registrazione con parametro il nome del file da registrare
-#nel momento in cui inizia la registrazione si richiede all'utente di inserire
+# funzioni per la registrazione con parametro il nome del file da registrare
+# nel momento in cui inizia la registrazione si richiede all'utente di inserire
 
 
 def start(name):
@@ -17,7 +16,3 @@ def stop():
     global rec_file
     rec_file.stop_recording()
     rec_file.close()
- 
-
-
-
