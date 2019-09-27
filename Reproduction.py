@@ -1,9 +1,9 @@
-
 import pygame.mixer as PM
 from math import log10, floor
 import os
 
-path= "/home/pi/Documents/fileAudio"
+import StaticParameter as SP
+
 
 class Reproduction:
 
@@ -13,10 +13,8 @@ class Reproduction:
         for audio in list:
             if int(audio.idButton) == id:
                 PM.init()
-                PM.music.load(os.path.join(path,audio.name))
+                PM.music.load(os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry, audio.name))
                 PM.music.play()
-                messaggio=""
-        return messaggio
 
     # a seguire 2 funzioni per aumentare e diminuire il volume
     # ogni volta che vengono richiamate cambiano il valore del volume del 10 per cento

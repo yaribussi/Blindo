@@ -3,12 +3,12 @@ class FileAudio:
     name = ""
     idButton = 0
 
-    #costruttore oggetto file con campi nome file, id del pulsante associato
+    # costruttore oggetto file con campi nome file, id del pulsante associato
     def __init__(self, name, idButton):
         self.name=name
         self.idButton=idButton
 
-    #getter e setter del file
+    # Buttongetter e setter del file
     def get_name(self):
         return self.name
 
