@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 from ButtonController import Button_controller as bc
 import UtilityView as uv
 import Pause
+import pygame.mixer as PM
 import fileManaging as fm
 import registrazione
 import os
@@ -165,11 +166,18 @@ def rising(channel, id_button):
         bc_object.manage_pulsante_riproduzione(id_button)
 
 
-def levetta_registrazione(channel):
+def levetta_registrazione(channel): #cambia stato della levetta registrazione
     global levetta_registrazione_attivata
     levetta_registrazione_attivata = not levetta_registrazione_attivata
 
     if levetta_registrazione_attivata:
+        #TODO Disattivae la riprouzione della musica quando viene premuto il pulsante registrazione
+        #-------------------------------------
+        if PM.music.get_busy():     #get_busy ritorna TRUE se il dispositivo sta riproducendo un file audio oppure è in pausa
+                                    #get_busy ritorna FALSE se il dispositivo non sta riproducendo nessun file audio
+                                    #In questo modo ogni volta che passiamo in fase di registrazione stoppiamo qualsiasi file audio, anche se è in pausa
+            PM.music.stop()
+        #-------------------------------------
         red_led_PWM.start(100)
         green_led_PWM.start(0)
         GPIO.output(red_led, GPIO.HIGH)
