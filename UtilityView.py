@@ -1,8 +1,10 @@
 from tkinter import *
 import fileManaging as fm
-import subprocess
 import os
 import StaticParameter as SP
+import KeyboardView
+from ListAssociationView import ListAssociationView as lav
+import shutil
 
 
 #    funzione che mostra a video un messaggio
@@ -13,12 +15,21 @@ def show_dialog_with_time(text, time):
         to_close.destroy()
 
     dialog = Tk()
-    dialog.config(bg=SP.root_background_color)
-    dialog.geometry("+210+180")  # distanza da sinistra e dall'alto del popup
+    dialog.config(bg=SP.root_background_color_gray_scale)
+
     dialog.overrideredirect(1)  # rimuove la barra che permetterebbe di chiudere la finestra appena creata
 
-    label = Label(dialog, text=text,
-                  bg=SP.pop_up_colour_background,
+    screen_width = dialog.winfo_screenwidth()
+    screen_height = dialog.winfo_screenheight()
+
+    # calculate position x and y coordinates
+    x = (screen_width / 2) - 200
+    y = (screen_height / 2) - 30
+    dialog.geometry('+%d+%d' % (x, y))
+
+    label = Label(dialog,
+                  text=text,
+                  bg=SP.standard_color_setting("pop_up_background_color"),
                   font=SP.font_piccolo,
                   wraplength=500,
                   bd=4,
@@ -36,16 +47,17 @@ def show_dialog_with_time(text, time):
 #  funzione per avere un pulsante di uscita dalla schermata attuale con testo variabile passato come param
 def exit_button_with_text(root, text):
 
-            pulstante_uscita = Button(root,
-                                      text=text,
-                                      command=lambda: root.destroy(),
-                                      bg=SP.button_background_color,
-                                      font=SP.font_piccolo,
-                                      fg=SP.button_font_color,
-                                      bd=SP.bord_size,
-                                      activebackground=SP.active_background_color)
-            pulstante_uscita.config(height=3, width=10)
-            pulstante_uscita.pack(side=BOTTOM, fill=BOTH)
+            exit_button = Button(root,
+                                 text=text,
+                                 command=lambda: root.destroy(),
+                                 bg=SP.standard_color_setting("exit_button_with_text"),
+                                 font=SP.font_piccolo,
+                                 fg=SP.button_font_color_gray_scale,
+                                 bd=SP.bord_size,
+                                 activebackground=SP.standard_color_setting("exit_button_with_text")
+                                 )
+            exit_button.config(height=3, width=10)
+            exit_button.pack(side=BOTTOM, fill=BOTH)
 
 
 # questa funzione permette di creare un pulsante
@@ -53,61 +65,19 @@ def exit_button_with_text(root, text):
 # i parametri richiesti per la creazione del bottone sono: -frame su cui il bottone verrà applicato
 #                                                          -testo che apparirà sul pulsante
 def bottom_with_text(frame, text):
-            pulsante = Button(frame,
-                              text=text,
-                              bg=SP.button_background_color,
-                              font=SP.font_piccolo,
-                              fg=SP.button_font_color,
-                              bd=SP.bord_size,
-                              relief=SP.bord_style,
-                              command=lambda: show_file(text.replace("Pulsante ", "")),
-                              activebackground=SP.active_background_color,
-                              activeforeground=SP.black)
+            button = Button(frame,
+                            text=text,
+                            bg=SP.standard_color_setting("button_utility_view"),
+                            font=SP.font_piccolo,
+                            fg=SP.button_font_color_gray_scale,
+                            bd=SP.bord_size,
+                            relief=SP.bord_style,
+                            command=lambda: show_file(text.replace("Pulsante ", "")),
+                            activebackground=SP.active_background_color_gray_scale,
+                            activeforeground=SP.black)
 
-            pulsante.config(width=20, height=3)
-            return pulsante
-
-
-# funzione che crea una schermata che chiede all'utente la conferma dello spegnimento del device
-def spegni_con_conferma():
-    root = Tk()
-    root.attributes('-fullscreen', True)
-    root.config(bg=SP.root_background_color)
-    frame = Frame(root)
-    frame.config(bg=SP.root_background_color)
-    frame.pack()
-    label = Label(frame, text="Vuoi spegnere il dispositivo?",
-                  bg=SP.root_background_color,
-                  fg=SP.root_font_color,
-                  width=90, height=4,
-                  font=SP.font_medio
-                  )
-    label.pack()
-
-    pulsante_spegni = Button(frame,
-                             text="Spegni",
-                             bg=SP.button_background_color,
-                             command=lambda: subprocess.Popen(['shutdown', '-h', 'now']),
-                             font=SP.font_piccolo,
-                             fg=SP.button_font_color,
-                             relief=SP.bord_style,
-                             bd=SP.bord_size,
-                             activebackground=SP.active_background_color)
-    pulsante_spegni.config(height=5, width=23)
-    pulsante_spegni.pack(side=LEFT)
-
-    pulsante_annulla = Button(frame,
-                              text="Annulla",
-                              bg=SP.button_background_color,
-                              fg=SP.button_font_color,
-                              command=lambda: root.destroy(),
-                              font=SP.font_piccolo,
-                              relief=SP.bord_style,
-                              bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
-    pulsante_annulla.config(height=5, width=23)  # altezza 5
-    pulsante_annulla.pack(side=RIGHT)
-    root.mainloop()
+            button.config(width=20, height=3)
+            return button
 
 
 # funzione che richiama una schermata chiedendo all'utente la conferma dell'eliminazione del file selezionato
@@ -116,57 +86,67 @@ def elimina_file_con_conferma(path, nome_file):
     def confirmed_deletion(path, nome_file):
         for list in os.listdir(SP.path_liste):
             fm.delete_element_from_list(nome_file, list)
-        os.remove(os.path.join(path, nome_file))
+
+        path_file = os.path.join(path, nome_file)
+
+        # se si vuole eliminare una cartella, si usa il comando shutile.rmtree
+        # se si vuole eliminare un file si usa il comando di os
+        if os.path.isdir(path_file):
+            shutil.rmtree(path_file)
+
+        else:
+            os.remove(path_file)
         root.quit()
         root.destroy()
 
     def abort_deletion():
-        root.quit()
+
+        #root.quit()
         root.destroy()
 
     root = Tk()
-    root.attributes('-fullscreen', True)
-    root.config(bg=SP.root_background_color)
+    root.attributes('-fullscreen', SP.full_screen_option)
+    root.config(bg=SP.standard_color_setting("root_utility_view"))
 
     frame = Frame(root)
-    frame.config(bg=SP.root_background_color)
+    frame.config(bg=SP.standard_color_setting("frame_utility_view"))
     frame.pack()
 
-    label = Label(
-        frame, text="Attenzione!\nVuoi eliminare\n" + nome_file + " ?",
-        bg=SP.root_background_color,
-        fg=SP.root_font_color,
-        width=90, height=3,
-        font=SP.font_medio)
+    label = Label(frame,
+                  text="Attenzione!\nVuoi eliminare\n" + nome_file + " ?",
+                  bg=SP.standard_color_setting("root_utility_view"),
+                  fg=SP.root_font_color,
+                  width=90, height=3,
+                  font=SP.font_medio)
     label.pack()
 
-    pulsante_elimina = Button(frame,
-                              text="Elimina",
-                              bg=SP.button_background_color,
-                              command=lambda: confirmed_deletion(path, nome_file),
-                              font=SP.font_piccolo,
-                              fg=SP.button_font_color,
-                              relief=SP.bord_style,
-                              bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
-    pulsante_elimina.config(height=5, width=23)
-    pulsante_elimina.pack(side=LEFT)
+    delete_button = Button(frame,
+                           text="Elimina",
+                           bg=SP.standard_color_setting("delete_button_background"),
+                           command=lambda: confirmed_deletion(path, nome_file),
+                           font=SP.font_piccolo,
+                           fg=SP.button_font_color_gray_scale,
+                           relief=SP.bord_style,
+                           bd=SP.bord_size,
+                           activebackground=SP.standard_color_setting("delete_button_background"))
+    delete_button.config(height=5, width=23)
+    delete_button.pack(side=LEFT)
 
-    pulsante_annulla = Button(frame,
-                              text="Annulla",
-                              bg=SP.button_background_color,
-                              command=lambda: abort_deletion(),
-                              font=SP.font_piccolo,
-                              fg=SP.button_font_color,
-                              relief=SP.bord_style,
-                              bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
-    pulsante_annulla.config(height=5, width=23)  # altezza 5
-    pulsante_annulla.pack(side=RIGHT)
+    abort_button = Button(frame,
+                          text="Annulla",
+                          bg=SP.standard_color_setting("confirm_button_background"),
+                          command=lambda: abort_deletion(),
+                          font=SP.font_piccolo,
+                          fg=SP.button_font_color_gray_scale,
+                          relief=SP.bord_style,
+                          bd=SP.bord_size,
+                          activebackground=SP.standard_color_setting("confirm_button_background"))
+    abort_button.config(height=5, width=23)  # altezza 5
+    abort_button.pack(side=RIGHT)
     root.mainloop()
 
 
-def elimina_file_con_conferma_multipla(selected_file):
+def multiple_delete_with_choice(selected_file):
 
     def confirmed_deletion():
         for list in os.listdir(SP.path_liste):
@@ -183,46 +163,102 @@ def elimina_file_con_conferma_multipla(selected_file):
         root.destroy()
 
     root = Tk()
-    root.attributes('-fullscreen', True)
-    root.config(bg=SP.root_background_color)
+    root.attributes('-fullscreen', SP.full_screen_option)
+    root.config(bg=SP.standard_color_setting("root_utility_view"))
 
     frame = Frame(root)
-    frame.config(bg=SP.root_background_color)
+    frame.config(bg=SP.standard_color_setting("frame_utility_view"))
     frame.pack()
 
     label = Label(
         frame, text="Attenzione!\nVuoi eliminare " +str(len(selected_file))+" file audio?",
-        bg=SP.root_background_color,
-        fg=SP.button_font_color,
+        bg=SP.standard_color_setting("label_utility_view"),
+        fg=SP.button_font_color_gray_scale,
         width=90, height=3,
         font=SP.font_medio)
     label.pack()
 
-    pulsante_elimina = Button(frame,
-                              text="Elimina",
-                              bg=SP.button_background_color,
-                              fg=SP.button_font_color,
-                              command=lambda: confirmed_deletion(),
-                              font=SP.font_piccolo,
-                              relief=SP.bord_style,
-                              bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
-    pulsante_elimina.config(height=5, width=23)
-    pulsante_elimina.pack(side=LEFT)
+    delete_button = Button(frame,
+                           text="Elimina",
+                           bg=SP.standard_color_setting("delete_button_background"),
+                           fg=SP.button_font_color_gray_scale,
+                           command=lambda: confirmed_deletion(),
+                           font=SP.font_piccolo,
+                           relief=SP.bord_style,
+                           bd=SP.bord_size,
+                           activebackground=SP.standard_color_setting("delete_button_background"))
+    delete_button.config(height=5, width=23)
+    delete_button.pack(side=LEFT)
 
-    pulsante_annulla = Button(frame,
-                              text="Annulla",
-                              bg=SP.button_background_color,
-                              fg=SP.button_font_color,
-                              command=lambda: abort_deletion(),
-                              font=SP.font_piccolo,
-                              relief=SP.bord_style,
-                              bd=SP.bord_size,
-                              activebackground=SP.active_background_color)
-    pulsante_annulla.config(height=5, width=23)  # altezza 5
-    pulsante_annulla.pack(side=RIGHT)
+    abort_button = Button(frame,
+                          text="Annulla",
+                          bg=SP.standard_color_setting("confirm_button_background"),
+                          fg=SP.button_font_color_gray_scale,
+                          command=lambda: abort_deletion(),
+                          font=SP.font_piccolo,
+                          relief=SP.bord_style,
+                          bd=SP.bord_size,
+                          activebackground=SP.standard_color_setting("confirm_button_background"))
+    abort_button.config(height=5, width=23)  # altezza 5
+    abort_button.pack(side=RIGHT)
     root.mainloop()
 
+
+def multi_choice_view(text_label,yes_button_text,no_button_text):
+
+    def confirmed_seletion():
+        global choice
+        choice=True
+        root.quit()
+        root.destroy()
+
+    def abort_deletion():
+        global choice
+        choice=False
+        root.quit()
+        root.destroy()
+
+    root = Tk()
+    root.attributes('-fullscreen', SP.full_screen_option)
+    root.config(bg=SP.standard_color_setting("root_utility_view"))
+
+    frame = Frame(root)
+    frame.config(bg=SP.standard_color_setting("frame_utility_view"))
+    frame.pack()
+
+    label = Label(
+        frame, text=text_label,
+        bg=SP.standard_color_setting("label_utility_view"),
+        fg=SP.root_font_color,
+        width=90, height=3,
+        font=SP.font_medio)
+    label.pack()
+
+    confirm_button = Button(frame,
+                            text=yes_button_text,
+                            bg=SP.standard_color_setting("confirm_button_background"),
+                            command=lambda: confirmed_seletion(),
+                            font=SP.font_piccolo,
+                            fg=SP.button_font_color_gray_scale,
+                            relief=SP.bord_style,
+                            bd=SP.bord_size,
+                            activebackground=SP.standard_color_setting("confirm_button_background"))
+    confirm_button.config(height=5, width=23)
+    confirm_button.pack(side=LEFT)
+
+    abort_button = Button(frame,
+                          text=no_button_text,
+                          bg=SP.standard_color_setting("delete_button_background"),
+                          command=lambda: abort_deletion(),
+                          font=SP.font_piccolo,
+                          fg=SP.button_font_color_gray_scale,
+                          relief=SP.bord_style,
+                          bd=SP.bord_size,
+                          activebackground=SP.standard_color_setting("delete_button_background"))
+    abort_button.config(height=5, width=23)  # altezza 5
+    abort_button.pack(side=RIGHT)
+    root.mainloop()
+    return choice
 
 
 # schermata che appare DOPO aver cliccato uno dei pulsatni della lista
@@ -246,18 +282,20 @@ def show_file(idButton):
 
     #   START OF show_file
     root = Tk()
-    root.attributes('-fullscreen', True)
+    root.attributes('-fullscreen', SP.full_screen_option)
+    root.config(bg=SP.standard_color_setting("root_list_association_view"))
 
     scrollbar = Scrollbar(root)
     scrollbar.config(width=70)
     scrollbar.pack(side=LEFT, fill=Y)
+
     formats = SP.formats_audio
     mydict = {}
     mylist = Listbox(root,
                      yscrollcommand=scrollbar.set,
                      font=SP.font_piccolo,
                      fg=SP.root_font_color,
-                     bg=SP.root_background_color)
+                     bg=SP.standard_color_setting("root_list_association_view"))
     # questo ciclo controlla tutte le sottocartelle del path passato in os.walk
     # e inserisce in mylist tutti i file con un'estensione contenuta in "formats"
     for radice, cartelle, files in os.walk(SP.path_che_simula_la_memoria_interna_del_raspberry, topdown=False):
@@ -273,35 +311,35 @@ def show_file(idButton):
     scrollbar.config(command=mylist.yview)
 
     #  pulsante che si trova alla destra della lista di file audio NELLA schermata  ASSOCIA
-    pulstante_associa_fileAudio = Button(root,
-                                         text="Scegli il file \n"
-                                              "che vuoi associare\n "
-                                              "al Pulsante" + idButton + "\n"
-                                                                         "e poi clicca qui \n",
-                                         command=lambda: bind_button(int(idButton), root),
-                                         bg=SP.button_background_color,
-                                         font=SP.font_piccolo,
-                                         fg=SP.button_font_color,
-                                         bd=SP.bord_size,
-                                         relief=SP.bord_style,
-                                         activebackground=SP.active_background_color)
-    pulstante_associa_fileAudio.config(height=5, width=25)
-    pulstante_associa_fileAudio.pack(side=TOP, fill=BOTH)
+    bind_file_audio_button = Button(root,
+                                    text="Scegli il file \n"
+                                          "che vuoi associare\n "
+                                          "al Pulsante" + idButton + "\n"
+                                                                     "e poi clicca qui \n",
+                                    command=lambda: bind_button(int(idButton), root),
+                                    bg=SP.standard_color_setting("button_list_association_view"),
+                                    font=SP.font_piccolo,
+                                    fg=SP.button_font_color_gray_scale,
+                                    bd=SP.bord_size,
+                                    relief=SP.bord_style,
+                                    activebackground=SP.standard_color_setting("button_list_association_view"))
+    bind_file_audio_button.config(height=5, width=25)
+    bind_file_audio_button.pack(side=TOP, fill=BOTH)
 
     #  pulsante per eliminare i file audio selezionati     ###############
-    pulstante_elimina_fileAudio = Button(root,
-                                         text="Scegli il file \n"
-                                              "che vuoi eliminare\n"
-                                              "e clicca qui",
-                                         command=lambda: delete_item(root),
-                                         bg=SP.button_background_color,
-                                         bd=SP.bord_size,
-                                         relief=SP.bord_style,
-                                         activebackground=SP.active_background_color,
-                                         font=SP.font_piccolo,
-                                         fg=SP.button_font_color)
-    pulstante_elimina_fileAudio.config(height=4, width=25)
-    pulstante_elimina_fileAudio.pack(fill=BOTH)
+    delete_file_audio_button = Button(root,
+                                      text="Scegli il file \n"
+                                          "che vuoi eliminare\n"
+                                          "e clicca qui",
+                                      command=lambda: delete_item(root),
+                                      bg=SP.standard_color_setting("delete_button_background"),
+                                      bd=SP.bord_size,
+                                      relief=SP.bord_style,
+                                      activebackground=SP.standard_color_setting("delete_button_background"),
+                                      font=SP.font_piccolo,
+                                      fg=SP.button_font_color_gray_scale)
+    delete_file_audio_button.config(height=4, width=25)
+    delete_file_audio_button.pack(fill=BOTH)
 
     exit_button_with_text(root, "Torna alla lista pulsanti")
 
@@ -309,43 +347,180 @@ def show_file(idButton):
     # che quando premuto apre la schermata show_file
     # i parametri richiesti per la creazione del bottone sono: -frame su cui il bottone verrà applicato
     #                                                          -testo che apparirà sul pulsante
-
-
 def bottom_with_text(frame, text):
-    pulsante = Button(frame,
+    button = Button(frame,
                       text=text,
-                      bg=SP.button_background_color,
+                      bg=SP.standard_color_setting("button_list_association_view"),
                       font=SP.font_piccolo,
-                      fg=SP.button_font_color,
+                      fg=SP.button_font_color_gray_scale,
                       bd=SP.bord_size,
                       relief=SP.bord_style,
                       command=lambda: show_file(text.replace("Pulsante", "")),
-                      activebackground=SP.active_background_color,
-                      activeforeground="black")
+                      activebackground=SP.standard_color_setting("button_list_association_view"),
 
-    pulsante.config(width=20, height=3)
-    return pulsante
+                      )
+
+    button.config(width=20, height=3)
+    return button
 
 
 # funzione che crea un pulsante che visualizza i file da un path di origine
 # e li copia in un path destinzaione
 # mod: può essere "ESPORTA" o "IMPORTA" serve a rendere questa funzione più generale
-def button_USB_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione):
-    pulsante = Button(frame, text=nome_chiavetta,
-                      bg=SP.button_background_color,
+def button_usb_key(frame, mod, nome_chiavetta, path_origine, path_destinzaione,cl_root):
+    #cl_root.destroy
+    button = Button(frame, text=nome_chiavetta,
+                    bg=SP.standard_color_setting("usb_key_button"),
+                    font=SP.font_piccolo,
+                    fg=SP.button_font_color_gray_scale,
+                    bd=SP.bord_size,
+                    relief=SP.bord_style,
+                    activebackground=SP.standard_color_setting("usb_key_button"),
+                    command=lambda: show_and_select_item_from_path(mod, path_origine, path_destinzaione,nome_chiavetta,cl_root)
+                   )
+    button.config(width=40, height=3)
+    return button
+
+'''
+function not used in project
+'''
+def button_usb_key_list(frame, nome_chiavetta):
+    button = Button(frame, text=nome_chiavetta,
+                      bg=SP.standard_color_setting("usb_key_button"),
                       font=SP.font_piccolo,
-                      fg=SP.button_font_color,
+                      fg=SP.button_font_color_gray_scale,
                       bd=SP.bord_size,
                       relief=SP.bord_style,
-                      activebackground=SP.active_background_color,
-                      command=lambda: show_and_select_item_from_path(mod, path_origine, path_destinzaione,nome_chiavetta)
+                      activebackground=SP.standard_color_setting("usb_key_button"),
+                      # command=lav.show_list().es
                       )
-    pulsante.config(width=40, height=3)
-    return pulsante
+    button.config(width=40, height=3)
+    return button
+
+
+# funzione che appare nel menu principale dopo aver cliccato su "Gestisci archivio)
+def raspberry_memory_manager():
+
+    # funzione che permette du selezionare ed eliminare elementi multipli
+    def delete_selected_elements(root):
+        selected_items = [mylist.get(idx) for idx in mylist.curselection()]
+        if len(selected_items)>0:
+            multiple_delete_with_choice(selected_items)
+            root.destroy()
+            raspberry_memory_manager()
+        # _____________________ end of delete_selected_elements______________________________
+
+    # funzione che permette du selezionare e rinominare elementi multipli
+    #solamente il primo elemento il lista verrà rinominato
+    def rename_selected_element(root):
+        # array con tutti gli elementi selezionati
+        selected_items = [mylist.get(idx) for idx in mylist.curselection()]
+
+        # selezione del primo elemento dell'array
+        if len(selected_items)>0:
+            selected = selected_items[0]
+            size = len(selected)
+            new_name = KeyboardView.keyboard("Rinomina '"+selected[0:size-4]+"'")
+            format = selected[size - 4:size]
+            final_name=new_name+format
+            # format accoglie gli ultimi 4 caratteri del primo elemento di tutti i file selezionati dall'utente
+
+            file_in_memory = os.listdir(SP.path_che_simula_la_memoria_interna_del_raspberry)
+            choice=True
+            for el in file_in_memory:
+                if final_name == el:
+                    # richiesta all'utente
+                    choice=multi_choice_view("Elemento \n'"+ el +"'\n già presente","Sostituisci","Annulla")
+                    if choice:
+                        os.remove(os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry,el))
+                    break
+
+            if choice:
+
+                # path file da rinominare
+                scr = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry, selected)
+                # path file rinominato
+                dst = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry, final_name)
+
+                id_renemed_element=fm.give_id_button(selected)
+                os.rename(scr, dst)
+                if id_renemed_element is not None:
+                    fm.bind(final_name,id_renemed_element)
+
+
+            root.destroy()
+            raspberry_memory_manager()
+
+
+    root = Tk()
+    root.attributes('-fullscreen', SP.full_screen_option)
+    root.config(bg=SP.standard_color_setting("root_archive_manager_view"))
+    # lista di formati audio manipolabili
+    formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
+    text_layer = "Memoria interna"
+
+    label_info = Label(root, text=text_layer,
+                       bg=SP.standard_color_setting("label_archive_manager_view"),
+                       fg=SP.root_font_color,
+                       width=90, height=3,
+                       font=SP.font_piccolo
+                       )
+    label_info.pack()
+
+    # visualizzazione brani con scrollbar
+    scrollbar = Scrollbar(root)
+    scrollbar.pack(side=LEFT, fill=Y)
+    mylist = Listbox(root,
+                     yscrollcommand=scrollbar.set,
+                     selectmode=MULTIPLE,
+                     font=SP.font_piccolo,
+                     fg=SP.root_font_color,
+                     bg=SP.standard_color_setting("listbox_archive_manager_view")
+                     )
+    mydict = {}
+
+    # ciclo che aggiunge i file audio alla scrolbar
+    for radice, cartelle, files in os.walk(SP.path_che_simula_la_memoria_interna_del_raspberry, topdown=False):
+        for name in files:
+            for tipo in formats:
+                if tipo in name:
+                    temp_str = os.path.join(radice, name)
+                    mydict[name] = temp_str
+                    mylist.insert(END, name)
+    mylist.pack(side=LEFT, fill=BOTH, expand=True)
+    scrollbar.config(width=70, command=mylist.yview)
+    button_delete = Button(root,
+                           text="Scegli i file \nche vuoi eliminare",
+                           bg=SP.standard_color_setting("delete_button_background"),
+                           fg=SP.button_font_color_gray_scale,
+                           command=lambda: delete_selected_elements(root),
+                           font=SP.font_piccolo,
+                           bd=SP.bord_size,
+                           relief=SP.bord_style,
+                           activebackground=SP.standard_color_setting("delete_button_background")
+                           )
+    button_delete.config(height=4, width=20)
+    button_delete.pack(side=TOP, fill=BOTH)
+
+    button_rename = Button(root,
+                           text="Scegli il file \nche vuoi rinominare",
+                           bg=SP.standard_color_setting("button_archive_manager_view"),
+                           fg=SP.button_font_color_gray_scale,
+                           command=lambda: rename_selected_element(root),
+                           font=SP.font_piccolo,
+                           bd=SP.bord_size,
+                           relief=SP.bord_style,
+                           activebackground=SP.standard_color_setting("button_archive_manager_view")
+                           )
+    button_rename.config(height=4, width=20)
+    button_rename.pack(side=TOP, fill=BOTH)
+
+    exit_button_with_text(root, "Torna indietro")
 
 
 # schermata che stampa a video i file contenuti in un determinato path
-def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_chiavetta):
+def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_chiavetta,cl_root):
+
     #     funzione che copia la lista dei file selezionati in un'altra directory
     #     dall'utente nella schermata IMPORTA, dopo aver cliccato sul pulsante
     #     avente la scritta, appunto IMPORTA
@@ -370,20 +545,25 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
         selected = [mylist.get(idx) for idx in mylist.curselection()]
 
         # elimina_file_con_conferma(path_origine, str(number_of_deleted_file) + " file audio")
-        elimina_file_con_conferma_multipla(selected)
-        root.destroy()
+        multiple_delete_with_choice(selected)
+        #root.destroy()
 
     root = Tk()
-    root.attributes('-fullscreen', True)
+    root.attributes('-fullscreen', SP.full_screen_option)
+    root.config(bg=SP.standard_color_setting("root_import_export_view"))
     formats = [".mp3", ".wav", ".wma", ".ogg", ".flac"]
 
     if mod == "esportare":
         text_layer = "Memoria interna"
+        bg_label_color=SP.standard_color_setting("export_root_background")
+        bg_list_color=SP.standard_color_setting("export_root_background")
     else:
         text_layer = nome_chiavetta
+        bg_label_color = SP.standard_color_setting("import_root_background")
+        bg_list_color = SP.standard_color_setting("import_root_background")
 
     label_info = Label(root, text=text_layer,
-                       bg=SP.root_background_color,
+                       bg=bg_label_color,
                        fg=SP.root_font_color,
                        width=90, height=3,
                        font=SP.font_piccolo
@@ -398,10 +578,11 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                      selectmode=MULTIPLE,
                      font=SP.font_piccolo,
                      fg=SP.root_font_color,
-                     bg=SP.root_background_color)
+                     bg=bg_list_color
+                     )
     mydict = {}
 
-    #ciclo che aggiunge i file audio alla scrolbar
+    # ciclo che aggiunge i file audio alla scrolbar
     for radice, cartelle, files in os.walk(path_origine, topdown=False):
         for name in files:
             for tipo in formats:
@@ -411,39 +592,27 @@ def show_and_select_item_from_path(mod, path_origine, path_destinzaione, nome_ch
                     mylist.insert(END, name)
     mylist.pack(side=LEFT, fill=BOTH, expand=True)
     scrollbar.config(width=70, command=mylist.yview)
-    exit_button_with_text(root, "Torna indietro")
+    exit_button_with_text(root, "Torna al menu principale")
 
 
     # ############        caratteristiche pulsante IMPORTA/ESPORTA        ######################
-    testo_pulsante = "Seleziona i file \nche desideri " + mod + "\ne poi clicca qui"
+    button_text = "Seleziona i file \nche desideri " + mod + "\ne poi clicca qui"
 
     # se sono presenti chiavette viene abilitato il pulsante "IMPORTA"
     # otherwise viene visualizzato solamente il pulsante ELIMINA BRANI
     if mod != "Memoria interna":
-        pulstante_importa = Button(root,
-                                   text=testo_pulsante,
-                                   bg=SP.button_background_color,
-                                   command=lambda: select_items_and_copy(root),
-                                   font=SP.font_piccolo,
-                                   fg=SP.button_font_color,
-                                   bd=SP.bord_size,
-                                   relief=SP.bord_style,
-                                   activebackground=SP.active_background_color)
-        pulstante_importa.config(height=3, width=20)
-        pulstante_importa.pack(side=TOP, fill=BOTH)
+        import_button = Button(root,
+                               text=button_text,
+                               bg=SP.standard_color_setting("import_button_background"),
+                               command=lambda: select_items_and_copy(root),
+                               font=SP.font_piccolo,
+                               fg=SP.button_font_color_gray_scale,
+                               bd=SP.bord_size,
+                               relief=SP.bord_style,
+                               activebackground=SP.standard_color_setting("import_button_background"))
+        import_button.config(height=3, width=20)
+        import_button.pack(side=TOP, fill=BOTH)
 
     # visualizza il pulsante ELIMINA solo in modalità esporta o se NON sono presenti chiavette
-    if mod == "esportare" or mod == "Memoria interna":
-        pulstante_elimina = Button(root,
-                                   text="Scegli il file \nche vuoi eliminare",
-                                   bg=SP.button_background_color,
-                                   fg=SP.button_font_color,
-                                   command=lambda: delete_selected_elements(root),
-                                   font=SP.font_piccolo,
-                                   bd=SP.bord_size,
-                                   relief=SP.bord_style,
-                                   activebackground=SP.active_background_color)
-        pulstante_elimina.config(height=4, width=20)
-        pulstante_elimina.pack(side=TOP, fill=BOTH)
-
+    cl_root.destroy()
     root.mainloop()

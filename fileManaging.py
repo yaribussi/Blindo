@@ -1,5 +1,8 @@
 import pickle as pk
 import os
+
+#from IPython.utils.tests.test_wildcard import obj_t
+
 from fileAudio import FileAudio
 import shutil
 import StaticParameter as SP
@@ -11,6 +14,11 @@ def change_list(list_name):
     global name_file
     name_file = list_name
 
+def give_id_button(audio_name):
+    obj_list = load_list()
+    for audio in obj_list:
+        if audio.name == audio_name:
+              return int(audio.idButton)
 
 # funzione che ritorna la lista delle stringhe dei fileAudio
 # presenti in "lista finale" riordinata in base al numero del pulsante
@@ -51,13 +59,11 @@ def delete_element_from_list(nome_file_da_rimuovere, nome_lista): # aggiungere l
                 for audio in my_objects:
                     if audio.name == nome_file_da_rimuovere:
                         my_objects.remove(audio)
-                        #print(audio.name)
 
             save_file_audio_list(my_objects, nome_lista)
 
         except (FileNotFoundError, IOError) as e:
             print(e)
-
 
 
 def create_list(list_name):
@@ -67,10 +73,18 @@ def create_list(list_name):
     save_file_audio_list(my_objects, list_name)
 
 
+def delete_bind(id,audio_name):
+    obj_list = load_list()
+
+    for audio in obj_list:
+        if audio.idButton == id and audio.name == audio_name:
+            obj_list.remove(audio)
+            save_file_audio(obj_list)
+
+
 # binding between the button and the name of the file audio
 def bind(audio_name, id):
     # default element needed to pass through the list of file audio if it has only one element
-
     file_audio = FileAudio(audio_name, id)
     final_path = os.path.join(SP.path_liste, name_file)
     my_objects = []
@@ -110,10 +124,12 @@ def save_file_audio(my_objects):
     with open(final_path, 'wb') as output:
         pk.dump(my_objects, output, -1)
 
+
 def save_file_audio_list(my_objects, name_list):
     final_path = os.path.join(SP.path_liste, name_list)
     with open(final_path, 'wb') as output:
         pk.dump(my_objects, output, -1)
+
 
 
 # funzione che utilizza la funzione di sitema "shutil.copy" per copiare i file da un path ad un altro
