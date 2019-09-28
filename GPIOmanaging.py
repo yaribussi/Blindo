@@ -19,6 +19,10 @@ context = Context()
 monitor = Monitor.from_netlink(context)
 monitor.filter_by(subsystem='usb')
 
+import BlindoTimer
+
+
+timer = BlindoTimer.RepeatedTimer(1000)
 
 
 path = "/home/pi/Documents/fileAudio"
@@ -65,7 +69,7 @@ GPIO.output(red_led, GPIO.LOW)
 levetta_registrazione_attivata=False
 
 
-frequency = 20 #[Hz]
+frequency = 50 #[Hz]
 green_led_PWM = GPIO.PWM(green_led, frequency)
 red_led_PWM = GPIO.PWM(red_led, frequency)
 
@@ -78,6 +82,8 @@ def auto_import(device):
     # number of called rimuove il problema della doppia chiamata
     global number_of_called
     number_of_called += 1
+    green_led_PWM.start(100)
+    red_led_PWM.start(100)
 
     if device.action == "add" and number_of_called == 1:
         lav.auto_import_list()
@@ -88,13 +94,22 @@ def auto_import(device):
         # con questo for vorrei avere una trnsizione dal rosso al verde ù
         # (passando per i colori intermediari) della durata totale di 1 secondo (100*0.1[s])
 
-        for duty_cicle_value in range(0, 100):
-            green_led_PWM.start(duty_cicle_value)
-            red_led_PWM.start(100-duty_cicle_value)
-            sleep(0.01)
+        for duty_cicle_value in range(0, 5):
+            
+            green_led_PWM.start(0)
+            red_led_PWM.start(0)
+            sleep(0.5)
+            green_led_PWM.start(100)
+            red_led_PWM.start(100)
+            sleep(0.5)
 
-        green_led_PWM.stop()
-        red_led_PWM.stop()
+    #    green_led_PWM.stop()
+    #    red_led_PWM.stop()
+
+        if levetta_registrazione_attivata:
+            red_led_PWM.start(100)
+        else:
+            green_led_PWM.start(100)
     else:
         number_of_called = 0
 
@@ -111,20 +126,48 @@ def falling(channel, id_button):
     fm.bind(recoded_name_file, id_button)
     
     GPIO.remove_event_detect(channel)
-    GPIO.add_event_detect(channel, GPIO.RISING, callback=lambda x: rising(channel, id_button), bouncetime=50)
+    GPIO.add_event_detect(channel, GPIO.RISING,
+                          callback=lambda x: rising(channel, id_button),
+                          bouncetime=1000)
 
 
-def rising(channel, id_button):
-    global bc
-    if levetta_registrazione_attivata:
+def check_status(channel, id_button):
+    state = GPIO.input(channel)    #GPIO.LOW   or GPIO.HIGH
+
+    if state==GPIO.HIGH:
+
         GPIO.remove_event_detect(channel)
         GPIO.add_event_detect(channel, GPIO.FALLING,
                               callback=lambda x: falling(channel, id_button),
-                              bouncetime=50)
+                              bouncetime=1000)
+
+        recoded_name_file = "audio_pulsante_" + str(id_button) + ".wav"
+        registrazione.start(os.path.join(pathfileaudio, recoded_name_file))
+
+    else:
+        registrazione.stop()
+        GPIO.remove_event_detect(channel)
+        GPIO.add_event_detect(channel, GPIO.RISING,
+                              callback=lambda x: rising(channel, id_button),
+                              bouncetime=1000)
+
+
+def rising(channel, id_button):
+    global timer
+    global bc
+
+
+    if levetta_registrazione_attivata:
+        timer.start(check_status, channel, id_button)
+        '''
+        GPIO.remove_event_detect(channel)
+        GPIO.add_event_detect(channel, GPIO.FALLING,
+                              callback=lambda x: falling(channel, id_button),
+                              bouncetime=1000)
 
         recoded_name_file="audio_pulsante_"+str(id_button)+".wav"
         registrazione.start(os.path.join(pathfileaudio, recoded_name_file))
-
+        '''
     else:
         bc_object.manage_pulsante_riproduzione(id_button)
 
@@ -135,10 +178,14 @@ def levetta_registrazione(channel):
     levetta_registrazione_attivata = not levetta_registrazione_attivata
 
     if levetta_registrazione_attivata:
+        red_led_PWM.start(100)
+        green_led_PWM.start(0)
         GPIO.output(red_led, GPIO.HIGH)
         GPIO.output(green_led, GPIO.LOW)
 
     else:
+        green_led_PWM.start(100)
+        red_led_PWM.start(0)
         GPIO.output(green_led, GPIO.HIGH)
         GPIO.output(red_led, GPIO.LOW)
     
@@ -162,7 +209,7 @@ def interrupt():
     for i in range(5):
         GPIO.add_event_detect(pulsanti[i], GPIO.RISING,
                               callback=lambda x,  button=i+1, channel=pulsanti[i]: rising(channel, button),
-                              bouncetime=50)
+                              bouncetime=1000)
 
     GPIO.add_event_detect(pulsante_levetta_registrazione, GPIO.RISING,
                           callback=levetta_registrazione,
