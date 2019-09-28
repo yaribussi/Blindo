@@ -121,7 +121,7 @@ class SchermateGUI:
         menu.add_cascade(label="Impostazioni                                                                  ",
                          font=SP.font_medio, menu=subMenu,)  # menu a cascata
         # riga di separazione
-        #subMenu.add_separator()
+        subMenu.add_separator()
         subMenu.add_command(label="Volume     ", font=SP.font_medio, command=lambda:sv.volume_view(),
                             activebackground=SP.standard_color_setting("setting_main_menu"),
                             activeforeground=SP.root_font_color)

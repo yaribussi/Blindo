@@ -60,7 +60,6 @@ name_recoded_file= "reg.wav"
 full_screen_option=True
 
 
-
 # messaggi interazione utente
 message_label_quit_device="Vuoi spegnere il dispositivo?"
 message_text_button_confirm="Conferma"
@@ -99,7 +98,7 @@ import_export_root_color="#85C1E9"
 list_association_root_color="#58D68D"
 setting_root_color = default_sysyem_element
 utility_root_color = default_sysyem_element
-archive_manager_root_color="#F0B27A"
+archive_manager_root_color="#F9E79F"
 
 key_keyboard_color = "#5499C7"
 root_keyboard_color = "#B989C4"

@@ -367,7 +367,7 @@ class ListAssociationView:
             if os.path.exists(cartella_lista_esportata):
 
                 # variabile booleana assegnata dalla risposta dell' utente
-                user_choice = uv.multi_choice_view("Attenzione!\nEsiste già una versione di\n"+list_name[0:20],
+                user_choice = uv.multi_choice_view("Attenzione!\nEsiste già una versione di\n'"+list_name[0:20]+"'",
                                                    "Sovrascrivi",
                                                    "Annulla")
 
