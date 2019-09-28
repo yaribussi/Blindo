@@ -14,6 +14,11 @@ def change_list(list_name):
     global name_file
     name_file = list_name
 
+def give_id_button(audio_name):
+    obj_list = load_list()
+    for audio in obj_list:
+        if audio.name == audio_name:
+              return int(audio.idButton)
 
 # funzione che ritorna la lista delle stringhe dei fileAudio
 # presenti in "lista finale" riordinata in base al numero del pulsante
@@ -55,7 +60,6 @@ def delete_element_from_list(nome_file_da_rimuovere, nome_lista): # aggiungere l
                     if audio.name == nome_file_da_rimuovere:
                         my_objects.remove(audio)
 
-
             save_file_audio_list(my_objects, nome_lista)
 
         except (FileNotFoundError, IOError) as e:
@@ -76,7 +80,6 @@ def delete_bind(id,audio_name):
         if audio.idButton == id and audio.name == audio_name:
             obj_list.remove(audio)
             save_file_audio(obj_list)
-
 
 
 # binding between the button and the name of the file audio
@@ -120,6 +123,7 @@ def save_file_audio(my_objects):
     final_path = os.path.join(SP.path_liste, name_file)
     with open(final_path, 'wb') as output:
         pk.dump(my_objects, output, -1)
+
 
 def save_file_audio_list(my_objects, name_list):
     final_path = os.path.join(SP.path_liste, name_list)

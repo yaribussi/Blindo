@@ -2,19 +2,19 @@
 ATTENZIONE ABILITARE LE LINEE  [5 6 7] PER UTILIZZO SU PC
 '''
 
-path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
-path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
-path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
+#path_punto_accesso_chiavette = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudiofromChiavetta"
+#path_che_simula_la_memoria_interna_del_raspberry = r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\fileAudioRSPmemory"
+#path_liste =r"C:\Users\yari7\Downloads\UNIBS\IEEE\Projects\Blindo\Liste"
 
 '''
 ATTENZIONE ABILITARE LE LINEE  [14 15 16 17 18] PER UTILIZZO SU RASPBERRY
 
 ABILITARE NEL FILE "RECORD_VIEW" L'IMPORT ALLA RIGA 5 
 '''
-#import GPIOmanaging
-#path_punto_accesso_chiavette = "/media/pi"
-#path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio"
-#path_liste ="/home/pi/Documents/Lists"
+import GPIOmanaging
+path_punto_accesso_chiavette = "/media/pi"
+path_che_simula_la_memoria_interna_del_raspberry = "/home/pi/Documents/fileAudio"
+path_liste ="/home/pi/Documents/Lists"
 #os.chdir("/home/pi/Desktop/Main/")
 #subprocess.Popen(['unclutter','-idle','0'])   #comando per rimuovere il cursore
 

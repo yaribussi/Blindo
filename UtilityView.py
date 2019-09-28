@@ -415,6 +415,7 @@ def raspberry_memory_manager():
     def rename_selected_element(root):
         # array con tutti gli elementi selezionati
         selected_items = [mylist.get(idx) for idx in mylist.curselection()]
+
         # selezione del primo elemento dell'array
         if len(selected_items)>0:
             selected = selected_items[0]
@@ -429,7 +430,7 @@ def raspberry_memory_manager():
             for el in file_in_memory:
                 if final_name == el:
                     # richiesta all'utente
-                    choice=multi_choice_view("Elemento '"+ el +"' già presente","Sostituisci","Annulla")
+                    choice=multi_choice_view("Elemento \n'"+ el +"'\n già presente","Sostituisci","Annulla")
                     if choice:
                         os.remove(os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry,el))
                     break
@@ -441,7 +442,11 @@ def raspberry_memory_manager():
                 # path file rinominato
                 dst = os.path.join(SP.path_che_simula_la_memoria_interna_del_raspberry, final_name)
 
-                os.rename(scr,dst)
+                id_renemed_element=fm.give_id_button(selected)
+                os.rename(scr, dst)
+                if id_renemed_element is not None:
+                    fm.bind(final_name,id_renemed_element)
+
 
             root.destroy()
             raspberry_memory_manager()

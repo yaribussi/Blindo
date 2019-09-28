@@ -367,8 +367,7 @@ class ListAssociationView:
             if os.path.exists(cartella_lista_esportata):
 
                 # variabile booleana assegnata dalla risposta dell' utente
-                user_choice = uv.multi_choice_view("Attenzione!\nEsiste già una versione di "+list_name +
-                                                   "\nScegli l'azione desiderata",
+                user_choice = uv.multi_choice_view("Attenzione!\nEsiste già una versione di\n"+list_name[0:20],
                                                    "Sovrascrivi",
                                                    "Annulla")
 
@@ -426,15 +425,19 @@ class ListAssociationView:
             #file_in_memory= os.listdir(SP.path_che_simula_la_memoria_interna_del_raspberry)
             # selezione del primo elemento dell'array
             selected = selected_items[0]
-            new_name = kv.keyboard("Rinomina '" + selected + "'")
+            if selected!="Lista di default":
+                new_name = kv.keyboard("Rinomina '" + selected + "'")
 
-            # path file da rinominare
-            scr = os.path.join(SP.path_liste, selected)
-            # path file rinominato
-            dst = os.path.join(SP.path_liste, new_name)
-            os.rename(scr, dst)
-            root.destroy()
-            ListAssociationView.schermata_associazioni()
+                # path file da rinominare
+                scr = os.path.join(SP.path_liste, selected)
+                # path file rinominato
+                dst = os.path.join(SP.path_liste, new_name)
+                os.rename(scr, dst)
+                root.destroy()
+                ListAssociationView.schermata_associazioni()
+            else:
+                uv.show_dialog_with_time("Attenzione\nImpossibile rinominare 'Lista di default'",2)
+
             # _______________ end of rename_selected_element
 
         # ________________________  START OF show_list
@@ -680,7 +683,7 @@ class ListAssociationView:
 
             user_choice = True
             if found_existing_list:
-                user_choice = uv.multi_choice_view("lista stesso nome", "sovrascrivi", "annulla")
+                user_choice = uv.multi_choice_view("Attenzione\n'"+name_list[0:20]+"'\nè già presente", "Sovrascrivi", "Annulla")
 
             if user_choice:
 

@@ -24,7 +24,7 @@ class RepeatedTimer(object):
             self.args = args
             self.kwargs = kwargs
             self._timer = Timer(self.interval, self._run)
-            #self._timer.start()
+            self._timer.start()
             self.is_running = True
 
     def stop(self):
