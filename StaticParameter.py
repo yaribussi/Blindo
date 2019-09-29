@@ -68,7 +68,7 @@ message_text_button_abort="Annulla"
 # questo è il nome della cartella contenente le sottocartelle delle singole liste esportate
 expor_folder_name="Liste"
 
-initial_volume_set=0.1
+initial_volume_set=0.5
 
 
 # colori GUI
